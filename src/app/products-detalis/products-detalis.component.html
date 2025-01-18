@@ -1,0 +1,44 @@
+<div *ngIf="product" class="product-detail">
+    <div class="product-container">
+        <div class="product-image">
+            <img [src]="product.image" alt="{{ product.title }}">
+        </div>
+        <div class="product-info">
+            <h1>{{ product.title }}</h1>
+            <p><strong>Price:</strong> ${{ product.price }}</p>
+            <p><strong>Description:</strong> {{ product.description }}</p>
+            <p><strong>Category:</strong> {{ product.category }}</p>
+            
+            <!-- Row containing rating and buttons -->
+            <div class="product-actions ">
+                <button type="button" class="rating-button">
+                    <span><label style="font-weight: 500;">Rating:</label> {{ product.rating.rate }} *</span>
+                </button>
+                <span *ngIf="product.rating?.count" class="rating-count"> {{ product.rating.count }} ratings</span>
+                <button mat-raised-button color="primary" (click)="addToCart(product)">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div *ngIf="similarProducts.length > 0" class="similar-products">
+    <h2>Similar Products</h2>
+    <div class="product-list">
+        <mat-card *ngFor="let similarProduct of similarProducts" class="product-card">
+            <img mat-card-image [src]="similarProduct.image" alt="{{ similarProduct.title }}">
+            <mat-card-content>
+                <h3>{{ similarProduct.title }}</h3>
+                <h3 class="desc" >{{ similarProduct.description }}</h3>
+                <p>${{ similarProduct.price }}</p>
+                <div class="product-actions ">
+                    <button type="button" class="rating-button">
+                        <span><label style="font-weight: 500;">Rating:</label> {{ similarProduct.rating.rate }} *</span>
+                    </button>
+                    <span *ngIf="similarProduct.rating?.count" class="rating-count"> {{ similarProduct.rating.count }} ratings</span>
+                    <button mat-raised-button color="accent" (click)="viewProduct(similarProduct.id)">View Details</button>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

@@ -1,0 +1,62 @@
+/* Main container styling */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: url("https://images.pexels.com/photos/3970396/pexels-photo-3970396.jpeg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 1rem; /* Add padding for smaller screens */
+}
+
+/* Login card styling */
+.login-card {
+    padding: 2rem;
+    width: 30%;
+    background-color: white; /* Add contrast to make the form readable */
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Full width for form fields */
+.full-width {
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+/* Title styling */
+mat-card-title {
+    text-align: left;
+    font-size: x-large;
+    color: darkred;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+}
+
+/* Form field styling */
+mat-form-field {
+    width: 100%;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+    .login-card {
+        width: 40%; /* Adjust width for tablets */
+    }
+}
+
+@media (max-width: 768px) {
+    .login-card {
+        width: 90%; /* Adjust width for smaller screens */
+    }
+
+    mat-card-title {
+        font-size: large; /* Adjust title size */
+    }
+
+    .login-container {
+        padding: 0.5rem; /* Reduce padding on smaller screens */
+    }
+}
