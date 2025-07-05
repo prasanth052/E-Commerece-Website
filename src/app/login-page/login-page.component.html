@@ -1,0 +1,31 @@
+<div class="login-container">
+  <mat-card class="login-card">
+    <mat-card-title>Login</mat-card-title>
+    <form [formGroup]="loginform" (ngSubmit)="Save()">
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>UserName</mat-label>
+        <input matInput type="text" formControlName="userName" />
+        <mat-error *ngIf="loginform.get('userName')?.hasError('required')">
+          UserName is required.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password" />
+        <mat-error *ngIf="loginform.get('password')?.hasError('required')">
+          Password is required.
+        </mat-error>
+        <mat-error
+          *ngIf="loginform.get('password')?.hasError('minlength') && !loginform.get('password')?.hasError('required')">
+          Password must be at least 8 characters long.
+        </mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit" >
+        Login
+      </button>
+    </form>
+  </mat-card>
+</div>
