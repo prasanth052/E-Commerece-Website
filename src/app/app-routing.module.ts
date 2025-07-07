@@ -10,10 +10,11 @@ import { ProductsDetalisComponent } from './products-detalis/products-detalis.co
 import { DemoComponent } from './demo/demo.component';
 import { CartComponent } from './cart/cart.component';
 import { AddressComponent } from './address/address.component';
+import { AuthGuard } from './auth.guard';
 
 
 const routes: Routes = [
-  { path: 'login', component: LoginPageComponent },
+  { path: 'login', component: LoginPageComponent, data: { hideNavbar: true } },
   { path: 'allprod', component: NavComponent },
   { path: 'demo', component: DemoComponent },
   { path: '', component: ProductsListComponent },

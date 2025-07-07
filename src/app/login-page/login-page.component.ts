@@ -9,20 +9,30 @@ import { Router } from '@angular/router';
 })
 export class LoginPageComponent implements OnInit {
   loginform!: FormGroup;
-  constructor(private fb: FormBuilder,private router:Router) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.loginform = this.fb.group({
       userName: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(8)]]
     });
   }
+  Login: boolean = true
+  SignUp: boolean = false
   ngOnInit(): void {
 
   }
-  Save(){
-    if(this.loginform.invalid){
+  showLogIn() {
+    this.SignUp = false
+    this.Login = true
+  }
+  showSignup() {
+    this.SignUp = true
+    this.Login = false
+  }
+  Save() {
+    if (this.loginform.invalid) {
       return
-    }else{
-      sessionStorage.setItem('Username',  JSON.stringify(this.loginform.controls['userName'].value));
+    } else {
+      sessionStorage.setItem('Username', JSON.stringify(this.loginform.controls['userName'].value));
       this.router.navigate(['/dash'])
     }
   }

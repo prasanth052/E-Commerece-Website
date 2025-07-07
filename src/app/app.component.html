@@ -1,17 +1,17 @@
+<ngx-spinner type="line-scale-party" [fullScreen]="true" size="medium" bdColor="rgba(0, 0, 0, 0.8)"
+  color="red"></ngx-spinner>
 
-<ngx-spinner type="line-scale-party" [fullScreen]="true" size="medium" bdColor="rgba(0, 0, 0, 0.8)" color="red"></ngx-spinner>
-
-<div style="overflow: hidden;height: 99vh;">
+<div style="overflow: hidden; height: 99vh;">
   <ng-container>
     <!-- TOP ROW -->
-    <mat-toolbar>
+    <mat-toolbar *ngIf="!hideNavbar">
       <mat-icon class="mr-3 -mt-2 fs-2 animate__flip" (click)="toggleSidenav()">menu</mat-icon>
       <span class="logo" routerLink="/">Easy buy</span>
 
       <div class="toolbar-center">
-        <input type="text" matInput placeholder="Search for a product, category or brand"
+        <input type="text" matInput placeholder="Search for a product, category or brand" (input)="searchEvent($event)"
           class="search-input form-control" />
-        <button mat-flat-button color="warn" class="search-btn">SEARCH</button>
+        <button mat-flat-button color="warn" class="search-btn" (click)="Searchbtn()">SEARCH</button>
       </div>
 
       <div class="toolbar-right">
@@ -20,14 +20,16 @@
           <span class="cart-count" *ngIf="cartCount > 0">{{ cartCount }}</span>
         </button>
         <span class="top-links">
-          <a href="#">Signup</a> | <a href="#">Login</a>
+          <a href="#">Signup</a> | <a routerLink="/login">Login</a>
         </span>
       </div>
-
     </mat-toolbar>
-    <!-- BOTTOM ROW -->
-    <div class="nav-bar ">
-      <h5 for="" routerLink="/address"><i class="fa-solid fa-location-crosshairs" style="color: #ffffff;"></i></h5>
+
+    <!-- BOTTOM NAVIGATION -->
+    <div class="nav-bar" *ngIf="!hideNavbar">
+      <h5 routerLink="/address">
+        <i class="fa-solid fa-location-crosshairs" style="color: #ffffff;"></i>
+      </h5>
       <mat-toolbar class="nav-bar" style="justify-content: center; align-items: center;">
         <a mat-button>Electronics</a>
         <a mat-button>Men</a>
@@ -40,17 +42,19 @@
       </mat-toolbar>
     </div>
 
+    <!-- SIDENAV -->
     <div class="sidenav-container">
       <mat-sidenav-container class="sidenav-container overflow-hidden">
-        <mat-sidenav [class]="sidenavClass" [@sidenavState]="isSidenavOpen ? 'open' : 'closed'" [mode]="'side'"
-          position="start" [opened]="isSidenavOpen">
+        <mat-sidenav *ngIf="!hideNavbar" [class]="sidenavClass" [@sidenavState]="isSidenavOpen ? 'open' : 'closed'"
+          [mode]="'side'" position="start" [opened]="isSidenavOpen">
           <mat-nav-list class="nav-list overflow-hidden">
             <div class="amazon-sidebar">
               <!-- Discount -->
               <div class="filter-section">
                 <h4>Discount</h4>
                 <label *ngFor="let discount of discountOptions">
-                  <input type="checkbox" (change)="toggleDiscount(discount)"> {{ discount }}% or more
+                  <input type="checkbox" (change)="toggleDiscount(discount)" />
+                  {{ discount }}% or more
                 </label>
               </div>
 
@@ -58,20 +62,18 @@
               <div class="filter-section">
                 <h4>Price</h4>
                 <label *ngFor="let range of priceOptions; let i = index">
-                  <input type="checkbox" (change)="togglePrice(range)">
+                  <input type="checkbox" (change)="togglePrice(range)" />
                   {{ getPriceLabel(i) }}
                 </label>
               </div>
             </div>
           </mat-nav-list>
         </mat-sidenav>
+
         <mat-sidenav-content>
-          <router-outlet>
-          </router-outlet>
+          <router-outlet></router-outlet>
         </mat-sidenav-content>
       </mat-sidenav-container>
     </div>
   </ng-container>
 </div>
-<!-- </router-outlet>  -->
-<!-- </mat-sidenav-content> -->

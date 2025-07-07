@@ -14,10 +14,10 @@
                 </span>
             </ng-container>
             <span class="rating-number">({{ product.rating }})</span>
-            <span class="rating-number">{{ product.rating.count }}</span>
+            <span class="rating-number">{{ product?.rating?.count }}</span>
         </div>
         <ul class="feature-list">
-            <li *ngFor="let line of descriptionLines">{{ line }}.</li>
+            <li >{{product.description }}.</li>
             <li><strong>Stock: </strong> {{ product.stock }}</li>
             <li><strong>Discount: </strong>{{ product.discountPercentage }}%</li>
             <li><strong>Warranty: </strong> {{ product.warrantyInformation }}</li>

@@ -35,7 +35,7 @@ import { log } from 'console';
   styleUrls: ['./products-detalis.component.scss']
 })
 export class ProductsDetalisComponent implements OnInit {
-  product!: any;
+  product: any = {}; // or with correct type
   similarProducts: any[] = [];
   mainImage: string | null = null;
   private cartItemsSubject = new BehaviorSubject<number>(0);
@@ -88,18 +88,24 @@ export class ProductsDetalisComponent implements OnInit {
   }
 
   addToCart(product: any): void {
-    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    const existingProduct = cart.find((item: any) => item.id === product.id);
+    const login: boolean = JSON.parse(localStorage.getItem('isLogin') || '[]');
+    if (!login) {
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      const existingProduct = cart.find((item: any) => item.id === product.id);
 
-    if (existingProduct) {
-      existingProduct.quantity += 1;
+      if (existingProduct) {
+        existingProduct.quantity += 1;
+      } else {
+        cart.push({ ...product, quantity: 1 });
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      this.cartItemsSubject.next(cart.length);
+      alert(`${product.title} has been added to your cart!`);
     } else {
-      cart.push({ ...product, quantity: 1 });
+      this.router.navigate(['/login']);
     }
 
-    localStorage.setItem('cart', JSON.stringify(cart));
-    this.cartItemsSubject.next(cart.length);
-    alert(`${product.title} has been added to your cart!`);
 
   }
   roundRating(rating: number): number {

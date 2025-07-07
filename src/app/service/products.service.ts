@@ -38,30 +38,46 @@ export class ProductsService {
     sessionStorage.setItem('Category', category); // Update sessionStorage
     this.categorySource.next(category);          // Notify subscribers
   }
-   setProducts(products: any[]) {
+  setProducts(products: any[]) {
     this._originalProducts = products;
     this.filteredProductsSubject.next(products);
   }
 
-applyFilter(discounts: number[], priceRanges: { min: number, max: number }[]) {
-  let filtered = this._originalProducts;
+  applyFilter(discounts: number[], priceRanges: { min: number, max: number }[]) {
+    let filtered = this._originalProducts;
+    console.log(discounts.length);
+    
+    if (discounts.length) {
+      filtered = filtered.filter(product =>
+        discounts.some(d => product.discountPercentage >= d)
+      );
+    }
 
-  if (discounts.length) {
-    filtered = filtered.filter(product =>
-      discounts.some(d => product.discountPercentage >= d)
-    );
+    if (priceRanges.length) {
+      filtered = filtered.filter(product =>
+        priceRanges.some(range =>
+          product.price >= range.min && product.price <= range.max
+        )
+      );
+    }
+
+    this.filteredProductsSubject.next(filtered);
   }
 
-  if (priceRanges.length) {
-    filtered = filtered.filter(product =>
-      priceRanges.some(range =>
-        product.price >= range.min && product.price <= range.max
-      )
-    );
-  }
+  Search(search: string) {
+    console.log(search,'search');
+    
+    let filtered = this._originalProducts;
 
-  this.filteredProductsSubject.next(filtered);
-}
+    if (search && search.length >= 4) {
+      filtered = filtered.filter(product =>
+        product.title.toLowerCase().includes(search.toLowerCase())
+      );
+      console.log(filtered,'filtered');
+      
+    }
+    this.filteredProductsSubject.next(filtered); // ✅ Correct way to emit updated products
+  }
 
 
 }

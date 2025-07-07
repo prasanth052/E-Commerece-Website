@@ -1,31 +1,63 @@
-<div class="login-container">
-  <mat-card class="login-card">
-    <mat-card-title>Login</mat-card-title>
-    <form [formGroup]="loginform" (ngSubmit)="Save()">
+<div class="body">
+  <div class="container">
+    <div class="sign-up" *ngIf="SignUp">
+      <h1 class="heading">Hello, friend!</h1>
 
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>UserName</mat-label>
-        <input matInput type="text" formControlName="userName" />
-        <mat-error *ngIf="loginform.get('userName')?.hasError('required')">
-          UserName is required.
-        </mat-error>
-      </mat-form-field>
+      <div class="text">
+        <img src="https://i.postimg.cc/1zgS8WTF/user.png" alt="icon" height="20">
+        <input type="text" placeholder="Name">
+      </div>
 
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Password</mat-label>
-        <input matInput type="password" formControlName="password" />
-        <mat-error *ngIf="loginform.get('password')?.hasError('required')">
-          Password is required.
-        </mat-error>
-        <mat-error
-          *ngIf="loginform.get('password')?.hasError('minlength') && !loginform.get('password')?.hasError('required')">
-          Password must be at least 8 characters long.
-        </mat-error>
-      </mat-form-field>
+      <div class="text">
+        <img src="https://i.postimg.cc/DZBPRgvC/email.png" alt="icon" height="12">
+        <input type="email" placeholder="Email">
+      </div>
 
-      <button mat-raised-button color="primary" type="submit" >
-        Login
-      </button>
-    </form>
-  </mat-card>
+      <div class="text">
+        <img src="https://i.postimg.cc/Nj5SDK4q/password.png" alt="icon" height="20">
+        <input type="password" placeholder="Password">
+      </div>
+
+      <div class="text">
+        <img src="https://i.postimg.cc/Nj5SDK4q/password.png" alt="icon" height="20">
+        <input type="password" placeholder="Repeat Password">
+      </div>
+
+      <div class="terms">
+        <input type="checkbox">
+        <p class="conditions">I read and agree to <a href="#">terms & conditions</a></p>
+      </div>
+
+      <button type="submit">CREATE ACCOUNT</button>
+      <p class="conditions">Already have an account? <a class="cursor-pointer" (click)="showLogIn()">Sign in</a></p>
+
+    </div>
+    <div class="login" *ngIf="Login">
+      <h1 class="heading">Hello, friend!</h1>
+
+      <div class="text">
+        <img src="https://i.postimg.cc/DZBPRgvC/email.png" alt="icon" height="12">
+        <input type="email" placeholder="Email/UserName">
+      </div>
+
+      <div class="text">
+        <img src="https://i.postimg.cc/Nj5SDK4q/password.png" alt="icon" height="20">
+        <input type="password" placeholder="Password">
+      </div>
+
+      <div class="terms">
+        <input type="checkbox" class="-mt-3">
+        <p class="conditions ml-2">I read and agree to <a href="#">terms & conditions</a></p>
+      </div>
+
+      <button type="submit">Login</button>
+      <p class="conditions">You do not have an account. Please sign up to continue. <a class="cursor-pointer" (click)="showSignup()">Sign up</a></p>
+
+    </div>
+    <div class="text-container">
+      <h1>Glad to see you!</h1>
+      <p>Welcome, Will this bring me joy or just temporary excitement?</p>
+    </div>
+  </div>
+
 </div>

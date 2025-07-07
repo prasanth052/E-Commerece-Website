@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { CartService } from './service/cart.service';
-import { SpinnerService } from './service/spinner.service';
 import { ProductsService } from './service/products.service';
-import { NgxSpinnerService } from 'ngx-spinner';
+
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -24,16 +24,24 @@ export class AppComponent implements OnInit {
   isSmallScreen: boolean = false;
   cartCount = 0;
   isLoading = false
-  constructor(private cartService: CartService, private spinner: NgxSpinnerService, private prodService: ProductsService) { }
-  ngOnInit() {
-    // this.spinner.loading$.subscribe(val => {
-    //   this.isLoading = val
-    // })
 
-    this.cartService.cartItems$.subscribe(items => {
-      this.cartCount = items.reduce((total, item) => total + item.quantity, 0);
-    });
+  constructor(private router: Router, private prodService: ProductsService,private activatedRoute:ActivatedRoute) { }
+  hideNavbar = false;
+  ngOnInit() {
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        const currentRoute = this.getDeepestRoute(this.activatedRoute.root);
+        this.hideNavbar = currentRoute.snapshot.data['hideNavbar'] || false;
+      })
   }
+  getDeepestRoute(route: ActivatedRoute): ActivatedRoute {
+    while (route.firstChild) {
+      route = route.firstChild;
+    }
+    return route;
+  }
+
   isSidenavOpen: boolean = true
   toggleSidenav() {
     this.isSidenavOpen = this.isSidenavOpen ? false : true
@@ -72,22 +80,28 @@ export class AppComponent implements OnInit {
     console.log('Selected price:', this.selectedPrice);
   }
 
- priceOptions = [
-  { min: 0, max: 499 },
-  { min: 500, max: 999 },
-  { min: 1000, max: 1999 },
-  { min: 2000, max: Infinity }
-];
-getPriceLabel(index: number): string {
-  const range = this.priceOptions[index];
-  if (range.max === Infinity) {
-    return `₹${range.min} & Above`;
-  } else if (range.min === 0) {
-    return `Under ₹${range.max}`;
-  } else {
-    return `₹${range.min} – ₹${range.max}`;
+  priceOptions = [
+    { min: 0, max: 499 },
+    { min: 500, max: 999 },
+    { min: 1000, max: 1999 },
+    { min: 2000, max: Infinity }
+  ];
+  getPriceLabel(index: number): string {
+    const range = this.priceOptions[index];
+    if (range.max === Infinity) {
+      return `₹${range.min} & Above`;
+    } else if (range.min === 0) {
+      return `Under ₹${range.max}`;
+    } else {
+      return `₹${range.min} – ₹${range.max}`;
+    }
   }
-}
-
-
+  searchValue: string = ''
+  searchEvent(e: any) {
+    this.searchValue = e.target.value
+    this.prodService.Search(this.searchValue);
+  }
+  Searchbtn() {
+    this.prodService.Search(this.searchValue);
+  }
 }
