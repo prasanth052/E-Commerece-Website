@@ -8,9 +8,9 @@ a {
     text-decoration: none;
 }
 
-.container {
-    width: 72%;
-    height: 70%;
+.container,
+.container1 {
+    width: 32%;
     background-color: #FFFFFF;
     position: absolute;
     left: 50%;
@@ -21,14 +21,21 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url('https://i.postimg.cc/pdL2vfK9/bg.gif');
     background-repeat: no-repeat;
     background-size: cover;
 }
 
+.container {
+    height: 85%;
+}
+
+.container1 {
+    height: 55%;
+}
+
 .sign-up,
 .login {
-    width: 50%;
+    width: 65%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -39,7 +46,7 @@ a {
     color: rgba(30, 30, 30, 1);
 }
 
-.text {
+.input-row {
     width: 350px;
     height: 50px;
     box-shadow: 2px 6px 18px rgba(66, 57, 238, .3);
@@ -48,6 +55,16 @@ a {
     align-items: center;
     justify-content: center;
     margin: 10px;
+}
+
+.error-msg {
+    color: #e53935;
+    font-size: 13px;
+    margin-top: 4px;
+    margin-left: 15px;
+    text-align: left;
+    width: 100%;
+    font-weight: 500;
 }
 
 .text input {
@@ -79,6 +96,15 @@ a {
     align-items: center;
 }
 
+.action-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    width: 100%;
+}
+
 button {
     width: 200px;
     height: 40px;
@@ -93,6 +119,7 @@ button {
     font-size: 13px;
     cursor: pointer;
     transition: all .3s ease;
+    margin-left: 10px;
 }
 
 button:active {
@@ -122,46 +149,124 @@ button:active {
     line-height: 20px;
 }
 
-@media screen and (max-width: 1080px) {
-    .text-container {
-        display: none;
+/* Responsive Media Queries */
+@media screen and (max-width: 600px) and (min-width: 300px) {
+
+    .container,
+    .container1 {
+        width: 90%;
+        height: auto;
+    }
+    .text, .input-row{
+        width: 100%;
+    }
+    .sign-up,
+    .login {
+        width: 100%;
     }
 
-    .container {
-        height: 90%;
+}
+
+@media screen and (min-width: 600px) and (max-width: 750px) {
+
+    .container,
+    .container1 {
+        width: 65%;
+    }
+
+    .sign-up,
+    .login {
+        width: 100%;
     }
 }
 
-@media screen and (max-width: 600px) {
-    .container {
-        width: 85%;
+@media screen and (min-width: 750px) and (max-width: 950px) {
+
+    .container,
+    .container1 {
+        width: 50%;
+    }
+
+    .sign-up,
+    .login {
+        width: 100%;
     }
 }
 
-@media screen and (max-width: 500px) {
-    .text {
-        width: 300px;
+@media screen and (min-width: 950px) and (max-width: 1200px) {
+
+    .container,
+    .container1 {
+        width: 40%;
     }
+
 }
 
-@media screen and (max-width: 420px) {
-    .container {
-        width: 95%;
-    }
 
-    .heading {
-        text-align: center;
-    }
+.terms-wrapper {
+    max-height: 70vh;
+    overflow-y: auto;
+    padding: 1rem;
+    position: relative;
+    font-family: 'Segoe UI', sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
 
-    .conditions {
-        text-align: center;
-    }
+.terms-dialog .mat-dialog-container {
+    padding: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
 
-    input[type="checkbox"] {
-        margin-right: 5px;
-    }
+.terms-wrapper h2 {
+    font-size: 24px;
+    color: #4a148c;
+    margin-bottom: 10px;
+}
 
-    .text {
-        width: 280px;
-    }
+.terms-wrapper .last-updated {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 1rem;
+}
+
+.terms-wrapper h4 {
+    margin: 8px 0 4px;
+    color: #5e35b1;
+}
+
+.terms-wrapper ol {
+    padding-left: 1rem;
+}
+
+.terms-wrapper li {
+    margin-bottom: 1rem;
+}
+
+.terms-wrapper ul.contact {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.terms-wrapper ul.contact li {
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 18px;
+    background: transparent;
+    border: none;
+    color: #444;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.close-btn:hover {
+    color: #e53935;
 }

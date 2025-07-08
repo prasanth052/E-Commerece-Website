@@ -4,6 +4,7 @@ import { ProductsService } from './service/products.service';
 
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { filter } from 'rxjs';
+import { CartService } from './service/cart.service';
 
 @Component({
   selector: 'app-root',
@@ -25,7 +26,7 @@ export class AppComponent implements OnInit {
   cartCount = 0;
   isLoading = false
 
-  constructor(private router: Router, private prodService: ProductsService,private activatedRoute:ActivatedRoute) { }
+  constructor(private router: Router, private prodService: ProductsService,private activatedRoute:ActivatedRoute,private cartservice:CartService) { }
   hideNavbar = false;
   ngOnInit() {
     this.router.events
@@ -33,6 +34,9 @@ export class AppComponent implements OnInit {
       .subscribe(() => {
         const currentRoute = this.getDeepestRoute(this.activatedRoute.root);
         this.hideNavbar = currentRoute.snapshot.data['hideNavbar'] || false;
+      })
+      this.cartservice.cartCount$.subscribe((count:any)=>{
+        this.cartCount=count
       })
   }
   getDeepestRoute(route: ActivatedRoute): ActivatedRoute {

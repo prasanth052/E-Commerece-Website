@@ -1,23 +1,31 @@
 <ngx-spinner type="line-scale-party" [fullScreen]="true" size="medium" bdColor="rgba(0, 0, 0, 0.8)"
   color="red"></ngx-spinner>
 
-<div style="overflow: hidden; height: 99vh;">
+<div style="overflow: hidden; height: 99vh">
   <ng-container>
     <!-- TOP ROW -->
     <mat-toolbar *ngIf="!hideNavbar">
       <mat-icon class="mr-3 -mt-2 fs-2 animate__flip" (click)="toggleSidenav()">menu</mat-icon>
-      <span class="logo" routerLink="/">Easy buy</span>
+      <span class="logo cursor-pointer" routerLink="/">Easy buy</span>
 
       <div class="toolbar-center">
         <input type="text" matInput placeholder="Search for a product, category or brand" (input)="searchEvent($event)"
           class="search-input form-control" />
-        <button mat-flat-button color="warn" class="search-btn" (click)="Searchbtn()">SEARCH</button>
+        <button mat-flat-button color="warn" class="search-btn" (click)="Searchbtn()">
+          SEARCH
+        </button>
       </div>
 
       <div class="toolbar-right">
         <button mat-icon-button routerLink="/cart" matTooltip="Cart">
           <mat-icon>shopping_cart</mat-icon>
-          <span class="cart-count" *ngIf="cartCount > 0">{{ cartCount }}</span>
+          <span class="cart-count" *ngIf="cartCount > 0" [ngClass]="{
+              'count-small': cartCount < 10,
+              'count-medium': cartCount >= 10 && cartCount < 100,
+              'count-large': cartCount >= 100
+            }">
+            {{ cartCount }}
+          </span>
         </button>
         <span class="top-links">
           <a href="#">Signup</a> | <a routerLink="/login">Login</a>
@@ -28,9 +36,9 @@
     <!-- BOTTOM NAVIGATION -->
     <div class="nav-bar" *ngIf="!hideNavbar">
       <h5 routerLink="/address">
-        <i class="fa-solid fa-location-crosshairs" style="color: #ffffff;"></i>
+        <i class="fa-solid fa-location-crosshairs" style="color: #ffffff"></i>
       </h5>
-      <mat-toolbar class="nav-bar" style="justify-content: center; align-items: center;">
+      <mat-toolbar class="nav-bar" style="justify-content: center; align-items: center">
         <a mat-button>Electronics</a>
         <a mat-button>Men</a>
         <a mat-button>Women</a>

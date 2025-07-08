@@ -11,6 +11,7 @@ import { DemoComponent } from './demo/demo.component';
 import { CartComponent } from './cart/cart.component';
 import { AddressComponent } from './address/address.component';
 import { AuthGuard } from './auth.guard';
+import { OrdersComponent } from './orders/orders.component';
 
 
 const routes: Routes = [
@@ -21,7 +22,7 @@ const routes: Routes = [
   { path: 'product/:id', component: ProductsDetalisComponent },
   { path: 'cart', component: CartComponent },
   { path: 'address', component: AddressComponent },
-
+  { path: 'checkout', component: OrdersComponent },
 ];
 
 @NgModule({

@@ -89,7 +89,7 @@ export class ProductsDetalisComponent implements OnInit {
 
   addToCart(product: any): void {
     const login: boolean = JSON.parse(localStorage.getItem('isLogin') || '[]');
-    if (!login) {
+    if (login) {
       const cart = JSON.parse(localStorage.getItem('cart') || '[]');
       const existingProduct = cart.find((item: any) => item.id === product.id);
 
@@ -105,8 +105,22 @@ export class ProductsDetalisComponent implements OnInit {
     } else {
       this.router.navigate(['/login']);
     }
-
-
+  }
+  
+  selectedQuantity: number = 1;
+ buynow(product: any): void {
+    let login: boolean = JSON.parse(localStorage.getItem('isLogin') || 'true');
+    if (login) {
+      if (product.stock >= this.selectedQuantity) {
+        const cart = [{ ...product, quantity: this.selectedQuantity }];
+        localStorage.setItem('buyNow', JSON.stringify(cart));
+        this.router.navigate(['/checkout']);
+      } else {
+        alert('Not enough stock available.');
+      }
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
   roundRating(rating: number): number {
     return Math.round(rating);

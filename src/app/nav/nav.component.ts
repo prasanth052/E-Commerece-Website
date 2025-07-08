@@ -34,7 +34,7 @@ export class NavComponent implements OnInit {
     //   this.service.getAllproducts().pipe(
     //     map((products: any[]) => [...new Set(products.map(product => product.category))])
     //   ).subscribe(categories => this.catg = categories);
-    // // console.log(this.catg);
+    // // console.log(this.catg); 
     this.service.getAllproducts().subscribe({
       next: (res: any) => {
         this.Products = res

@@ -39,6 +39,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { MatDialogModule } from '@angular/material/dialog';
+
 // PrimeNG Modules
 import { PanelModule } from 'primeng/panel';
 import { CardModule } from 'primeng/card';
@@ -49,6 +51,7 @@ import { ButtonModule } from 'primeng/button';
 import { CartComponent } from './cart/cart.component';
 import { HttpinterceptorService } from './Interceptor/httpinterceptor.service';
 import { AddressComponent } from './address/address.component';
+import { OrdersComponent } from './orders/orders.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +62,8 @@ import { AddressComponent } from './address/address.component';
     ProductsDetalisComponent,
     DemoComponent,
     CartComponent,
-    AddressComponent
+    AddressComponent,
+    OrdersComponent
 
   ],
   imports: [
@@ -68,7 +72,7 @@ import { AddressComponent } from './address/address.component';
     MatCardModule,MatDividerModule,MatTableModule,MatRadioModule,MatSliderModule,MatAutocompleteModule,MatGridListModule,
     MatInputModule, MatButtonModule, CanvasJSAngularChartsModule,MatExpansionModule,MatMenuModule,NgxSpinnerModule,
     FormsModule, ReactiveFormsModule,MatPaginator,MatPaginatorModule,MatAccordion,GoogleMapsModule,
-    SidebarModule, ButtonModule, RippleModule,MatSort,MatSortModule,MatButtonToggleModule,
+    SidebarModule, ButtonModule, RippleModule,MatSort,MatSortModule,MatButtonToggleModule,MatDialogModule,
     AvatarModule, StyleClassModule, MatToolbarModule, MatSidenavModule, MatIconModule, MatListModule,
     PanelModule,
     CardModule,

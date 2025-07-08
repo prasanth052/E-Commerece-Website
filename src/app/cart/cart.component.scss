@@ -165,3 +165,67 @@
     flex-wrap: wrap;
   }
 }
+.qty-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+
+  label {
+    font-weight: 500;
+    margin-right: 4px;
+  }
+
+  .incdesc {
+    background: #f0f0f0;
+    border: none;
+    border-radius: 10%;
+    // width: 32px;
+    // height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .incdesc:hover {
+    background: #ddd;
+  }
+
+  span {
+    width: 24px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  mat-icon {
+    margin-top: 2%;
+    // font-size: 18px;
+  }
+}
+.cart-container {
+  display: flex;
+  flex-direction: column;
+  height: 90vh; // Viewport based height
+  overflow: hidden;
+
+  .cart-item-list {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 6px;
+  }
+
+  .cart-summary {
+    background: #fff;
+    padding: 16px;
+    border-top: 1px solid #ddd;
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

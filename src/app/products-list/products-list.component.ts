@@ -1,6 +1,9 @@
-import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { ProductsService } from '../service/products.service';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
+import { CartComponent } from '../cart/cart.component';
+import { CartService } from '../service/cart.service';
 
 @Component({
   selector: 'app-products-list',
@@ -16,7 +19,8 @@ export class ProductsListComponent implements OnInit, OnDestroy, OnChanges {
   Limit: number | null = null;
   // Track selected category
   filterMenuOpen: boolean = false; // Manage filter menu visibility
-  constructor(private service: ProductsService, private router: Router) { }
+  constructor(private service: ProductsService, private router: Router, private cartService: CartService) { }
+
   ngOnChanges(changes: SimpleChanges): void {
 
   }
@@ -40,6 +44,29 @@ export class ProductsListComponent implements OnInit, OnDestroy, OnChanges {
     });
     console.log(this.displayedProducts);
 
+  }
+
+  private cartItemsSubject = new BehaviorSubject<number>(0);
+  cartItems$ = this.cartItemsSubject.asObservable();
+  addToCart(product: any): void {
+    const login: boolean = JSON.parse(localStorage.getItem('isLogin') || '[]');
+    if (login) {
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      const existingProduct = cart.find((item: any) => item.id === product.id);
+
+      if (existingProduct) {
+        existingProduct.quantity += 1;
+      } else {
+        cart.push({ ...product, quantity: 1 });
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      this.cartItemsSubject.next(cart.length);
+      this.cartService.triggerUpdate();
+      alert(`${product.title} has been added to your cart!`);
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
   Sort(value: any) {
     if (value === 'lowtohigh') {

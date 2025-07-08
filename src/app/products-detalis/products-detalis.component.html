@@ -17,7 +17,7 @@
             <span class="rating-number">{{ product?.rating?.count }}</span>
         </div>
         <ul class="feature-list">
-            <li >{{product.description }}.</li>
+            <li>{{product.description }}.</li>
             <li><strong>Stock: </strong> {{ product.stock }}</li>
             <li><strong>Discount: </strong>{{ product.discountPercentage }}%</li>
             <li><strong>Warranty: </strong> {{ product.warrantyInformation }}</li>
@@ -31,8 +31,20 @@
     <div class="buy-box">
         <p class="price">₹{{ product.price }}</p>
         <p class="delivery" *ngFor="let line of shippingInfoLines"><strong>{{ line }}</strong></p>
+        <!-- <div class="qty-row"> -->
+        <!-- <label for="quantity">Qty:</label> -->
+        <!-- <select id="quantity" [(ngModel)]="selectedQuantity">
+                <option *ngFor="let q of [1,2,3,4,5,6,7,8,9,10]" [value]="q">{{ q }}</option>
+            </select> -->
+        <!-- </div> -->
+        <div class="qty-row">
+            <label for="quantity">Qty:</label>
+            <input id="quantity" type="number" class="form-control" min="1" [(ngModel)]="selectedQuantity" />
+        </div>
+
         <button class="add-to-cart" (click)="addToCart(product)">Add to Cart</button>
-        <button class="buy-now">Buy Now</button>
+
+        <button class="buy-now" (click)="buynow(product)">Buy Now</button>
         <div class="offers">
             <p *ngFor="let line of returnPolicyLines">🔁 {{ line }}</p>
         </div>
