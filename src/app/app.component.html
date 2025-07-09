@@ -2,9 +2,9 @@
   color="red"></ngx-spinner>
 
 <div style="overflow: hidden; height: 99vh">
-  <ng-container>
+  <ng-container *ngIf="!hideNavbar">
     <!-- TOP ROW -->
-    <mat-toolbar *ngIf="!hideNavbar">
+    <mat-toolbar >
       <mat-icon class="mr-3 -mt-2 fs-2 animate__flip" (click)="toggleSidenav()">menu</mat-icon>
       <span class="logo cursor-pointer" routerLink="/">Easy buy</span>
 
@@ -34,7 +34,7 @@
     </mat-toolbar>
 
     <!-- BOTTOM NAVIGATION -->
-    <div class="nav-bar" *ngIf="!hideNavbar">
+    <div class="nav-bar" *ngIf="!secondnavbar" >
       <h5 routerLink="/address">
         <i class="fa-solid fa-location-crosshairs" style="color: #ffffff"></i>
       </h5>

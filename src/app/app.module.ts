@@ -40,7 +40,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MatDialogModule } from '@angular/material/dialog';
-
+import {MatSnackBarModule } from '@angular/material/snack-bar';
 // PrimeNG Modules
 import { PanelModule } from 'primeng/panel';
 import { CardModule } from 'primeng/card';
@@ -52,6 +52,7 @@ import { CartComponent } from './cart/cart.component';
 import { HttpinterceptorService } from './Interceptor/httpinterceptor.service';
 import { AddressComponent } from './address/address.component';
 import { OrdersComponent } from './orders/orders.component';
+import { CustomSnackbarComponent } from './custom-snackbar/custom-snackbar.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,7 +64,8 @@ import { OrdersComponent } from './orders/orders.component';
     DemoComponent,
     CartComponent,
     AddressComponent,
-    OrdersComponent
+    OrdersComponent,
+    CustomSnackbarComponent
 
   ],
   imports: [
@@ -74,7 +76,7 @@ import { OrdersComponent } from './orders/orders.component';
     FormsModule, ReactiveFormsModule,MatPaginator,MatPaginatorModule,MatAccordion,GoogleMapsModule,
     SidebarModule, ButtonModule, RippleModule,MatSort,MatSortModule,MatButtonToggleModule,MatDialogModule,
     AvatarModule, StyleClassModule, MatToolbarModule, MatSidenavModule, MatIconModule, MatListModule,
-    PanelModule,
+    PanelModule,MatSnackBarModule,
     CardModule,
     TableModule,
     ChartModule,

@@ -1,16 +1,20 @@
-import { AfterViewInit, Component, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnChanges, OnDestroy, OnInit, PLATFORM_ID, SimpleChanges, ViewChild } from '@angular/core';
 import { ProductsService } from '../service/products.service';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { CartComponent } from '../cart/cart.component';
 import { CartService } from '../service/cart.service';
+import { isPlatformBrowser } from '@angular/common';
+import * as bootstrap from 'bootstrap';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { CustomSnackbarComponent } from '../custom-snackbar/custom-snackbar.component';
 
 @Component({
   selector: 'app-products-list',
   templateUrl: './products-list.component.html',
   styleUrl: './products-list.component.scss'
 })
-export class ProductsListComponent implements OnInit, OnDestroy, OnChanges {
+export class ProductsListComponent implements OnInit, OnDestroy, OnChanges, AfterViewInit {
   Products: any[] = [];
   displayedProducts: any[] = [];
   totalProducts: number = 0;
@@ -19,13 +23,25 @@ export class ProductsListComponent implements OnInit, OnDestroy, OnChanges {
   Limit: number | null = null;
   // Track selected category
   filterMenuOpen: boolean = false; // Manage filter menu visibility
-  constructor(private service: ProductsService, private router: Router, private cartService: CartService) { }
+  constructor(private service: ProductsService, private router: Router, private snackBar: MatSnackBar,
+    private cartService: CartService, @Inject(PLATFORM_ID) private platformId: Object) { }
+  async ngAfterViewInit() {
+    if (isPlatformBrowser(this.platformId)) {
+      const bootstrap = await import('bootstrap'); // ✅ lazy-loaded only in browser
 
+      const element = document.getElementById('carouselExampleSlidesOnly');
+      if (element) {
+        new bootstrap.Carousel(element, {
+          interval: 5000,
+          ride: 'carousel'
+        });
+      }
+    }
+  }
   ngOnChanges(changes: SimpleChanges): void {
 
   }
   ngOnInit() {
-
     this.getProducts();
   }
   Math = Math;
@@ -63,7 +79,21 @@ export class ProductsListComponent implements OnInit, OnDestroy, OnChanges {
       localStorage.setItem('cart', JSON.stringify(cart));
       this.cartItemsSubject.next(cart.length);
       this.cartService.triggerUpdate();
-      alert(`${product.title} has been added to your cart!`);
+      // alert(`${product.title} has been added to your cart!`);
+this.snackBar.openFromComponent(CustomSnackbarComponent, {
+  data: {
+    title: product.title,
+    message: 'added to cart!',
+    type: 'success' // or 'error', 'warning'
+  },
+  duration: 3000,
+  horizontalPosition: 'right',
+  verticalPosition: 'top',
+  panelClass: ['snackbar-panel'] // Optional class
+});
+
+
+
     } else {
       this.router.navigate(['/login']);
     }

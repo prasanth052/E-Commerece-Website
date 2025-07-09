@@ -29,6 +29,6 @@
 
   <div class="cart-summary">
     <h3>Subtotal ({{ totalItems }} items): ₹{{ totalAmount | number: '1.2-3' }}</h3>
-    <button class="checkout-btn">Proceed to checkout</button>
+    <button class="checkout-btn" (click)="checkout(cart)">Proceed to checkout</button>
   </div>
 </div>

@@ -26,19 +26,32 @@ export class AppComponent implements OnInit {
   cartCount = 0;
   isLoading = false
 
-  constructor(private router: Router, private prodService: ProductsService,private activatedRoute:ActivatedRoute,private cartservice:CartService) { }
+  constructor(private router: Router, private prodService: ProductsService, private activatedRoute: ActivatedRoute, private cartService: CartService) { }
   hideNavbar = false;
+  secondnavbar = false
+  sidenavbar=true
   ngOnInit() {
+    this.cartService.setCartCount(this.cartService.calculateInitialCount());
+
+    this.cartService.cartCount$.subscribe(count => {
+      this.cartCount = count;
+    });
+
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(() => {
         const currentRoute = this.getDeepestRoute(this.activatedRoute.root);
         this.hideNavbar = currentRoute.snapshot.data['hideNavbar'] || false;
-      })
-      this.cartservice.cartCount$.subscribe((count:any)=>{
-        this.cartCount=count
-      })
+        this.secondnavbar = currentRoute.snapshot.data['secondnavbar'] || false;
+        this.sidenavbar = currentRoute.snapshot.data['sidenavbar'] || false;
+        if(!this.sidenavbar){
+            this.isSidenavOpen = true
+        }else{
+          this.isSidenavOpen = false
+        }        
+      });
   }
+
   getDeepestRoute(route: ActivatedRoute): ActivatedRoute {
     while (route.firstChild) {
       route = route.firstChild;

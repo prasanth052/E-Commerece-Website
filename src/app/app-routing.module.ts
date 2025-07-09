@@ -12,6 +12,7 @@ import { CartComponent } from './cart/cart.component';
 import { AddressComponent } from './address/address.component';
 import { AuthGuard } from './auth.guard';
 import { OrdersComponent } from './orders/orders.component';
+import { CustomSnackbarComponent } from './custom-snackbar/custom-snackbar.component';
 
 
 const routes: Routes = [
@@ -20,9 +21,10 @@ const routes: Routes = [
   { path: 'demo', component: DemoComponent },
   { path: '', component: ProductsListComponent },
   { path: 'product/:id', component: ProductsDetalisComponent },
-  { path: 'cart', component: CartComponent },
-  { path: 'address', component: AddressComponent },
-  { path: 'checkout', component: OrdersComponent },
+  { path: 'cart', component: CartComponent, data: { secondnavbar: true, sidenavbar: true } },
+  { path: 'address', component: AddressComponent, data: { secondnavbar: true, sidenavbar: true } },
+  { path: 'checkout', component: OrdersComponent, data: { secondnavbar: true, sidenavbar: true } },
+  { path: 'snackbar', component: CustomSnackbarComponent, data: {hideNavbar: true , secondnavbar: true, sidenavbar: true } },
 ];
 
 @NgModule({
