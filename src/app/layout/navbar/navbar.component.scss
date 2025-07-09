@@ -1,0 +1,234 @@
+.sidenav-container {
+    height: 93vh;
+    display: flex;
+    flex-direction: column;
+    transition: margin-left 0.3s ease;
+    overflow: hidden;
+
+}
+
+mat-sidenav {
+    width: 250px;
+    min-width: 250px;
+    background-color: #ffffff;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+mat-sidenav-content {
+    flex-grow: 1;
+    background: #f5f5f5;
+    transition: margin-left 0.3s ease-in-out;
+    overflow-x: hidden;
+}
+
+.mat-sidenav.mat-sidenav-close {
+    transform: translateX(-100%);
+}
+
+.mat-sidenav.open {
+    transform: translateX(0);
+}
+
+.mat-18 {
+    cursor: pointer;
+}
+
+
+mat-icon {
+    color: white;
+}
+
+mat-icon:hover {
+    transform: scale(1.4);
+}
+
+// sidebar filter section
+.amazon-sidebar {
+    width: 250px;
+    background-color: #fff;
+    padding: 16px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    border-right: 1px solid #ddd;
+    max-height: 100vh;
+    overflow-y: auto;
+}
+
+.filter-section {
+    margin-bottom: 24px;
+
+    h4 {
+        font-size: 15px;
+        font-weight: bold;
+        margin-bottom: 8px;
+        color: #111;
+    }
+
+    label {
+        display: block;
+        margin: 6px 0;
+        cursor: pointer;
+    }
+
+    input[type="checkbox"] {
+        margin-right: 6px;
+    }
+
+    .brand-search {
+        width: 100%;
+        padding: 6px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+}
+
+
+// topnavbar
+/* 1) Make toolbar full‑width & remove default padding */
+mat-toolbar {
+    display: flex;
+    align-items: center;
+    background-color: #1a4385;
+    min-height: 40px !important;
+
+}
+
+
+mat-toolbar .logo,
+h5 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: white;
+    margin-right: 16px;
+}
+
+
+mat-toolbar .search-input {
+    max-width: 600px;
+    margin-right: 10px;
+    background: white;
+    border-radius: 4px;
+    padding-left: 10px;
+}
+
+mat-toolbar .search-btn {
+    background-color: #ffdb3a !important;
+    color: black !important;
+    font-weight: 600;
+}
+
+
+mat-toolbar button[mat-icon-button][routerLink="/cart"] {
+    position: relative;
+    margin-right: 16px;
+    color: white;
+}
+
+// mat-toolbar .cart-count {
+//     background: white;
+//     color: #2874f0;
+//     border-radius: 50%;
+//     padding: 2px 6px;
+//     font-size: 10px;
+//     vertical-align: top;
+//     margin-left: -5px;
+// }
+.cart-count {
+    background: white;
+    color: #2874f0;
+    font-weight: bold;
+    font-size: 10px;
+    padding: 2px 6px;
+    margin-left: -5px;
+    display: inline-block;
+    text-align: center;
+    line-height: 1;
+
+    &.count-small {
+        border-radius: 50%;
+        min-width: 16px;
+    }
+
+    &.count-medium {
+        border-radius: 12px;
+        min-width: 22px;
+        font-size: 11px;
+    }
+
+    &.count-large {
+        border-radius: 10px;
+        min-width: 28px;
+        font-size: 11px;
+    }
+}
+
+.toolbar-center {
+    display: flex;
+    align-items: center;
+    flex: 1 1 auto;
+    justify-content: center;
+    gap: 8px;
+}
+
+.toolbar-right {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+    gap: 8px;
+    margin-left: auto;
+}
+
+/* SIGNUP / LOGIN LINKS */
+.top-links {
+    color: white;
+    white-space: nowrap;
+}
+
+.top-links a {
+    color: white;
+    text-decoration: none;
+    margin: 0 4px;
+    transition: color 0.2s;
+    font-size: .8rem;
+}
+
+.top-links a:hover {
+    color: #ffdb3a;
+}
+
+// FilterNavabr
+
+// /* Target your category/nav row */
+.nav-bar {
+    background-color: #374aa0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 4px 1rem;
+    font-size: 13px;
+    line-height: 1.2;
+    height: auto;
+}
+
+.nav-bar a {
+    color: #fff;
+    text-decoration: none;
+    padding: 4px 0;
+    transition: color 0.2s;
+}
+
+.nav-bar .offers {
+    color: #ffd700;
+    /* gold accent */
+    font-weight: bold;
+}
+
+.nav-bar a:hover {
+    color: #ffdb3a;
+}
+
+.offers {
+    color: #ffdb3a !important;
+    font-weight: bold;
+}

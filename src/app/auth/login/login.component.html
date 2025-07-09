@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="login">
+        <h1 class="heading">Hello, friend!</h1>
+        <form [formGroup]="loginform">
+            <!-- Username -->
+            <div class="text">
+                <div class="input-row">
+                    <img src="https://i.postimg.cc/1zgS8WTF/user.png" alt="icon" height="20">
+                    <input type="text" placeholder="Name" formControlName="username">
+                </div>
+                <div class="error-msg" *ngIf="loginVaildbtn && loginform.get('username')?.invalid">
+                    Name is required
+                </div>
+            </div>
+            <div class="text">
+                <div class="input-row">
+                    <img src="https://i.postimg.cc/Nj5SDK4q/password.png" alt="icon" height="20">
+                    <input type="password" placeholder="Password" formControlName="password">
+                </div>
+                <div class="error-msg" *ngIf="loginVaildbtn && loginform.get('password')?.invalid">
+                    Password is required
+                </div>
+            </div>
+        </form>
+
+        <button type="submit">Login</button>
+        <p class="conditions mt-2">Don’t have an account? Please sign up.. <a class="cursor-pointer"
+                [routerLink]="['/products/filter']">Sign up</a></p>
+
+    </div>
+</div>

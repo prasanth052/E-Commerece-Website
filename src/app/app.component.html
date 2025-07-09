@@ -1,9 +1,9 @@
-<ngx-spinner type="line-scale-party" [fullScreen]="true" size="medium" bdColor="rgba(0, 0, 0, 0.8)"
+<!-- <ngx-spinner type="line-scale-party" [fullScreen]="true" size="medium" bdColor="rgba(0, 0, 0, 0.8)"
   color="red"></ngx-spinner>
 
 <div style="overflow: hidden; height: 99vh">
   <ng-container *ngIf="!hideNavbar">
-    <!-- TOP ROW -->
+
     <mat-toolbar >
       <mat-icon class="mr-3 -mt-2 fs-2 animate__flip" (click)="toggleSidenav()">menu</mat-icon>
       <span class="logo cursor-pointer" routerLink="/">Easy buy</span>
@@ -33,7 +33,7 @@
       </div>
     </mat-toolbar>
 
-    <!-- BOTTOM NAVIGATION -->
+
     <div class="nav-bar" *ngIf="!secondnavbar" >
       <h5 routerLink="/address">
         <i class="fa-solid fa-location-crosshairs" style="color: #ffffff"></i>
@@ -50,14 +50,14 @@
       </mat-toolbar>
     </div>
 
-    <!-- SIDENAV -->
+
     <div class="sidenav-container">
       <mat-sidenav-container class="sidenav-container overflow-hidden">
         <mat-sidenav *ngIf="!hideNavbar" [class]="sidenavClass" [@sidenavState]="isSidenavOpen ? 'open' : 'closed'"
           [mode]="'side'" position="start" [opened]="isSidenavOpen">
           <mat-nav-list class="nav-list overflow-hidden">
             <div class="amazon-sidebar">
-              <!-- Discount -->
+
               <div class="filter-section">
                 <h4>Discount</h4>
                 <label *ngFor="let discount of discountOptions">
@@ -66,7 +66,6 @@
                 </label>
               </div>
 
-              <!-- Price -->
               <div class="filter-section">
                 <h4>Price</h4>
                 <label *ngFor="let range of priceOptions; let i = index">
@@ -84,4 +83,6 @@
       </mat-sidenav-container>
     </div>
   </ng-container>
-</div>
+</div> -->
+
+  <router-outlet></router-outlet>

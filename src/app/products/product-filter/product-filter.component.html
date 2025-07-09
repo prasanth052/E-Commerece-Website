@@ -1,0 +1,30 @@
+<!-- product-filter.component.html -->
+<div class="filter-container">
+  <mat-card class="filter-card">
+    <h3>Filter Products</h3>
+
+    <mat-form-field appearance="fill" class="filter-field">
+      <mat-label>Search</mat-label>
+      <input matInput placeholder="Search products..." [(ngModel)]="searchTerm" (input)="filterProducts()">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="filter-field">
+      <mat-label>Category</mat-label>
+      <mat-select [(ngModel)]="selectedCategory" (selectionChange)="filterProducts()">
+        <mat-option value="">All</mat-option>
+        <mat-option *ngFor="let category of categories" [value]="category">{{ category }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-card>
+
+  <div class="product-list">
+    <mat-card *ngFor="let product of filteredProducts" class="product-item" (click)="selectProduct(product)">
+      <img [src]="product.thumbnail" alt="Image" class="product-img">
+      <div class="product-details">
+        <h4>{{ product.title }}</h4>
+        <p class="price">₹{{ product.price }}</p>
+        <p class="category">{{ product.category }}</p>
+      </div>
+    </mat-card>
+  </div>
+</div>

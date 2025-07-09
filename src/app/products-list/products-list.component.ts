@@ -2,10 +2,8 @@ import { AfterViewInit, Component, Inject, OnChanges, OnDestroy, OnInit, PLATFOR
 import { ProductsService } from '../service/products.service';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
-import { CartComponent } from '../cart/cart.component';
 import { CartService } from '../service/cart.service';
 import { isPlatformBrowser } from '@angular/common';
-import * as bootstrap from 'bootstrap';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CustomSnackbarComponent } from '../custom-snackbar/custom-snackbar.component';
 
