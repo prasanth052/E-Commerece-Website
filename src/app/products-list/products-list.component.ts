@@ -63,38 +63,37 @@ export class ProductsListComponent implements OnInit, OnDestroy, OnChanges, Afte
   private cartItemsSubject = new BehaviorSubject<number>(0);
   cartItems$ = this.cartItemsSubject.asObservable();
   addToCart(product: any): void {
-    const login: boolean = JSON.parse(localStorage.getItem('isLogin') || '[]');
-    if (login) {
-      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-      const existingProduct = cart.find((item: any) => item.id === product.id);
+    // const login: boolean = JSON.parse(localStorage.getItem('isLogin') || '[]');
+    // if (login) {
+    //   const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    //   const existingProduct = cart.find((item: any) => item.id === product.id);
 
-      if (existingProduct) {
-        existingProduct.quantity += 1;
-      } else {
-        cart.push({ ...product, quantity: 1 });
-      }
+    //   if (existingProduct) {
+    //     existingProduct.quantity += 1;
+    //   } else {
+    //     cart.push({ ...product, quantity: 1 });
+    //   }
 
-      localStorage.setItem('cart', JSON.stringify(cart));
-      this.cartItemsSubject.next(cart.length);
-      this.cartService.triggerUpdate();
-      // alert(`${product.title} has been added to your cart!`);
-this.snackBar.openFromComponent(CustomSnackbarComponent, {
-  data: {
-    title: product.title,
-    message: 'added to cart!',
-    type: 'success' // or 'error', 'warning'
-  },
-  duration: 3000,
-  horizontalPosition: 'right',
-  verticalPosition: 'top',
-  panelClass: ['snackbar-panel'] // Optional class
-});
-
+    //   localStorage.setItem('cart', JSON.stringify(cart));
+    //   this.cartItemsSubject.next(cart.length);
+    //   this.cartService.triggerUpdate();
+    //   this.snackBar.openFromComponent(CustomSnackbarComponent, {
+    //     data: {
+    //       title: product.title,
+    //       message: 'added to cart!',
+    //       type: 'success' // or 'error', 'warning'
+    //     },
+    //     duration: 3000,
+    //     horizontalPosition: 'right',
+    //     verticalPosition: 'top',
+    //     panelClass: ['snackbar-panel'] // Optional class
+    //   });
 
 
-    } else {
-      this.router.navigate(['/login']);
-    }
+
+    // } else {
+    //   this.router.navigate(['/login']);
+    // }
   }
   Sort(value: any) {
     if (value === 'lowtohigh') {

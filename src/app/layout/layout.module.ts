@@ -10,8 +10,10 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatListModule } from '@angular/material/list';
 // Dev Imports
-import { RouterModule } from '@angular/router'; 
+import { RouterModule } from '@angular/router';
 @NgModule({
   declarations: [
     LayoutComponent,
@@ -20,8 +22,8 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
-    LayoutRoutingModule,RouterModule,
-    MatToolbarModule,MatSidenavModule,MatIconModule
+    LayoutRoutingModule,RouterModule,ReactiveFormsModule,
+    MatToolbarModule,MatSidenavModule,MatIconModule, MatListModule,
   ]
 })
 export class LayoutModule { }

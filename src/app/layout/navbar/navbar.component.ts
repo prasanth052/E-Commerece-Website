@@ -2,6 +2,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { SharedService } from './../../shared/services/shared.service';
 import { Component, OnInit } from '@angular/core';
 import { filter } from 'rxjs';
+import { SidenavService } from '../../shared/sideNav/sidenav.service';
 
 @Component({
   selector: 'app-navbar',
@@ -15,8 +16,9 @@ export class NavbarComponent implements OnInit {
   constructor(
     private SharedService: SharedService,
     private router: Router,
-    private route: ActivatedRoute
-  ) {}
+    private route: ActivatedRoute,
+    private sidenavService: SidenavService
+  ) { }
   ngOnInit() {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
@@ -42,6 +44,6 @@ export class NavbarComponent implements OnInit {
   }
   isSidenavOpen: boolean = true;
   toggleSidenav() {
-    this.isSidenavOpen = this.isSidenavOpen ? false : true;
+    this.sidenavService.toggle();
   }
 }

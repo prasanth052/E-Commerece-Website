@@ -53,6 +53,7 @@ import { HttpinterceptorService } from './Interceptor/httpinterceptor.service';
 import { AddressComponent } from './addres/address.component';
 import { OrdersComponent } from './orderss/orders.component';
 import { CustomSnackbarComponent } from './custom-snackbar/custom-snackbar.component';
+import { LayoutModule } from './layout/layout.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,11 +66,11 @@ import { CustomSnackbarComponent } from './custom-snackbar/custom-snackbar.compo
     CartComponent,
     AddressComponent,
     OrdersComponent,
-    CustomSnackbarComponent,
+    CustomSnackbarComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    AppRoutingModule,LayoutModule,
     MatCardModule, MatDividerModule, MatTableModule, MatRadioModule, MatSliderModule, MatAutocompleteModule, MatGridListModule,
     MatInputModule, MatButtonModule, CanvasJSAngularChartsModule, MatExpansionModule, MatMenuModule, NgxSpinnerModule,
     FormsModule, ReactiveFormsModule, MatPaginator, MatPaginatorModule, MatAccordion, GoogleMapsModule,

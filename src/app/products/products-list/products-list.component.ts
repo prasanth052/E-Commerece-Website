@@ -16,6 +16,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CartService } from '../../service/cart.service';
 import { ApiService } from '../../core/api.service';
+import { CustomSnackbarComponent } from '../../custom-snackbar/custom-snackbar.component';
 // import { CustomSnackbarComponent } from '../custom-snackbar/custom-snackbar.component';
 @Component({
   selector: 'app-products-list',
@@ -92,18 +93,18 @@ export class ProductsListComponent
       localStorage.setItem('cart', JSON.stringify(cart));
       this.cartItemsSubject.next(cart.length);
       this.cartService.triggerUpdate();
-      // alert(`${product.title} has been added to your cart!`);
-      // this.snackBar.openFromComponent(CustomSnackbarComponent, {
-      //   data: {
-      //     title: product.title,
-      //     message: 'added to cart!',
-      //     type: 'success' // or 'error', 'warning'
-      //   },
-      //   duration: 3000,
-      //   horizontalPosition: 'right',
-      //   verticalPosition: 'top',
-      //   panelClass: ['snackbar-panel'] // Optional class
-      // });
+      alert(`${product.title} has been added to your cart!`);
+      this.snackBar.openFromComponent(CustomSnackbarComponent, {
+        data: {
+          title: product.title,
+          message: 'added to cart!',
+          type: 'success' // or 'error', 'warning'
+        },
+        duration: 3000,
+        horizontalPosition: 'right',
+        verticalPosition: 'top',
+        panelClass: ['snackbar-panel'] // Optional class
+      });
     } else {
       this.router.navigate(['/login']);
     }

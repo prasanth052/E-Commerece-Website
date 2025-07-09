@@ -5,7 +5,7 @@ import { CartmoduleRoutingModule } from './cartmodule-routing.module';
 import { CartmoduleComponent } from './cartmodule.component';
 import { CartComponent } from './cart/cart.component';
 import { CartSummaryComponent } from './cart-summary/cart-summary.component';
-
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -14,7 +14,7 @@ import { CartSummaryComponent } from './cart-summary/cart-summary.component';
     CartSummaryComponent
   ],
   imports: [
-    CommonModule,
+    CommonModule,MatIconModule,
     CartmoduleRoutingModule
   ]
 })

@@ -1,3 +1,4 @@
+<div class="body">
 <ng-container *ngIf="!hideNavbar">
     <mat-toolbar >
       <mat-icon class="mr-3 -mt-2 fs-2 animate__flip" (click)="toggleSidenav()">menu</mat-icon>
@@ -12,7 +13,7 @@
       </div>
 
       <div class="toolbar-right">
-        <button mat-icon-button routerLink="/cart" matTooltip="Cart">
+        <button mat-icon-button routerLink="/newcart" matTooltip="Cart">
           <mat-icon>shopping_cart</mat-icon>
           <span class="cart-count" *ngIf="cartCount > 0" [ngClass]="{
               'count-small': cartCount < 10,
@@ -23,7 +24,7 @@
           </span>
         </button>
         <span class="top-links">
-          <a href="#">Signup</a> | <a routerLink="/login">Login</a>
+          <a routerLink="/side">Signup</a> | <a >Login</a>
         </span>
       </div>
     </mat-toolbar>
@@ -45,3 +46,4 @@
       </mat-toolbar>
     </div>
   </ng-container>
+</div>

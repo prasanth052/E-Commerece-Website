@@ -9,7 +9,8 @@ const routes: Routes = [
     path: '',
     component: LayoutComponent, // Must have <router-outlet> in its template
     children: [
-      { path: '', component: NavbarComponent },
+      { path: 'nav', component: NavbarComponent },
+      {path:'side',component:NavbarComponent}
     ]
   }
 ];

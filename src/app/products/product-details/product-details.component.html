@@ -1,74 +1,74 @@
 <div *ngIf="product" class="product-details-container">
-    <!-- Column 1: Image -->
-    <div class="product-image">
-        <img [src]="mainImage || product.thumbnail" class="main-image" alt="Product Image" />
+  <!-- Column 1: Image -->
+  <div class="product-image">
+    <img [src]="mainImage || product.thumbnail" class="main-image" alt="Product Image" />
+  </div>
+
+  <!-- Column 2: Details -->
+  <div class="product-info">
+    <h1 class="product-title">{{ product.title }}</h1>
+    <p class="brand">Brand: <strong>{{ product.brand || 'Generic' }}</strong></p>
+
+    <div class="product-rating">
+      <ng-container *ngFor="let i of [1,2,3,4,5]">
+        <span [class.filled]="i <= Math.round(product.rating)"
+          [class.unfilled]="i > Math.round(product.rating)">★</span>
+      </ng-container>
+      <span class="rating-number">({{ product.rating }})</span>
+      <span class="rating-number">{{ product?.rating?.count }}</span>
     </div>
 
-    <!-- Column 2: Details -->
-    <div class="product-info">
-        <h1 class="product-title">{{ product.title }}</h1>
-        <p class="brand">Brand: <strong>{{ product.brand || 'Generic' }}</strong></p>
+    <p class="description">{{ product.description }}</p>
 
-        <div class="product-rating">
-            <ng-container *ngFor="let i of [1,2,3,4,5]">
-                <span [class.filled]="i <= Math.round(product.rating)"
-                    [class.unfilled]="i > Math.round(product.rating)">★</span>
-            </ng-container>
-            <span class="rating-number">({{ product.rating }})</span>
-            <span class="rating-number">{{ product?.rating?.count }}</span>
-        </div>
+    <ul class="feature-list">
+      <li><strong>Stock:</strong> {{ product.stock }}</li>
+      <li><strong>Discount:</strong> {{ product.discountPercentage }}%</li>
+      <li><strong>Warranty:</strong> {{ product.warrantyInformation }}</li>
+      <li><strong>Availability:</strong> {{ product.availabilityStatus }}</li>
+      <li><strong>Dimensions:</strong> {{ product.dimensions?.width }} x {{ product.dimensions?.height }} x {{
+        product.dimensions?.depth }} cm</li>
+      <li><strong>SKU:</strong> {{ product.sku }}</li>
+      <li><strong>Weight:</strong> {{ product.weight }} g</li>
+    </ul>
+  </div>
 
-        <p class="description">{{ product.description }}</p>
-
-        <ul class="feature-list">
-            <li><strong>Stock:</strong> {{ product.stock }}</li>
-            <li><strong>Discount:</strong> {{ product.discountPercentage }}%</li>
-            <li><strong>Warranty:</strong> {{ product.warrantyInformation }}</li>
-            <li><strong>Availability:</strong> {{ product.availabilityStatus }}</li>
-            <li><strong>Dimensions:</strong> {{ product.dimensions?.width }} x {{ product.dimensions?.height }} x {{
-                product.dimensions?.depth }} cm</li>
-            <li><strong>SKU:</strong> {{ product.sku }}</li>
-            <li><strong>Weight:</strong> {{ product.weight }} g</li>
-        </ul>
+  <!-- Column 3: Buy Box -->
+  <div class="buy-box">
+    <p class="price">₹{{ product.price }}</p>
+    <p *ngFor="let line of shippingInfoLines"><strong>{{ line }}</strong></p>
+    <div class="qty-row">
+      <label for="quantity">Qty:</label>
+      <input id="quantity" type="number" class="form-control" min="1" [(ngModel)]="selectedQuantity" />
     </div>
 
-    <!-- Column 3: Buy Box -->
-    <div class="buy-box">
-        <p class="price">₹{{ product.price }}</p>
-        <p *ngFor="let line of shippingInfoLines"><strong>{{ line }}</strong></p>
-        <div class="qty-row">
-            <label for="quantity">Qty:</label>
-            <input id="quantity" type="number" class="form-control" min="1" [(ngModel)]="selectedQuantity" />
-        </div>
+    <button class="add-to-cart" (click)="addToCart(product)">Add to Cart</button>
+    <button class="buy-now" (click)="buynow(product)">Buy Now</button>
 
-        <button class="add-to-cart" (click)="addToCart(product)">Add to Cart</button>
-        <button class="buy-now" (click)="buynow(product)">Buy Now</button>
-
-        <div class="offers">
-            <p *ngFor="let line of returnPolicyLines">🔁 {{ line }}</p>
-        </div>
+    <div class="offers">
+      <p *ngFor="let line of returnPolicyLines">🔁 {{ line }}</p>
     </div>
+  </div>
 
 
-    <!-- Similar Products -->
-    <div class="same-category-section" *ngIf="similarProducts.length">
-        <h3>More from {{ product.category }}</h3>
-        <div class="same-category-grid">
-            <div class="same-category-card" *ngFor="let item of similarProducts" (click)="loadProduct(item)">
-                <img [src]="item.thumbnail" alt="Product Image" class="same-img">
-                <p class="same-title">{{ item.title }}</p>
-                <p class="same-price">₹{{ item.price }}</p>
-            </div>
-        </div>
+  <!-- Similar Products -->
+  <div class="same-category-section" *ngIf="similarProducts.length">
+    <h3>More from {{ product.category }}</h3>
+    <div class="same-category-grid">
+      <div class="same-category-card" *ngFor="let item of similarProducts" (click)="loadProduct(item)">
+        <img [src]="item.thumbnail" alt="Product Image" class="same-img">
+        <p class="same-title">{{ item.title }}</p>
+        <p class="same-price">₹{{ item.price }}</p>
+      </div>
     </div>
+  </div>
 </div>
-    <!-- Reviews -->
-     <div class="product-details-container">
-    <div class="product-reviews" *ngIf="product.reviews?.length">
-        <h3>Customer Reviews</h3>
-        <div *ngFor="let review of product.reviews" class="review">
-            <p><strong>{{ review.reviewerName }}</strong> ({{ review.rating }}★)</p>
-            <p>{{ review.comment }}</p>
-        </div>
+<!-- Reviews -->
+<div class="product-details-container">
+  <div class="product-reviews" *ngIf="product.reviews?.length">
+    <h3>Customer Reviews</h3>
+    <div *ngFor="let review of product.reviews" class="review">
+      <p><strong>{{ review.reviewerName }}</strong> ({{ review.rating }}★)</p>
+      <p>{{ review.comment }}</p>
     </div>
-    </div>
+  </div>
+</div>

@@ -1,1 +1,33 @@
-<p>sidebar works!</p>
+<div class="sidenav-container">
+  <mat-sidenav-container class="sidenav-container overflow-hidden">
+
+    <mat-sidenav #sidenav mode="side" position="start" [opened]="isSidenavOpen">
+
+      <mat-nav-list class="nav-list overflow-hidden">
+        <div class="amazon-sidebar">
+          <!-- Filter Sections -->
+          <div class="filter-section">
+            <h4>Discount</h4>
+            <label *ngFor="let discount of discountOptions">
+              <input type="checkbox" (change)="toggleDiscount(discount)" />
+              {{ discount }}% or more
+            </label>
+          </div>
+
+          <div class="filter-section">
+            <h4>Price</h4>
+            <label *ngFor="let range of priceOptions; let i = index">
+              <input type="checkbox" (change)="togglePrice(range)" />
+              {{ getPriceLabel(i) }}
+            </label>
+          </div>
+        </div>
+      </mat-nav-list>
+    </mat-sidenav>
+      <mat-sidenav-content>
+    <!-- Main page content -->
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+  </mat-sidenav-container>
+
+</div>

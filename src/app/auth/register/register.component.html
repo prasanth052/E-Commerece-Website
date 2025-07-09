@@ -1,1 +1,156 @@
-<p>register works!</p>
+<div class="body">
+  <div class="container" >
+    <div class="sign-up">
+      <h1 class="heading">Hello, friend!</h1>
+      <form [formGroup]="signupForm">
+        <!-- Username -->
+        <div class="text">
+          <div class="input-row">
+            <img src="https://i.postimg.cc/1zgS8WTF/user.png" alt="icon" height="20">
+            <input type="text" placeholder="Name" formControlName="username">
+          </div>
+          <div class="error-msg" *ngIf="signupVaildbtn && signupForm.get('username')?.invalid">
+            Name is required
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="text">
+          <div class="input-row">
+            <img src="https://i.postimg.cc/DZBPRgvC/email.png" alt="icon" height="12">
+            <input type="email" placeholder="Email" formControlName="email">
+          </div>
+          <div class="error-msg" *ngIf="signupVaildbtn && signupForm.get('email')?.invalid">
+            Valid email is required
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="text">
+          <div class="input-row">
+            <img src="https://i.postimg.cc/Nj5SDK4q/password.png" alt="icon" height="20">
+            <input type="password" placeholder="Password" formControlName="password">
+          </div>
+          <div class="error-msg" *ngIf="signupVaildbtn && signupForm.get('password')?.invalid">
+            Password is required
+          </div>
+        </div>
+
+        <!-- Repeat Password -->
+        <div class="text">
+          <div class="input-row">
+            <img src="https://i.postimg.cc/Nj5SDK4q/password.png" alt="icon" height="20">
+            <input type="password" placeholder="Repeat Password" formControlName="Repassword">
+          </div>
+          <div class="error-msg" *ngIf="signupVaildbtn && signupForm.hasError('mismatch')">
+            Passwords do not match
+          </div>
+        </div>
+
+        <!-- Terms & Checkbox -->
+        <div class="terms ml-4">
+          <input type="checkbox" class="-mt-3" formControlName="checkbox">
+          <p class="conditions ml-2">I read and agree to
+            <a href="javascript:void(0)" (click)="openTerms()">terms & conditions</a>
+          </p>
+        </div>
+        <div class="error-msg" *ngIf="signupVaildbtn && signupForm.get('checkbox')?.invalid">
+          You must agree to terms & conditions
+        </div>
+
+        <div class="action-wrapper signupbtn">
+          <button type="submit" (click)="getSignUp()">CREATE ACCOUNT</button>
+          <p class="conditions mt-2">
+            Already have an account?
+            <a class="cursor-pointer" routerLink="/nav">Sign in</a>
+          </p>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+  <ng-template #termsAndConditions>
+    <div class="terms-wrapper p-2">
+      <!-- <mat-dialog-content> -->
+
+      <div style="align-items: center; padding: 8px 16px;color: black;font-weight: bold;">📝
+        Terms and Conditions
+        <mat-icon style="cursor: pointer;color: black; float: right;" (click)="closeDialog()">close</mat-icon>
+      </div>
+
+      <div class="m-2">
+        <!-- <h2>📝 Terms and Conditions</h2> -->
+        <p class="last-updated mt-2"><strong>Last Updated:</strong> [01-04-2025]</p>
+
+        <p>Welcome to <strong>E-Shop</strong>, your destination for shopping a wide variety of products including
+          dresses, groceries, shoes, slippers, and electronics. By accessing or using our services, you agree to
+          comply with and be bound by the following Terms and Conditions.</p>
+
+        <ol>
+          <li>
+            <h4>General</h4>
+            <p>These Terms apply to all users. We may update them without prior notice. Continued use means you accept
+              changes.</p>
+          </li>
+
+          <li>
+            <h4>Products and Availability</h4>
+            <p>All products are subject to availability. Descriptions and prices may change. We may cancel or confirm
+              orders if discrepancies occur.</p>
+          </li>
+
+          <li>
+            <h4>Orders and Account</h4>
+            <p>You must register to place orders. Keep your credentials secure. We may reject or cancel orders due to
+              fraud or errors.</p>
+          </li>
+
+          <li>
+            <h4>Payment</h4>
+            <p>We accept UPI, cards, net banking, and COD. All online payments are securely encrypted.</p>
+          </li>
+
+          <li>
+            <h4>Shipping and Delivery</h4>
+            <p>We deliver across Tamil Nadu. Delivery time varies by product and location. You’ll receive a shipment
+              notification.</p>
+          </li>
+
+          <li>
+            <h4>Return and Refund Policy</h4>
+            <p>Return requests must be made within 7 days. Some categories (like groceries/electronics) may not be
+              eligible for returns. Refunds are subject to approval.</p>
+          </li>
+
+          <li>
+            <h4>Liability</h4>
+            <p>We are not responsible for indirect loss, or delays caused by external factors like weather or
+              logistics.</p>
+          </li>
+
+          <li>
+            <h4>Privacy</h4>
+            <p>Your data is protected by our Privacy Policy. We use your contact details only for support, order
+              updates, or marketing (with consent).</p>
+          </li>
+
+          <li>
+            <h4>Governing Law</h4>
+            <p>These terms are governed by Indian law under Tamil Nadu jurisdiction.</p>
+          </li>
+
+          <li>
+            <h4>Contact Us</h4>
+            <ul class="contact">
+              <li>📧 Email: ''</li>
+              <li>📞 Phone: +91-XXXXXXXXXX</li>
+              <li>💬 WhatsApp: +91-XXXXXXXXXX</li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+      <!-- </mat-dialog-content> -->
+    </div>
+  </ng-template>
