@@ -36,11 +36,16 @@ export class LayoutComponent implements OnInit {
       });
   }
 
-  updateFlagsFromRoute(route: ActivatedRoute) {
-    console.log(route.snapshot.data);
-    this.hideNavbar = route.snapshot.data['hideNavbar'] ?? false;
-    this.secondnavbar = route.snapshot.data['secondnavbar'] ?? false;
-  }
+adminSidebar = false;
+
+updateFlagsFromRoute(route: ActivatedRoute) {
+  console.log(route.snapshot.data);
+  this.hideNavbar = route.snapshot.data['hideNavbar'] ?? false;
+  this.secondnavbar = route.snapshot.data['secondnavbar'] ?? false;
+
+  const role = route.snapshot.data['userRole'];
+  this.adminSidebar = role === 'admin';
+}
 
   getDeepestChild(route: ActivatedRoute): ActivatedRoute {
     while (route.firstChild) {

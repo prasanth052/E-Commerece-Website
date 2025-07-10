@@ -3,6 +3,8 @@ import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin.component';
 import { StockCheckComponent } from './stock-check/stock-check.component';
+import { ProductManageComponent } from './product-manage/product-manage.component';
+import { ProductaddComponent } from './productadd/productadd.component';
 
 const routes: Routes = [
   {
@@ -10,7 +12,9 @@ const routes: Routes = [
     component: AdminComponent,
     children: [
       { path: '', component: DashboardComponent },
-      { path: 'stockcheck', component: StockCheckComponent },
+      { path: 'stockcheck', component: StockCheckComponent, data: {userRole:'admin',hideNavbar: true ,secondnavbar: true } },
+      { path: 'prodctmanage', component: ProductManageComponent , data: {userRole:'admin',hideNavbar: true ,secondnavbar: true }},
+       { path: 'productadd', component: ProductaddComponent , data: {userRole:'admin',hideNavbar: true ,secondnavbar: true }},
     ],
   },
 ];
@@ -19,4 +23,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AdminRoutingModule {}
+export class AdminRoutingModule { }

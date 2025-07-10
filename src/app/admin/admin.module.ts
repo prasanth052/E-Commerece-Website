@@ -17,6 +17,9 @@ import { FormsModule } from '@angular/forms';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { NgApexchartsModule } from "ng-apexcharts";
 import { StockCheckComponent } from './stock-check/stock-check.component';
+import { ProductaddComponent } from './productadd/productadd.component';
+import { ReactiveFormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [
     AdminComponent,
@@ -24,6 +27,7 @@ import { StockCheckComponent } from './stock-check/stock-check.component';
     OrderManageComponent,
     DashboardComponent,
     StockCheckComponent,
+    ProductaddComponent,
   ],
   imports: [
     CommonModule,
@@ -37,7 +41,8 @@ import { StockCheckComponent } from './stock-check/stock-check.component';
     MatTableModule,
     FormsModule,
     MatDatepickerModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    ReactiveFormsModule
   ],
 })
 export class AdminModule {}

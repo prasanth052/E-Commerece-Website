@@ -1,5 +1,5 @@
 import { SharedService } from './../../shared/services/shared.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -41,6 +41,7 @@ import {
   ],
 })
 export class SidebarComponent implements OnInit {
+    @Input() admin: boolean = false;
   hideNavbar = false;
   secondnavbar = false;
   hidesidebar = true;
@@ -50,11 +51,18 @@ export class SidebarComponent implements OnInit {
     private SharedService: SharedService,
     private sidenavService: SidenavService
   ) {}
+
+
   ngOnInit(): void {
     this.sidenavService.sidenavOpen$.subscribe((isOpen) => {
       this.isSidenavOpen = isOpen;
       console.log('Sidebar is now', isOpen ? 'open' : 'closed');
     });
+  }
+  activeSubmenu: string | null = null;
+
+  toggleSubmenu(menu: string) {
+    this.activeSubmenu = this.activeSubmenu === menu ? null : menu;
   }
   discountOptions = [10, 25, 50, 70];
   selectedDiscounts: number[] = [];

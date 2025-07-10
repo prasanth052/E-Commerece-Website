@@ -1,7 +1,7 @@
 <div class="dashboard-container mat-typography">
 
   <!-- Stats -->
-  <div class="grid-stats">
+  <div class="grid-stats cursor-pointer">
     <mat-card *ngFor="let stat of stats" class="stat-card"  (click)="Stock(stat)">
       <h3>{{ stat.label }}</h3>
       <h1>{{ stat.value }}</h1>

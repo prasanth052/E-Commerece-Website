@@ -1,0 +1,14 @@
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 16px; /* Only horizontal gap */
+  row-gap: 4px;
+}
+
+.full-width {
+  grid-column: span 2;
+}
+
+.half-width {
+  width: 100%;
+}

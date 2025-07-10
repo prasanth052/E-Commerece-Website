@@ -1,7 +1,7 @@
-<div class="sidenav-container" *ngIf="hidesidebar">
+<div class="sidenav-container" *ngIf="admin ==false ">
   <mat-sidenav-container class="sidenav-container overflow-hidden">
-    <mat-sidenav #sidenav mode="side" position="start" [opened]="isSidenavOpen" >
-      <mat-nav-list class="nav-list overflow-hidden" >
+    <mat-sidenav #sidenav mode="side" position="start" [opened]="isSidenavOpen">
+      <mat-nav-list class="nav-list overflow-hidden">
         <div class="amazon-sidebar">
           <!-- Filter Sections -->
           <div class="filter-section">
@@ -23,7 +23,101 @@
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
-      <!-- Main page content -->
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+</div>
+<!-- AdminSidebar-->
+<div class="sidebar" *ngIf="admin == true">
+  <mat-sidenav-container class="Adminsidenav-container">
+    <mat-sidenav #sidenav mode="side" position="start" [opened]="isSidenavOpen">
+      <mat-toolbar color="primary">E-Shop Admin</mat-toolbar>
+      <mat-nav-list>
+
+        <!-- Menu Item -->
+        <div class="menu-item" routerLink="/admin">
+          <mat-icon class="menu-icon">dashboard</mat-icon>
+          <span class="menu-text">Dashboard</span>
+        </div>
+        <div class="menu-item" (click)="toggleSubmenu('ecommerce')">
+          <mat-icon class="menu-icon">shopping_cart</mat-icon>
+          <span class="menu-text">Ecommerce</span>
+          <mat-icon class="arrow-icon">
+            {{ activeSubmenu === 'ecommerce' ? 'expand_less' : 'expand_more' }}
+          </mat-icon>
+        </div>
+        <div *ngIf="activeSubmenu === 'ecommerce'" class="submenu">
+          <a mat-list-item routerLink="/admin/productmanage">All Products</a>
+          <a mat-list-item routerLink="/admin/productadd">Add Product</a>
+        </div>
+
+
+        <!-- Category -->
+        <div class="menu-item" (click)="toggleSubmenu('category')">
+          <mat-icon class="menu-icon">layers</mat-icon>
+          <span class="menu-text">Category</span>
+          <mat-icon class="arrow-icon">
+            {{ activeSubmenu === 'category' ? 'expand_less' : 'expand_more' }}
+          </mat-icon>
+        </div>
+        <div *ngIf="activeSubmenu === 'category'" class="submenu">
+          <a mat-list-item routerLink="/categories">List</a>
+        </div>
+
+        <!-- Attributes -->
+        <div class="menu-item" (click)="toggleSubmenu('attributes')">
+          <mat-icon class="menu-icon">inventory_2</mat-icon>
+          <span class="menu-text">Attributes</span>
+          <mat-icon class="arrow-icon">
+            {{ activeSubmenu === 'attributes' ? 'expand_less' : 'expand_more' }}
+          </mat-icon>
+        </div>
+        <div *ngIf="activeSubmenu === 'attributes'" class="submenu">
+          <a mat-list-item routerLink="/attributes">Manage</a>
+        </div>
+
+        <!-- Order -->
+        <div class="menu-item" (click)="toggleSubmenu('order')">
+          <mat-icon class="menu-icon">add_box</mat-icon>
+          <span class="menu-text">Order</span>
+          <mat-icon class="arrow-icon">
+            {{ activeSubmenu === 'order' ? 'expand_less' : 'expand_more' }}
+          </mat-icon>
+        </div>
+        <div *ngIf="activeSubmenu === 'order'" class="submenu">
+          <a mat-list-item routerLink="/orders">All Orders</a>
+        </div>
+
+        <!-- User -->
+        <div class="menu-item" (click)="toggleSubmenu('user')">
+          <mat-icon class="menu-icon">person</mat-icon>
+          <span class="menu-text">User</span>
+          <mat-icon class="arrow-icon">
+            {{ activeSubmenu === 'user' ? 'expand_less' : 'expand_more' }}
+          </mat-icon>
+        </div>
+        <div *ngIf="activeSubmenu === 'user'" class="submenu">
+          <a mat-list-item routerLink="/users">All Users</a>
+        </div>
+
+        <!-- Roles -->
+        <div class="menu-item" (click)="toggleSubmenu('roles')">
+          <mat-icon class="menu-icon">supervisor_account</mat-icon>
+          <span class="menu-text">Roles</span>
+          <mat-icon class="arrow-icon">
+            {{ activeSubmenu === 'roles' ? 'expand_less' : 'expand_more' }}
+          </mat-icon>
+        </div>
+        <div *ngIf="activeSubmenu === 'roles'" class="submenu">
+          <a mat-list-item routerLink="/roles">All Roles</a>
+        </div>
+
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <!-- Main content -->
+    <mat-sidenav-content>
       <router-outlet></router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>

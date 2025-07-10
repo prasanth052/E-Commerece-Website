@@ -17,10 +17,12 @@ export type ChartOptions = {
   chart: ApexChart;
   stroke: ApexStroke;
   xaxis: ApexXAxis;
+  yaxis: ApexXAxis;
   title: ApexTitleSubtitle;
   fill: ApexFill;
   plotOptions: ApexPlotOptions;
   dataLabels?: ApexDataLabels;
+  grid: ApexGrid;
 };
 
 export type RadialChartOptions = {
@@ -37,12 +39,12 @@ export type RadialChartOptions = {
 })
 export class StockCheckComponent implements OnInit {
 
- public lineChartOptions!: ChartOptions;
+  public lineChartOptions!: ChartOptions;
   public areaChartOptions!: ChartOptions;
   public barChartOptions!: ChartOptions;
   public radialChartOptions!: RadialChartOptions;
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     this.lineChartOptions = {
@@ -52,22 +54,57 @@ export class StockCheckComponent implements OnInit {
       chart: { type: 'line', height: 300 },
       stroke: { curve: 'smooth', width: 2 },
       xaxis: { categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'] },
+            yaxis: {
+        min: 30 // Adds space below the lowest point (which is 40)
+      },
       title: { text: 'Monthly Orders Trend' },
       fill: { type: 'solid', opacity: 1 },
-      plotOptions: {}
+      plotOptions: {},
+      grid: {
+        padding: {
+          top: 20,
+          bottom: 20,
+          left: 20,
+          right: 20
+        }
+      }
     };
 
-    this.areaChartOptions = {
-      series: [
-        { name: 'Sales', data: [40, 60, 80, 90, 70, 100] }
-      ],
-      chart: { type: 'area', height: 300 },
-      stroke: { curve: 'smooth', width: 2 },
-      xaxis: { categories: ['Electronics', 'Fashion', 'Groceries', 'Furniture', 'Toys', 'Beauty'] },
-      title: { text: 'Category-wise Sales' },
-      fill: { type: 'solid', opacity: 0.6 },
-      plotOptions: {}
-    };
+this.areaChartOptions = {
+  series: [{ name: 'Sales', data: [40, 60, 80, 90, 70, 100] }],
+  chart: {
+    type: 'area',
+    height: 300
+  },
+  stroke: {
+    curve: 'smooth',
+    width: 2
+  },
+  xaxis: {
+    categories: ['Electronics', 'Fashion', 'Groceries', 'Furniture', 'Toys', 'Beauty']
+  },
+  yaxis: {
+    min: 20 // Safe, supported way to add space below 40
+  },
+  title: {
+    text: 'Category-wise Sales'
+  },
+  fill: {
+    type: 'solid',
+    opacity: 0.6
+  },
+  plotOptions: {},
+  grid: {
+    padding: {
+      top: 20,
+      bottom: 20,
+      left: 20,
+      right: 20
+    }
+  }
+};
+
+
 
     this.barChartOptions = {
       series: [
@@ -76,10 +113,21 @@ export class StockCheckComponent implements OnInit {
       chart: { type: 'bar', height: 300 },
       stroke: { curve: 'smooth', width: 2 },
       xaxis: { categories: ['Amazon', 'Flipkart', 'Meesho', 'Snapdeal', 'Ajio', 'Myntra'] },
+            yaxis: {
+        min: 30 // Adds space below the lowest point (which is 40)
+      },
       title: { text: 'Revenue by Platform' },
       fill: { type: 'solid', opacity: 1 },
       plotOptions: {
         bar: { horizontal: false, columnWidth: '55%' }
+      },
+      grid: {
+        padding: {
+          top: 20,
+          bottom: 20,
+          left: 20,
+          right: 20
+        }
       }
     };
 
@@ -101,6 +149,7 @@ export class StockCheckComponent implements OnInit {
         }
       },
       fill: { type: 'gradient' },
+
     };
   }
 }

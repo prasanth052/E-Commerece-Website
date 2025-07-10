@@ -9,7 +9,8 @@ import { Sidebar } from 'primeng/sidebar';
 
 const routes: Routes = [
   // ❌ Login and Auth routes (no layout)
-  { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule) },
+  { path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+   },
 
   // ✅ All routes that need navbar/sidebar go under LayoutComponent
   {
@@ -39,7 +40,7 @@ const routes: Routes = [
       {
         path: 'admin',
         loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
-        data: { hideNavbar: true }
+        data: {userRole:'admin',hideNavbar: true ,secondnavbar: true }
       }
     ]
   },
