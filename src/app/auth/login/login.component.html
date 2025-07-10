@@ -17,15 +17,18 @@
                     <img src="https://i.postimg.cc/Nj5SDK4q/password.png" alt="icon" height="20">
                     <input type="password" placeholder="Password" formControlName="password">
                 </div>
-                <div class="error-msg" *ngIf="loginVaildbtn && loginform.get('password')?.invalid">
+                <div class="error-msg" *ngIf="loginVaildbtn && loginform.get('password')?.value==''">
                     Password is required
                 </div>
+                <!-- <div class="error-msg" *ngIf="loginVaildbtn && loginform.get('password')?.value!=''&& loginform.get('password')?.value.length <8">
+                   Minimum 8 Characters needed
+                </div> -->
             </div>
         </form>
 
-        <button type="submit">Login</button>
+        <button type="submit" (click)="login()">Login</button>
         <p class="conditions mt-2">Don’t have an account? Please sign up.. <a class="cursor-pointer"
-                [routerLink]="['/products/filter']">Sign up</a></p>
+                [routerLink]="['/auth/signp']">Sign up</a></p>
 
     </div>
 </div>

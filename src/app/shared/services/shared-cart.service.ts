@@ -1,8 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-@Injectable({ providedIn: 'root' })
-export class CartService {
+@Injectable({
+  providedIn: 'root'
+})
+export class SharedCartService {
+
+  constructor() { }
+
   private cartItems = new BehaviorSubject<any[]>(this.loadCart());
   cartItems$ = this.cartItems.asObservable();
   private cartCountSubject = new BehaviorSubject<number>(this.calculateInitialCount());
@@ -49,3 +54,5 @@ export class CartService {
   }
 
 }
+
+

@@ -1,19 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginPageComponent } from './login-page/login-page.component';
-
-import { NavComponent } from './nav/nav.component';
 
 
-import { ProductsListComponent } from './products-list/products-list.component';
-import { ProductsDetalisComponent } from './products-detalis/products-detalis.component';
-import { DemoComponent } from './demo/demo.component';
-import { CartComponent } from './cart/cart.component';
-import { AddressComponent } from './addres/address.component';
-import { AuthGuard } from './auth.guard';
-import { OrdersComponent } from './orderss/orders.component';
-import { CustomSnackbarComponent } from './custom-snackbar/custom-snackbar.component';
+
 import { LayoutComponent } from './layout/layout.component';
+import { Sidebar } from 'primeng/sidebar';
 
 
 const routes: Routes = [
@@ -32,19 +23,23 @@ const routes: Routes = [
       },
       {
         path: 'newcart',
-        loadChildren: () => import('./cartmodule/cartmodule.module').then(m => m.CartmoduleModule)
+        loadChildren: () => import('./cartmodule/cartmodule.module').then(m => m.CartmoduleModule),
+        data: { secondnavbar: true}
       },
       {
         path: 'orders',
-        loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule)
+        loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule),
+        data: { hideNavbar: true }
       },
       {
         path: 'address',
-        loadChildren: () => import('./address/address.module').then(m => m.AddressModule)
+        loadChildren: () => import('./address/address.module').then(m => m.AddressModule),
+        data: { secondnavbar: true }
       },
       {
         path: 'admin',
-        loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+        loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),
+        data: { hideNavbar: true }
       }
     ]
   },

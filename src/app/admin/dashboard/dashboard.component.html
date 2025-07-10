@@ -1,1 +1,54 @@
-<p>dashboard works!</p>
+<div class="dashboard-container mat-typography">
+
+  <!-- Stats -->
+  <div class="grid-stats">
+    <mat-card *ngFor="let stat of stats" class="stat-card"  (click)="Stock(stat)">
+      <h3>{{ stat.label }}</h3>
+      <h1>{{ stat.value }}</h1>
+    </mat-card>
+  </div>
+  </div>
+<div class="dashboard-grid">
+  <div class="chart-card">
+    <apx-chart [series]="lineChartOptions.series" [chart]="lineChartOptions.chart" [stroke]="lineChartOptions.stroke"
+      [xaxis]="lineChartOptions.xaxis" [title]="lineChartOptions.title" [fill]="lineChartOptions.fill">
+    </apx-chart>
+  </div>
+
+  <div class="chart-card">
+    <apx-chart [series]="areaChartOptions.series" [chart]="areaChartOptions.chart" [stroke]="areaChartOptions.stroke"
+      [xaxis]="areaChartOptions.xaxis" [title]="areaChartOptions.title" [fill]="areaChartOptions.fill">
+    </apx-chart>
+  </div>
+
+  <div class="chart-card">
+    <h3>Total Sales Overview</h3>
+    <apx-chart [series]="radialChartOptions.series" [chart]="radialChartOptions.chart"
+      [labels]="radialChartOptions.labels" [plotOptions]="radialChartOptions.plotOptions"
+      [fill]="radialChartOptions.fill">
+    </apx-chart>
+  </div>
+
+  <div class="chart-card">
+    <h3>Order Status</h3>
+    <apx-chart [series]="donutChartOptions.series" [chart]="donutChartOptions.chart" [labels]="donutChartOptions.labels"
+      [plotOptions]="donutChartOptions.plotOptions" [fill]="donutChartOptions.fill">
+    </apx-chart>
+  </div>
+
+  <div class="chart-card">
+    <h3>Traffic by Time</h3>
+    <apx-chart [series]="heatmapChartOptions.series" [chart]="heatmapChartOptions.chart"
+      [xaxis]="heatmapChartOptions.xaxis" [plotOptions]="heatmapChartOptions.plotOptions"
+      [dataLabels]="heatmapChartOptions.dataLabels">
+    </apx-chart>
+  </div>
+
+  <div class="chart-card">
+    <apx-chart [series]="scatterChartOptions.series" [chart]="scatterChartOptions.chart"
+      [xaxis]="scatterChartOptions.xaxis" [yaxis]="scatterChartOptions.yaxis" [title]="scatterChartOptions.title">
+    </apx-chart>
+  </div>
+
+</div>
+

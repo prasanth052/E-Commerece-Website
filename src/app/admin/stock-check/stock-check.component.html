@@ -1,0 +1,50 @@
+<!-- ecommerce-dashboard.component.html -->
+<div class="dashboard-container">
+  <div class="chart-box">
+    <h2>Monthly Orders Trend</h2>
+    <apx-chart
+      [series]="lineChartOptions.series"
+      [chart]="lineChartOptions.chart"
+      [stroke]="lineChartOptions.stroke"
+      [xaxis]="lineChartOptions.xaxis"
+      [title]="lineChartOptions.title"
+      [fill]="lineChartOptions.fill">
+    </apx-chart>
+  </div>
+
+  <div class="chart-box">
+    <h2>Category-wise Sales</h2>
+    <apx-chart
+      [series]="areaChartOptions.series"
+      [chart]="areaChartOptions.chart"
+      [stroke]="areaChartOptions.stroke"
+      [xaxis]="areaChartOptions.xaxis"
+      [title]="areaChartOptions.title"
+      [fill]="areaChartOptions.fill">
+    </apx-chart>
+  </div>
+
+  <div class="chart-box">
+    <h2>Revenue by Platform</h2>
+    <apx-chart
+      [series]="barChartOptions.series"
+      [chart]="barChartOptions.chart"
+      [stroke]="barChartOptions.stroke"
+      [xaxis]="barChartOptions.xaxis"
+      [title]="barChartOptions.title"
+      [fill]="barChartOptions.fill"
+      [plotOptions]="barChartOptions.plotOptions">
+    </apx-chart>
+  </div>
+
+  <div class="chart-box">
+    <h2>Payment Mode Distribution</h2>
+    <apx-chart
+      [series]="radialChartOptions.series"
+      [chart]="radialChartOptions.chart"
+      [labels]="radialChartOptions.labels"
+      [plotOptions]="radialChartOptions.plotOptions"
+      [fill]="radialChartOptions.fill">
+    </apx-chart>
+  </div>
+</div>

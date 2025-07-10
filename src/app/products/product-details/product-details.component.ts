@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute,  Router } from '@angular/router';
 import { ApiService } from '../../core/api.service';
+import { BehaviorSubject } from 'rxjs';
+import { CustomSnackbarComponent } from '../../shared/custom-snackbar/custom-snackbar.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { CartService } from '../../core/cart.service';
+
 
 @Component({
   selector: 'app-product-details',
@@ -16,7 +21,8 @@ export class ProductDetailsComponent implements OnInit {
   shippingInfoLines = ['Free delivery within 3-5 days', 'Cash on delivery available'];
   returnPolicyLines = ['7-day return policy', 'Refund on damaged product'];
 
-  constructor(private route: ActivatedRoute, private productService: ApiService) {}
+  constructor(private route: ActivatedRoute, private productService: ApiService,
+    private snackBar:MatSnackBar,private cartService:CartService,private router:Router) {}
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -48,10 +54,37 @@ loadSimilarProducts(category: string): void {
 }
 
 
+  private cartItemsSubject = new BehaviorSubject<number>(0);
+  cartItems$ = this.cartItemsSubject.asObservable();
   addToCart(product: any): void {
-    // Your cart logic
-  }
+    const login: boolean = JSON.parse(localStorage.getItem('isLogin') || '[]');
+    if (login) {
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      const existingProduct = cart.find((item: any) => item.id === product.id);
 
+      if (existingProduct) {
+        existingProduct.quantity += 1;
+      } else {
+        cart.push({ ...product, quantity: 1 });
+      }
+      localStorage.setItem('cart', JSON.stringify(cart));
+      this.cartItemsSubject.next(cart.length);
+      this.cartService.triggerUpdate();
+      this.snackBar.openFromComponent(CustomSnackbarComponent, {
+        data: {
+          title: product.title,
+          message: 'added to cart!',
+          type: 'success' // or 'error', 'warning'
+        },
+        duration: 3000,
+        horizontalPosition: 'right',
+        verticalPosition: 'top',
+        panelClass: ['snackbar-panel'] // Optional class
+      });
+    } else {
+      this.router.navigate(['/login']);
+    }
+  }
   buynow(product: any): void {
     // Your buy logic
   }

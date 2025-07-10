@@ -1,8 +1,10 @@
+import { SharedCartService } from './../../shared/services/shared-cart.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { SharedService } from './../../shared/services/shared.service';
 import { Component, OnInit } from '@angular/core';
 import { filter } from 'rxjs';
 import { SidenavService } from '../../shared/sideNav/sidenav.service';
+import { CartService } from '../../core/cart.service';
 
 @Component({
   selector: 'app-navbar',
@@ -17,18 +19,26 @@ export class NavbarComponent implements OnInit {
     private SharedService: SharedService,
     private router: Router,
     private route: ActivatedRoute,
-    private sidenavService: SidenavService
-  ) { }
+    private sidenavService: SidenavService,
+    private cartService: CartService,
+    private SharedCartService: SharedCartService
+  ) {}
   ngOnInit() {
+    this.SharedCartService.setCartCount(
+      this.cartService.calculateInitialCount()
+    );
+    this.cartService.cartCount$.subscribe((count) => {
+      this.cartCount = count;
+    });
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
-        const currentRoute = this.getDeepestRoute(this.route.root);
-        this.hideNavbar = currentRoute.snapshot.data['hideNavbar'] || false;
-        this.secondnavbar = currentRoute.snapshot.data['secondnavbar'] || false;
+        const childRoute = this.getDeepestChild(this.route);
+        this.hideNavbar = childRoute.snapshot.data['hideNavbar'] ?? false;
+        this.secondnavbar = childRoute.snapshot.data['secondnavbar'] || false;
       });
   }
-  private getDeepestRoute(route: ActivatedRoute): ActivatedRoute {
+  private getDeepestChild(route: ActivatedRoute): ActivatedRoute {
     while (route.firstChild) {
       route = route.firstChild;
     }

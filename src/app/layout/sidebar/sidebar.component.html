@@ -1,9 +1,7 @@
-<div class="sidenav-container">
+<div class="sidenav-container" *ngIf="hidesidebar">
   <mat-sidenav-container class="sidenav-container overflow-hidden">
-
-    <mat-sidenav #sidenav mode="side" position="start" [opened]="isSidenavOpen">
-
-      <mat-nav-list class="nav-list overflow-hidden">
+    <mat-sidenav #sidenav mode="side" position="start" [opened]="isSidenavOpen" >
+      <mat-nav-list class="nav-list overflow-hidden" >
         <div class="amazon-sidebar">
           <!-- Filter Sections -->
           <div class="filter-section">
@@ -24,10 +22,10 @@
         </div>
       </mat-nav-list>
     </mat-sidenav>
-      <mat-sidenav-content>
-    <!-- Main page content -->
-    <router-outlet></router-outlet>
-  </mat-sidenav-content>
+    <mat-sidenav-content>
+      <!-- Main page content -->
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
   </mat-sidenav-container>
 
 </div>

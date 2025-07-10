@@ -1,8 +1,8 @@
 <div class="body">
-<ng-container *ngIf="!hideNavbar">
-    <mat-toolbar >
+  <ng-container *ngIf="!hideNavbar">
+    <mat-toolbar>
       <mat-icon class="mr-3 -mt-2 fs-2 animate__flip" (click)="toggleSidenav()">menu</mat-icon>
-      <span class="logo cursor-pointer" routerLink="/">Easy buy</span>
+      <span class="logo cursor-pointer" routerLink="/">Smart Store</span>
 
       <div class="toolbar-center">
         <input type="text" matInput placeholder="Search for a product, category or brand" (input)="searchEvent($event)"
@@ -11,26 +11,23 @@
           SEARCH
         </button>
       </div>
-
       <div class="toolbar-right">
-        <button mat-icon-button routerLink="/newcart" matTooltip="Cart">
-          <mat-icon>shopping_cart</mat-icon>
-          <span class="cart-count" *ngIf="cartCount > 0" [ngClass]="{
+        <mat-icon routerLink="/newcart" matTooltip="Cart">shopping_cart</mat-icon>
+        <span class="cart-count" *ngIf="cartCount > 0" [ngClass]="{
               'count-small': cartCount < 10,
               'count-medium': cartCount >= 10 && cartCount < 100,
               'count-large': cartCount >= 100
             }">
-            {{ cartCount }}
-          </span>
-        </button>
+          {{ cartCount }}
+        </span>
         <span class="top-links">
-          <a routerLink="/side">Signup</a> | <a >Login</a>
+          <a routerLink="/auth/signup">Signup</a> | <a routerLink="/auth">Login</a>
         </span>
       </div>
     </mat-toolbar>
 
 
-    <div class="nav-bar" *ngIf="!secondnavbar" >
+    <div class="nav-bar" *ngIf="!secondnavbar">
       <h5 routerLink="/address">
         <i class="fa-solid fa-location-crosshairs" style="color: #ffffff"></i>
       </h5>

@@ -16,12 +16,26 @@ export class LoginComponent implements OnInit {
     private dialog: MatDialog
   ) {
     this.loginform = this.fb.group({
-      userName: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(8)]],
+      username: ['admin', [Validators.required]],
+      // password: ['admin', [Validators.required, Validators.minLength(8)]],
+      password: ['admin', Validators.required],
     });
   }
   ngOnInit(): void {
     throw new Error('Method not implemented.');
   }
-  loginVaildbtn=false
+  loginVaildbtn = false;
+  login() {
+    this.loginVaildbtn = true;
+    if (this.loginform.invalid) return this.loginform.markAsTouched();
+    let user = this.loginform.get('username')?.value;
+    let password = this.loginform.get('password')?.value;
+    console.log(user,password);
+    
+    if (user == 'admin' && password == 'admin') {
+       this.router.navigate(['/admin'])
+    }else{
+      this.router.navigate(['/products'])
+    }
+  }
 }

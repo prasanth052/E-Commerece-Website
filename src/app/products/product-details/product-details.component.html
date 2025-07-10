@@ -1,10 +1,10 @@
 <div *ngIf="product" class="product-details-container">
-  <!-- Column 1: Image -->
+
   <div class="product-image">
     <img [src]="mainImage || product.thumbnail" class="main-image" alt="Product Image" />
   </div>
 
-  <!-- Column 2: Details -->
+
   <div class="product-info">
     <h1 class="product-title">{{ product.title }}</h1>
     <p class="brand">Brand: <strong>{{ product.brand || 'Generic' }}</strong></p>
@@ -32,7 +32,7 @@
     </ul>
   </div>
 
-  <!-- Column 3: Buy Box -->
+
   <div class="buy-box">
     <p class="price">₹{{ product.price }}</p>
     <p *ngFor="let line of shippingInfoLines"><strong>{{ line }}</strong></p>
@@ -50,7 +50,7 @@
   </div>
 
 
-  <!-- Similar Products -->
+
   <div class="same-category-section" *ngIf="similarProducts.length">
     <h3>More from {{ product.category }}</h3>
     <div class="same-category-grid">
@@ -62,7 +62,7 @@
     </div>
   </div>
 </div>
-<!-- Reviews -->
+
 <div class="product-details-container">
   <div class="product-reviews" *ngIf="product.reviews?.length">
     <h3>Customer Reviews</h3>

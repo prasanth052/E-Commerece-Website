@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SpinnerService } from './spinner.service';
+import { SharedCartService } from './shared-cart.service';
 
-describe('SpinnerService', () => {
-  let service: SpinnerService;
+describe('SharedCartService', () => {
+  let service: SharedCartService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(SpinnerService);
+    service = TestBed.inject(SharedCartService);
   });
 
   it('should be created', () => {

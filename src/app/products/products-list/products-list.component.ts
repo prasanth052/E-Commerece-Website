@@ -14,9 +14,11 @@ import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { CartService } from '../../service/cart.service';
+
 import { ApiService } from '../../core/api.service';
-import { CustomSnackbarComponent } from '../../custom-snackbar/custom-snackbar.component';
+import { CartService } from '../../core/cart.service';
+import { CustomSnackbarComponent } from '../../shared/custom-snackbar/custom-snackbar.component';
+
 // import { CustomSnackbarComponent } from '../custom-snackbar/custom-snackbar.component';
 @Component({
   selector: 'app-products-list',
@@ -89,11 +91,9 @@ export class ProductsListComponent
       } else {
         cart.push({ ...product, quantity: 1 });
       }
-
       localStorage.setItem('cart', JSON.stringify(cart));
       this.cartItemsSubject.next(cart.length);
       this.cartService.triggerUpdate();
-      alert(`${product.title} has been added to your cart!`);
       this.snackBar.openFromComponent(CustomSnackbarComponent, {
         data: {
           title: product.title,

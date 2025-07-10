@@ -6,18 +6,38 @@ import { AdminComponent } from './admin.component';
 import { ProductManageComponent } from './product-manage/product-manage.component';
 import { OrderManageComponent } from './order-manage/order-manage.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-
-
+import { MatTableModule } from '@angular/material/table';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { FormsModule } from '@angular/forms';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { NgApexchartsModule } from "ng-apexcharts";
+import { StockCheckComponent } from './stock-check/stock-check.component';
 @NgModule({
   declarations: [
     AdminComponent,
     ProductManageComponent,
     OrderManageComponent,
-    DashboardComponent
+    DashboardComponent,
+    StockCheckComponent,
   ],
   imports: [
     CommonModule,
-    AdminRoutingModule
-  ]
+    MatFormFieldModule,
+    MatIconModule,
+    AdminRoutingModule,
+    MatInputModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatSelectModule,
+    MatTableModule,
+    FormsModule,
+    MatDatepickerModule,
+    NgApexchartsModule
+  ],
 })
-export class AdminModule { }
+export class AdminModule {}
