@@ -14,11 +14,28 @@ mat-label{
 }
 
 
-/* Apply height ONLY when textarea is NOT inside the wrapper */
+.mat-mdc-floating-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  transform: translateY(-8px) scale(0.9); /* Slight lift */
+   margin-top: -30px !important;
+   margin-bottom: 3.5px !important;
+}
+
+
+/* Tweak spacing for input-only (not textarea) fields */
 .mat-mdc-text-field-wrapper:not(:has(textarea)) {
-  height: 43px !important;
+  height: 50px !important;
+  // border-radius: 55px;
 }
 
 .mat-mdc-form-field-flex:not(:has(textarea)) {
   margin-top: -6px !important;
+}
+
+/* Extra label spacing for better separation */
+label.mat-label {
+  // margin-bottom: 0.25rem;
+  display: inline-block;
 }

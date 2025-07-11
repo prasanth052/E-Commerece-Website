@@ -19,7 +19,12 @@ import { NgApexchartsModule } from "ng-apexcharts";
 import { StockCheckComponent } from './stock-check/stock-check.component';
 import { ProductaddComponent } from './productadd/productadd.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatRadioModule} from '@angular/material/radio';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatButtonModule } from '@angular/material/button';
+import {MatAccordion, MatExpansionModule} from '@angular/material/expansion';
+import {MatDividerModule} from '@angular/material/divider';
 @NgModule({
   declarations: [
     AdminComponent,
@@ -42,7 +47,12 @@ import { ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     MatDatepickerModule,
     NgApexchartsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatStepperModule,
+    MatButtonModule,MatAccordion,MatExpansionModule,
+    MatDividerModule,
   ],
 })
 export class AdminModule {}

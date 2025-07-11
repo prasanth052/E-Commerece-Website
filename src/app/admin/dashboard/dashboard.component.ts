@@ -1,24 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  ApexAxisChartSeries,
-  ApexNonAxisChartSeries,
-  ApexChart,
-  ApexXAxis,
-  ApexYAxis,
-  ApexStroke,
-  ApexTitleSubtitle,
-  ApexFill,
-  ApexPlotOptions,
-  ApexDataLabels,
-} from 'ng-apexcharts';
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit ,AfterViewInit {
   // Main chart options
   public lineChartOptions!: any;
   public areaChartOptions!: any;
@@ -37,6 +24,11 @@ export class DashboardComponent implements OnInit {
     { label: 'Returns', value: 12 }
   ];
   constructor(private router:Router){}
+  ngAfterViewInit(): void {
+    throw new Error('Method not implemented.');
+  }
+
+
   ngOnInit(): void {
     
     this.lineChartOptions = {

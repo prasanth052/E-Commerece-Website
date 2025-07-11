@@ -1,51 +1,462 @@
-<div class="col-6">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-subtitle>Add Product</mat-card-subtitle>
-    </mat-card-header>
+<!-- <mat-card>
+  <mat-card-title>Add New Product</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="mainForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+      <mat-horizontal-stepper linear #stepper>
 
-    <mat-card-content>
-      <form [formGroup]="form">
-        <div class="form-grid">
+        <mat-step [stepControl]="basicForm">
+          <form [formGroup]="basicForm">
+            <ng-template matStepLabel>Basic Details</ng-template>
+            <div class="form-grid">
+              <mat-form-field appearance="outline"><mat-label>Product Name</mat-label><input matInput placeholder="Product Name" formControlName="productName"
+                  required><mat-error
+                  *ngIf="basicForm.get('productName')?.invalid">Required</mat-error></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>SKU</mat-label><input matInput placeholder="SKU" formControlName="sku"
+                  required><mat-error *ngIf="basicForm.get('sku')?.invalid">Required</mat-error></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Brand</mat-label><input matInput placeholder="Brand" formControlName="brand"
+                  required><mat-error *ngIf="basicForm.get('brand')?.invalid">Required</mat-error></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Category</mat-label><input matInput placeholder="Category" formControlName="category"
+                  required><mat-error *ngIf="basicForm.get('category')?.invalid">Required</mat-error></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Subcategory</mat-label><input matInput placeholder="Subcategory"
+                  formControlName="subcategory"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Tags</mat-label><input matInput placeholder="Tags"
+                  formControlName="tags"></mat-form-field>
+            </div>
+            <div>
+              <button mat-button matStepperNext [disabled]="basicForm.invalid">Next</button>
+            </div>
+          </form>
+        </mat-step>
 
-          <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Product Name</mat-label>
-            <input type="text" matInput formControlName="PrdName">
-          </mat-form-field>
 
-          <mat-form-field appearance="fill" class="half-width">
-            <mat-label>Product Type</mat-label>
-            <mat-select formControlName="PrdType">
-              <mat-option value="Clothes">Clothes</mat-option>
-              <mat-option value="Electronics">Type 2</mat-option>
-            </mat-select>
-          </mat-form-field>
+        <mat-step [stepControl]="pricingForm">
+          <form [formGroup]="pricingForm">
+            <ng-template matStepLabel>Pricing & Inventory</ng-template>
+            <div class="form-grid">
+              <mat-form-field appearance="outline"><mat-label>MRP</mat-label><input matInput type="number" placeholder="MRP" formControlName="mrp"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Selling Price</mat-label><input matInput type="number" placeholder="Selling Price"
+                  formControlName="sellingPrice"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Discount %</mat-label><input matInput type="number" placeholder="Discount %"
+                  formControlName="discount"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Currency</mat-label><input matInput placeholder="Currency" formControlName="currency"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Stock</mat-label><input matInput type="number" placeholder="Stock"
+                  formControlName="stock"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Low Stock Alert</mat-label><input matInput type="number" placeholder="Low Stock Alert"
+                  formControlName="lowStockAlert"></mat-form-field>
+            </div>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
 
-          <mat-form-field appearance="fill" class="half-width">
-            <mat-label>Brand</mat-label>
-            <mat-select formControlName="PrdBrand">
-              <mat-option value="brand1">Brand 1</mat-option>
-              <mat-option value="brand2">Brand 2</mat-option>
-            </mat-select>
-          </mat-form-field>
+        <mat-step [stepControl]="detailsForm">
+          <form [formGroup]="detailsForm">
+            <ng-template matStepLabel>Shipping & Other Details</ng-template>
 
-          <mat-form-field appearance="fill" class="half-width" *ngIf="form.get('PrdType')?.value=='Clothes'">
-            <mat-label>Gender</mat-label>
-            <mat-select formControlName="PrdGender">
-              <mat-option value="Male">Male</mat-option>
-              <mat-option value="Female">Female</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-form-field class="full-width">
-            <mat-label>Descripation</mat-label>
-            <textarea matInput formControlName="PrdDesc"></textarea>
-          </mat-form-field>
+            <h4>Shipping & Dimensions</h4>
+            <div class="form-grid">
+              <mat-form-field appearance="outline"><mat-label>Weight (kg)</mat-label><input matInput placeholder="Weight (kg)" type="number"
+                  formControlName="weight"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Length (cm)</mat-label><input matInput placeholder="Length (cm)" type="number"
+                  formControlName="length"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Width (cm)</mat-label><input matInput placeholder="Width (cm)" type="number"
+                  formControlName="width"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Height (cm)</mat-label><input matInput placeholder="Height (cm)" type="number"
+                  formControlName="height"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Shipping Charges</mat-label><input matInput placeholder="Shipping Charges" type="number"
+                  formControlName="shippingCharges"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Return Window (days)</mat-label><input matInput placeholder="Return Window (days)" type="number"
+                  formControlName="returnWindow"></mat-form-field>
+              <mat-checkbox formControlName="freeShipping">Free Shipping</mat-checkbox>
+              <mat-checkbox formControlName="returnable">Returnable</mat-checkbox>
+            </div>
+
+            <h4>Description</h4>
+            <div class="form-grid">
+              <mat-form-field appearance="outline">
+                <textarea matInput placeholder="Short Description" formControlName="shortDescription"></textarea>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <textarea matInput placeholder="Full Description" formControlName="fullDescription"></textarea>
+              </mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Warranty Details</mat-label><input matInput placeholder="Warranty Details"
+                  formControlName="warranty"></mat-form-field>
+            </div>
+
+
+            <h4>Product Variants</h4>
+            <div class="form-grid">
+              <mat-form-field appearance="outline"><mat-label>Color</mat-label><input matInput placeholder="Color" formControlName="color"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Size</mat-label><input matInput placeholder="Size" formControlName="size"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Material Type</mat-label><input matInput placeholder="Material Type"
+                  formControlName="materialType"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label></mat-label><input matInput placeholder="Style/Model Number" formControlName="style"></mat-form-field>
+            </div>
+
+            <h4>SEO Metadata</h4>
+            <div class="form-grid">
+              <mat-form-field appearance="outline"><mat-label>Meta Title</mat-label><input matInput placeholder="Meta Title" formControlName="metaTitle"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Meta Description</mat-label><input matInput placeholder="Meta Description"
+                  formControlName="metaDescription"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Slug (URL)</mat-label><input matInput placeholder="Slug (URL)" formControlName="slug"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Search Keywords</mat-label><input matInput placeholder="Search Keywords"
+                  formControlName="searchKeywords"></mat-form-field>
+            </div>
+
+            <h4>Filters & Attributes</h4>
+            <div class="form-grid">
+              <mat-form-field appearance="outline"><mat-label>Gender</mat-label><input matInput placeholder="Gender" formControlName="gender"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Age Group</mat-label><input matInput placeholder="Age Group" formControlName="ageGroup"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Brand Filter</mat-label><input matInput placeholder="Brand Filter" formControlName="brandFilter"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Material</mat-label><input matInput placeholder="Material" formControlName="material"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Occasion</mat-label><input matInput placeholder="Occasion" formControlName="occasion"></mat-form-field>
+            </div>
+
+      
+            <h4>Status & Controls</h4>
+            <div class="form-grid">
+              <mat-form-field appearance="outline">
+                <mat-label>Product Status</mat-label>
+                <mat-select formControlName="productStatus">
+                  <mat-option value="Active">Active</mat-option>
+                  <mat-option value="Inactive">Inactive</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Vendor Name</mat-label><input matInput placeholder="Vendor Name" formControlName="vendor"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Visibility (Public/Private)</mat-label><input matInput placeholder="Visibility (Public/Private)"
+                  formControlName="visibility"></mat-form-field>
+              <mat-checkbox formControlName="featured">Featured Product</mat-checkbox>
+              <mat-checkbox formControlName="bestSeller">Best Seller</mat-checkbox>
+            </div>
+
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext [disabled]="detailsForm.invalid">Next</button>
+            </div>
+          </form>
+        </mat-step>
+
+
+        <mat-step [stepControl]="imageForm">
+          <form [formGroup]="imageForm">
+            <ng-template matStepLabel>Upload Images</ng-template>
+            <input type="file" multiple >
+            <div class="image-preview">
+              <img *ngFor="let img of imagePreviews" [src]="img" />
+            </div>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button type="submit" color="primary">Submit</button>
+            </div>
+          </form>
+        </mat-step>
+
+      </mat-horizontal-stepper>
+    </form>
+  </mat-card-content>
+</mat-card> -->
+
+<!-- <mat-card>
+  <mat-card-title>Add New Product</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="mainForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+      <mat-horizontal-stepper linear #stepper>
+
+        <mat-step [stepControl]="basicForm">
+          <form [formGroup]="basicForm">
+            <ng-template matStepLabel>Basic Details</ng-template>
+            <div class="form-grid">
+              <mat-form-field appearance="outline"><mat-label>Product Name</mat-label><input matInput placeholder="Product Name" formControlName="productName"
+                  required><mat-error
+                  *ngIf="basicForm.get('productName')?.invalid">Required</mat-error></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>SKU</mat-label><input matInput placeholder="SKU" formControlName="sku"
+                  required><mat-error *ngIf="basicForm.get('sku')?.invalid">Required</mat-error></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Brand</mat-label><input matInput placeholder="Brand" formControlName="brand"
+                  required><mat-error *ngIf="basicForm.get('brand')?.invalid">Required</mat-error></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Category</mat-label><input matInput placeholder="Category" formControlName="category"
+                  required><mat-error *ngIf="basicForm.get('category')?.invalid">Required</mat-error></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Subcategory</mat-label><input matInput placeholder="Subcategory"
+                  formControlName="subcategory"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Tags</mat-label><input matInput placeholder="Tags"
+                  formControlName="tags"></mat-form-field>
+            </div>
+            <div>
+              <button mat-button matStepperNext [disabled]="basicForm.invalid">Next</button>
+            </div>
+          </form>
+        </mat-step>
+
+
+        <mat-step [stepControl]="pricingForm">
+          <form [formGroup]="pricingForm">
+            <ng-template matStepLabel>Pricing & Inventory</ng-template>
+            <div class="form-grid">
+              <mat-form-field appearance="outline"><mat-label>MRP</mat-label><input matInput type="number" placeholder="MRP" formControlName="mrp"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Selling Price</mat-label><input matInput type="number" placeholder="Selling Price"
+                  formControlName="sellingPrice"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Discount %</mat-label><input matInput type="number" placeholder="Discount %"
+                  formControlName="discount"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Currency</mat-label><input matInput placeholder="Currency" formControlName="currency"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Stock</mat-label><input matInput type="number" placeholder="Stock"
+                  formControlName="stock"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Low Stock Alert</mat-label><input matInput type="number" placeholder="Low Stock Alert"
+                  formControlName="lowStockAlert"></mat-form-field>
+            </div>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step [stepControl]="detailsForm">
+          <form [formGroup]="detailsForm">
+            <ng-template matStepLabel>Shipping & Other Details</ng-template>
+
+            <h4>Shipping & Dimensions</h4>
+            <div class="form-grid">
+              <mat-form-field appearance="outline"><mat-label>Weight (kg)</mat-label><input matInput placeholder="Weight (kg)" type="number"
+                  formControlName="weight"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Length (cm)</mat-label><input matInput placeholder="Length (cm)" type="number"
+                  formControlName="length"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Width (cm)</mat-label><input matInput placeholder="Width (cm)" type="number"
+                  formControlName="width"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Height (cm)</mat-label><input matInput placeholder="Height (cm)" type="number"
+                  formControlName="height"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Shipping Charges</mat-label><input matInput placeholder="Shipping Charges" type="number"
+                  formControlName="shippingCharges"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Return Window (days)</mat-label><input matInput placeholder="Return Window (days)" type="number"
+                  formControlName="returnWindow"></mat-form-field>
+              <mat-checkbox formControlName="freeShipping">Free Shipping</mat-checkbox>
+              <mat-checkbox formControlName="returnable">Returnable</mat-checkbox>
+            </div>
+
+            <h4>Description</h4>
+            <div class="form-grid">
+              <mat-form-field appearance="outline">
+                <textarea matInput placeholder="Short Description" formControlName="shortDescription"></textarea>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <textarea matInput placeholder="Full Description" formControlName="fullDescription"></textarea>
+              </mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Warranty Details</mat-label><input matInput placeholder="Warranty Details"
+                  formControlName="warranty"></mat-form-field>
+            </div>
+
+
+            <h4>Product Variants</h4>
+            <div class="form-grid">
+              <mat-form-field appearance="outline"><mat-label>Color</mat-label><input matInput placeholder="Color" formControlName="color"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Size</mat-label><input matInput placeholder="Size" formControlName="size"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Material Type</mat-label><input matInput placeholder="Material Type"
+                  formControlName="materialType"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label></mat-label><input matInput placeholder="Style/Model Number" formControlName="style"></mat-form-field>
+            </div>
+
+            <h4>SEO Metadata</h4>
+            <div class="form-grid">
+              <mat-form-field appearance="outline"><mat-label>Meta Title</mat-label><input matInput placeholder="Meta Title" formControlName="metaTitle"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Meta Description</mat-label><input matInput placeholder="Meta Description"
+                  formControlName="metaDescription"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Slug (URL)</mat-label><input matInput placeholder="Slug (URL)" formControlName="slug"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Search Keywords</mat-label><input matInput placeholder="Search Keywords"
+                  formControlName="searchKeywords"></mat-form-field>
+            </div>
+
+            <h4>Filters & Attributes</h4>
+            <div class="form-grid">
+              <mat-form-field appearance="outline"><mat-label>Gender</mat-label><input matInput placeholder="Gender" formControlName="gender"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Age Group</mat-label><input matInput placeholder="Age Group" formControlName="ageGroup"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Brand Filter</mat-label><input matInput placeholder="Brand Filter" formControlName="brandFilter"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Material</mat-label><input matInput placeholder="Material" formControlName="material"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Occasion</mat-label><input matInput placeholder="Occasion" formControlName="occasion"></mat-form-field>
+            </div>
+
+      
+            <h4>Status & Controls</h4>
+            <div class="form-grid">
+              <mat-form-field appearance="outline">
+                <mat-label>Product Status</mat-label>
+                <mat-select formControlName="productStatus">
+                  <mat-option value="Active">Active</mat-option>
+                  <mat-option value="Inactive">Inactive</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Vendor Name</mat-label><input matInput placeholder="Vendor Name" formControlName="vendor"></mat-form-field>
+              <mat-form-field appearance="outline"><mat-label>Visibility (Public/Private)</mat-label><input matInput placeholder="Visibility (Public/Private)"
+                  formControlName="visibility"></mat-form-field>
+              <mat-checkbox formControlName="featured">Featured Product</mat-checkbox>
+              <mat-checkbox formControlName="bestSeller">Best Seller</mat-checkbox>
+            </div>
+
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext [disabled]="detailsForm.invalid">Next</button>
+            </div>
+          </form>
+        </mat-step>
+
+
+        <mat-step [stepControl]="imageForm">
+          <form [formGroup]="imageForm">
+            <ng-template matStepLabel>Upload Images</ng-template>
+            <input type="file" multiple (change)="onFileSelected($event)">
+            <div class="image-preview">
+              <img *ngFor="let img of imagePreviews" [src]="img" />
+            </div>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button type="submit" color="primary">Submit</button>
+            </div>
+          </form>
+        </mat-step>
+
+      </mat-horizontal-stepper>
+    </form>
+  </mat-card-content>
+</mat-card> -->
+
+<mat-card class="m-3">
+  <mat-card-header>
+    <mat-card-title>Create New Product</mat-card-title>
+    <mat-card-subtitle>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Product</li>
+        </ol>
+      </nav>
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <div class="body p-4">
+    <div class="container">
+      <form [formGroup]="mainForm" (ngSubmit)="onSubmit()">
+        <mat-accordion multi>
+
+          <!-- Basic Details -->
+          <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>Basic Details</mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div class="grid mt-2" [formGroup]="basic">
+              <mat-form-field appearance="outline">
+                <mat-label>Product Name</mat-label>
+                <input matInput formControlName="productName" />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>SKU</mat-label>
+                <input matInput formControlName="sku" />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Brand</mat-label>
+                <input matInput formControlName="brand" />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Category</mat-label>
+                <mat-select formControlName="category" (selectionChange)="onCategoryChange($event.value)">
+                  <mat-option *ngFor="let cat of categoryList" [value]="cat">{{ cat }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Subcategory</mat-label>
+                <input matInput formControlName="subcategory" />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Tags</mat-label>
+                <input matInput formControlName="tags" />
+              </mat-form-field>
+            </div>
+          </mat-expansion-panel>
+
+          <!-- Pricing -->
+          <mat-expansion-panel [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title>Pricing</mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div class="grid mt-2" [formGroup]="pricing">
+              <mat-form-field appearance="outline">
+                <mat-label>MRP</mat-label>
+                <input matInput type="number" formControlName="mrp" />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Selling Price</mat-label>
+                <input matInput type="number" formControlName="sellingPrice" />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Discount %</mat-label>
+                <input matInput type="number" formControlName="discount" />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Currency</mat-label>
+                <input matInput formControlName="currency" />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Stock</mat-label>
+                <input matInput type="number" formControlName="stock" />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Low Stock Alert</mat-label>
+                <input matInput type="number" formControlName="lowStockAlert" />
+              </mat-form-field>
+              <div class="four">
+                <mat-form-field appearance="outline">
+                  <mat-label>Shipping Charges</mat-label>
+                  <input matInput type="number" formControlName="shippingCharges" />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                  <mat-label>Return Window (days)</mat-label>
+                  <input matInput type="number" formControlName="returnWindow" />
+                </mat-form-field>
+                <mat-checkbox formControlName="freeShipping" class="inline-checkbox">Free Shipping</mat-checkbox>
+                <mat-checkbox formControlName="returnable" class="inline-checkbox">Returnable</mat-checkbox>
+              </div>
+            </div>
+          </mat-expansion-panel>
+
+          <!-- Specifications -->
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>Specifications</mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div class="grid mt-2" [formGroup]="specifications">
+              <div *ngFor="let spec of specFields">
+                <mat-form-field appearance="outline" *ngIf="spec.label !='Slot'">
+                  <mat-label>{{ spec.label }}</mat-label>
+                  <input matInput [formControlName]="spec.controlName" />
+                </mat-form-field>
+                <mat-form-field appearance="outline" *ngIf="spec.label =='Slot'">
+                  <mat-label>{{ spec.label }}</mat-label>
+                  <textarea matInput [formControlName]="spec.controlName" ></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+
+        <!-- Submit -->
+        <div class="actions mt-4 text-end float-end">
+          <button mat-raised-button color="primary" type="submit">
+            Create Product
+          </button>
         </div>
       </form>
-    </mat-card-content>
-
-    <mat-card-actions align="start">
-      <button mat-raised-button color="primary">Save</button>
-    </mat-card-actions>
-  </mat-card>
-</div>
+    </div>
+  </div>
+</mat-card>
