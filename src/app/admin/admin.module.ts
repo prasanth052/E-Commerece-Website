@@ -25,6 +25,10 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 import {MatAccordion, MatExpansionModule} from '@angular/material/expansion';
 import {MatDividerModule} from '@angular/material/divider';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { CategoryListComponent } from './category-list/category-list.component';
+
+
 @NgModule({
   declarations: [
     AdminComponent,
@@ -33,6 +37,7 @@ import {MatDividerModule} from '@angular/material/divider';
     DashboardComponent,
     StockCheckComponent,
     ProductaddComponent,
+    CategoryListComponent,
   ],
   imports: [
     CommonModule,
@@ -52,7 +57,7 @@ import {MatDividerModule} from '@angular/material/divider';
     MatRadioModule,
     MatStepperModule,
     MatButtonModule,MatAccordion,MatExpansionModule,
-    MatDividerModule,
+    MatDividerModule,MatToolbarModule
   ],
 })
 export class AdminModule {}
