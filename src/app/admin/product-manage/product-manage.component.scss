@@ -1,0 +1,40 @@
+.example-container {
+  height: 400px;
+  overflow: auto;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  row-gap: 0px;
+  column-gap: 18px;
+  // margin-bottom: 4px;
+}
+
+table {
+  width: 100%;
+  th{
+    background-color: rgb(221, 221, 221);
+      border: 1px solid silver;
+  }
+  td{
+    border: 1px solid silver;
+  }
+
+}
+mat-card{
+  height: 100%;
+}
+
+
+mat-form-field {
+  width: 100%;
+  color: seashell;
+  border: #ffffff;
+  opacity: .8;
+  border-radius: 25px !important;
+}
+
+mat-label {
+  color: black;
+  opacity: .5;
+}
