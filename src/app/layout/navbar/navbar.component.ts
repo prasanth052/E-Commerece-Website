@@ -1,7 +1,7 @@
 import { SharedCartService } from './../../shared/services/shared-cart.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { SharedService } from './../../shared/services/shared.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { filter } from 'rxjs';
 import { SidenavService } from '../../shared/sideNav/sidenav.service';
 import { CartService } from '../../core/cart.service';
@@ -12,6 +12,8 @@ import { CartService } from '../../core/cart.service';
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent implements OnInit {
+     @Input() admin: boolean = false;
+
   hideNavbar = false;
   secondnavbar = false;
   cartCount = 0;
@@ -56,4 +58,5 @@ export class NavbarComponent implements OnInit {
   toggleSidenav() {
     this.sidenavService.toggle();
   }
+  
 }

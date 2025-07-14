@@ -7,6 +7,9 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { NavbarComponent } from './navbar/navbar.component';
 
 // Imports
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
@@ -21,7 +24,7 @@ import { RouterModule } from '@angular/router';
     NavbarComponent
   ],
   imports: [
-    CommonModule,
+    CommonModule,MatMenuModule,MatButtonModule,
     LayoutRoutingModule,RouterModule,ReactiveFormsModule,
     MatToolbarModule,MatSidenavModule,MatIconModule, MatListModule,
   ]

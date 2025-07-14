@@ -26,6 +26,9 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatAccordion, MatExpansionModule} from '@angular/material/expansion';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { CategoryListComponent } from './category-list/category-list.component';
+
 
 @NgModule({
   declarations: [
@@ -35,6 +38,7 @@ import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
     DashboardComponent,
     StockCheckComponent,
     ProductaddComponent,
+    CategoryListComponent,
   ],
   imports: [
     CommonModule,
@@ -54,7 +58,9 @@ import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
     MatRadioModule,
     MatStepperModule,
     MatButtonModule,MatAccordion,MatExpansionModule,
-    MatDividerModule,MatPaginator,MatPaginatorModule
+    MatDividerModule,MatPaginator,MatPaginatorModule,
+    MatDividerModule,MatToolbarModule
+
   ],
 })
 export class AdminModule {}

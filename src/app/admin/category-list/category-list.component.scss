@@ -1,0 +1,37 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+.filter-bar, .column-toggle {
+  margin: 10px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+    ::ng-deep .mat-button-toggle {
+    padding: 1px;
+  }
+}
+.column-toggle-panel {
+  max-width: 300px;
+  margin: 10px 0;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  row-gap: 10px;
+  column-gap: 18px;
+  // margin-bottom: 4px;
+}
+::ng-deep .filter-bar .mat-button-toggle-checked[value="instock"] {
+  background-color: #4caf50; /* green */
+}
+::ng-deep .filter-bar .mat-button-toggle-checked[value="outstock"] {
+  background-color: #f44336; /* red */
+}
+::ng-deep .filter-bar .mat-button-toggle-checked[value="lowstock"] {
+  background-color: #ff9800; /* orange */
+}
+
+::ng-deep .form-grid .mat-form-field-checked[value="Price"] {
+  background-color: #ff9800; /* orange */
+}

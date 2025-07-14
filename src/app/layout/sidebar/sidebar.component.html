@@ -30,9 +30,8 @@
 </div>
 <!-- AdminSidebar-->
 <div class="sidebar" *ngIf="admin == true">
-  <mat-sidenav-container class="Adminsidenav-container">
+  <mat-sidenav-container class="sidenav-container overflow-hidden" style="height: 93vh;">
     <mat-sidenav #sidenav mode="side" position="start" [opened]="isSidenavOpen">
-      <mat-toolbar color="primary">E-Shop Admin</mat-toolbar>
       <mat-nav-list>
 
         <!-- Menu Item -->
@@ -62,7 +61,7 @@
           </mat-icon>
         </div>
         <div *ngIf="activeSubmenu === 'category'" class="submenu">
-          <a mat-list-item routerLink="/categories">List</a>
+          <a mat-list-item routerLink="/admin/Catglist">List</a>
         </div>
 
         <!-- Attributes -->
