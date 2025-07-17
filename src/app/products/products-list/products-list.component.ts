@@ -11,7 +11,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, retry } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -65,14 +65,12 @@ export class ProductsListComponent
   getProducts() {
     this.apiService.getAllproducts().subscribe({
       next: (res: any) => {
-        this.Products = res.products;
+        this.Products = res;
+        console.log(this.Products);
+
         this.totalProducts = this.Products.length;
         this.displayedProducts = [...this.Products];
         this.SharedService.setProducts(this.displayedProducts);
-        // this.service.filteredProducts$.subscribe((products) => {
-        //   this.displayedProducts = products;
-        //   this.revealProducts();
-        // });
       },
     });
     console.log(this.displayedProducts);
