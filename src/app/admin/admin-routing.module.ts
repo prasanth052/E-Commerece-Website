@@ -6,6 +6,7 @@ import { StockCheckComponent } from './stock-check/stock-check.component';
 import { ProductManageComponent } from './product-manage/product-manage.component';
 import { ProductaddComponent } from './productadd/productadd.component';
 import { CategoryListComponent } from './category-list/category-list.component';
+import { OrderManageComponent } from './order-manage/order-manage.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,7 @@ const routes: Routes = [
       { path: 'prodctmanage', component: ProductManageComponent , data: {userRole:'admin',hideNavbar: true ,secondnavbar: true }},
        { path: 'productadd', component: ProductaddComponent , data: {userRole:'admin',hideNavbar: true ,secondnavbar: true }},
        { path: 'Catglist', component: CategoryListComponent , data: {userRole:'admin',hideNavbar: true ,secondnavbar: true }},
+       { path: 'adminordermanage', component: OrderManageComponent , data: {userRole:'admin',hideNavbar: true ,secondnavbar: true }},
     ],
   },
 ];

@@ -38,3 +38,15 @@ mat-label {
   color: black;
   opacity: .5;
 }
+::ng-deep .filter-bar .mat-button-toggle-checked[value="instock"] {
+  background-color: #4caf50 !important; /* green */
+  color: white;
+}
+::ng-deep .filter-bar .mat-button-toggle-checked[value="outofstock"] {
+  background-color: #f44336 !important; /* red */
+  color: white;
+}
+::ng-deep .filter-bar .mat-button-toggle-checked[value="lowstock"] {
+  background-color: #ff9800 !important; /* orange */
+  color: white;
+}

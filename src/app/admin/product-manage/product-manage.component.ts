@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, signal, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -7,22 +7,25 @@ import { MatTableDataSource } from '@angular/material/table';
   templateUrl: './product-manage.component.html',
   styleUrls: ['./product-manage.component.scss']
 })
-export class ProductManageComponent implements OnInit ,AfterViewInit{
+export class ProductManageComponent implements OnInit, AfterViewInit {
   displayedColumns = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource<any>();
   originalData: any[] = [];
   selectedStock: string[] = [];
   selectedItemDeliver: string[] = [];
+  ordersFilter = 'all';
   Stock = [
+    { label: 'All', key: 'all' },
     { label: 'In Stock', key: 'instock' },
+    { label: 'Out Of Stock', key: 'outofstock' },
     { label: 'Low Stock', key: 'lowstock' },
-    { label: 'Out of Stock', key: 'outofstock' },
   ];
+
   ProductDeliver = [
     { label: 'Publish', key: 'Publish' },
     { label: 'Draft', key: 'draft' }
   ]
-    @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -50,25 +53,43 @@ export class ProductManageComponent implements OnInit ,AfterViewInit{
       );
     }
   }
+applyAllFilters(searchText: string = ''): void {
+  const search = searchText.trim().toLowerCase();
 
+  this.dataSource.data = this.originalData.filter(item => {
+    const matchesSearch = Object.values(item).some(val =>
+      String(val).toLowerCase().includes(search)
+    );
+
+    const matchesStock = this.selectedStock.length === 0 || this.selectedStock.includes(item.stock);
+    const matchesDelivery = this.selectedItemDeliver.length === 0 || this.selectedItemDeliver.includes(item.ItemDeilver);
+
+    let matchesOrders = true;
+    if (this.ordersFilter !== 'all') {
+      matchesOrders = item.stock === this.ordersFilter;
+    }
+
+    return matchesSearch && matchesStock && matchesDelivery && matchesOrders;
+  });
+}
+
+
+  hideMultipleSelectionIndicator = signal(false);
+  toggleMultipleSelectionIndicator() {
+    this.hideMultipleSelectionIndicator.update(value => !value);
+  }
   onStockFilterChange(): void {
-    if (this.selectedStock.length > 0) {
-      this.dataSource.data = this.originalData.filter((item) => this.selectedStock.includes(item.stock)
-      );
-    } else {
-      this.dataSource.data = [...this.originalData];
-    }
+    this.applyAllFilters();
   }
-  onItemDeliverFilterChange() {
-    if (this.selectedItemDeliver.length > 0) {
-      this.dataSource.data = this.originalData.filter((item: any) => this.selectedItemDeliver.includes(item.ItemDeilver))
-    } else {
-      this.dataSource.data = [...this.originalData];
-    }
+
+  onItemDeliverFilterChange(): void {
+    this.applyAllFilters();
   }
+
   Search(e: any): void {
     const searchValue = (e.target.value || '').trim().toLowerCase();
     this.dataSource.filter = searchValue;
+    this.applyAllFilters(e.target.value);
   }
 
 }

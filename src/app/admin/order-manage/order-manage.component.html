@@ -1,1 +1,63 @@
-<p>order-manage works!</p>
+<mat-card class="p-2">
+    <mat-toolbar>
+        <span>Product Inventory</span>
+        <span class="spacer"></span>
+    </mat-toolbar>
+
+    <!-- Filters -->
+    <div class="filter-bar">
+        <mat-button-toggle-group [(ngModel)]="ordersFilter" (change)="applyStockFilter()" color="primary">
+            <mat-button-toggle value="all">All</mat-button-toggle>
+            <mat-button-toggle value="instock">Delivery</mat-button-toggle>
+            <mat-button-toggle value="outstock">Not Delivery</mat-button-toggle>
+            <mat-button-toggle value="lowstock">Cancelled</mat-button-toggle>
+        </mat-button-toggle-group>
+    </div>
+
+    <!-- Column toggles -->
+    <!-- Scrollable column toggle list -->
+    <div class="form-grid">
+        <mat-form-field appearance="outline">
+            <mat-label>Search</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Search products">
+        </mat-form-field>
+        <mat-form-field appearance="outline" >
+            <mat-label>Toggle Columns</mat-label>
+            <mat-select multiple [(ngModel)]="visibleColumnDefs" >
+                <mat-option *ngFor="let col of allColumns" [value]="col.def">
+                    {{ col.label }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+
+    <table mat-table [dataSource]="filteredDataSource" class="mat-elevation-z8" multiTemplateDataRows>
+
+        <!-- Dynamic Columns -->
+        <ng-container *ngFor="let column of allColumns">
+            <ng-container *ngIf="column.visible" [matColumnDef]="column.def">
+                <th mat-header-cell *matHeaderCellDef>{{ column.label }}</th>
+                <td mat-cell *matCellDef="let element">{{ element[column.def] }}</td>
+            </ng-container>
+        </ng-container>
+
+
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Actions</th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-icon-button color="primary" (click)="editProduct(element)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="deleteProduct(element)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="visibleColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: visibleColumns;"></tr>
+    </table>
+    
+</mat-card>

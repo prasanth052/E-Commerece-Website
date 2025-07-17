@@ -1,16 +1,8 @@
-<mat-card class="p-4 " >
-  <div class="mat-elevation-z8 p-3">
+<mat-card class="p-4 ">
+  <div class=" p-3">
     <div class="form-grid">
-      <mat-form-field appearance="outline" >
-        <mat-label>Stock</mat-label>
-        <mat-select [(value)]="selectedStock" multiple (selectionChange)="onStockFilterChange()">
-          <mat-option *ngFor="let item of Stock" [value]="item.key">
-            {{ item.label }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
 
-      <mat-form-field appearance="outline" >
+      <mat-form-field appearance="outline">
         <mat-label>Publish</mat-label>
         <mat-select [(value)]="selectedItemDeliver" multiple (selectionChange)="onItemDeliverFilterChange()">
           <mat-option *ngFor="let item of ProductDeliver" [value]="item.key">
@@ -20,14 +12,23 @@
       </mat-form-field>
 
 
-      <mat-form-field appearance="outline" >
+      <mat-form-field appearance="outline">
         <mat-label>Search</mat-label>
         <input type="text" matInput (keyup)="Search($event)">
       </mat-form-field>
-      <h3 *ngIf="selectedStock.length>0 || selectedItemDeliver.length > 0"><strong>{{dataSource.data.length}}</strong><label for="">&nbsp;results found</label></h3>
+      <div class="filter-bar">
+        <mat-button-toggle-group [(ngModel)]="ordersFilter" (change)="applyAllFilters()" color="primary">
+          <mat-button-toggle *ngFor="let item of Stock" [value]="item.key">
+            {{ item.label }}
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+      <h3 *ngIf="selectedStock.length>0 || selectedItemDeliver.length > 0">
+        <strong>{{dataSource.data.length}}</strong><label for="">&nbsp;results found</label>
+      </h3>
     </div>
     <!-- Angular Material Table -->
-    <table mat-table [dataSource]="dataSource" class="mt-1">
+    <table mat-table [dataSource]="dataSource" class="mt-1 mat-elevation-z8">
       <ng-container matColumnDef="position">
         <th mat-header-cell *matHeaderCellDef>No.</th>
         <td mat-cell *matCellDef="let element">{{element.position}}</td>
@@ -51,9 +52,7 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-      <mat-paginator [pageSizeOptions]="[10, 20.30]"
-                 showFirstLastButtons
-                 aria-label="Select page of periodic elements">
-  </mat-paginator>
+    <mat-paginator [pageSizeOptions]="[10, 20.30]" showFirstLastButtons aria-label="Select page of periodic elements">
+    </mat-paginator>
   </div>
 </mat-card>
