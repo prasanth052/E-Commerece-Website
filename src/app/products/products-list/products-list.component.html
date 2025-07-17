@@ -1,5 +1,5 @@
 <mat-card>
-    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+    <!-- <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <img [src]="'assets/slider.png'" class="img-size" alt="Back" />
@@ -17,7 +17,7 @@
                 <img [src]="'assets/slider4.jpg'" class="img-size" alt="..." />
             </div>
         </div>
-    </div>
+    </div> -->
 
 
 
@@ -26,11 +26,20 @@
             <mat-card-content>
                 <div class="product-grid mb-4">
                     <div class="product-card" *ngFor="let product of displayedProducts">
-                        <img [src]="product.thumbnail" alt="Product Image" class="product-img"
-                                (click)="goToProduct(product)">
+                        <img [src]="product.images[0]" alt="Product Image" class="product-img"
+                            (click)="goToProduct(product)">
                         <div class="product-info">
-                            <div >
-                                <h3 class="product-title" (click)="goToProduct(product)">{{ product.title }}</h3>
+                            <div>
+                                <h3 class="product-title" (click)="goToProduct(product)">
+                                    {{ product.productName }}
+                                    <span class="brand">({{ product.brand }})</span>
+                                    <span class="stock-status" *ngIf="product.stockStatus !== 'In Stock'"
+                                        [ngStyle]="{ 'color': 'red' }">
+                                        <strong>{{ product.stockStatus }}</strong>
+                                    </span>
+
+                                </h3>
+
                                 <div class="product-rating">
                                     <ng-container *ngFor="let i of [1,2,3,4,5]">
                                         <span [class.filled]="i <= Math.round(product.rating)"
@@ -39,17 +48,19 @@
                                         </span>
                                     </ng-container>
                                     <span class="rating-number">({{ product.rating }})</span>
-                                    <span class="rating-number">{{ product.rating.count }}</span>
-                                    <span
-                                        [ngStyle]="product.availabilityStatus === 'In Stock' ? {'color': 'green'} : {'color': 'red'}">
-                                        <strong>{{product.availabilityStatus}}</strong></span>
+                                    <span class="rating-number">({{ product.numReviews }} reviews)</span>
+
                                 </div>
-                                <p class="product-price">₹{{ product.price }}</p>
+                                <p class="product-price">
+                                    ₹{{ product.finalPrice }}
+                                    <span *ngIf="product.discount" class="old-price">₹{{ product.basePrice }}</span>
+                                </p>
                             </div>
                             <button class="add-btn" (click)="addToCart(product)">Add to Cart</button>
                         </div>
                     </div>
                 </div>
+
             </mat-card-content>
         </mat-card>
     </mat-card-content>

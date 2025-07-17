@@ -12,7 +12,7 @@ const routes: Routes = [
     children: [
       { path: '', component: ProductsListComponent },
       { path: 'filter', component: ProductFilterComponent },
-      { path: ':id', component:ProductDetailsComponent } // ✅ This matches /products/1
+      { path: 'product-details', component:ProductDetailsComponent } // ✅ This matches /products/1
     ]
   }
 ];
@@ -25,5 +25,5 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class ProductsRoutingModule {
-  
- }  
+
+ }

@@ -79,7 +79,7 @@ export class CartComponent implements OnInit {
 
   calculateTotals(): void {
     this.totalItems = this.groupedCart.reduce((sum, item) => sum + (item.quantity || 0), 0);
-    this.totalAmount = this.groupedCart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
+    this.totalAmount = this.groupedCart.reduce((sum, item) => sum + (item.finalPrice * (item.quantity || 1)), 0);
     this.cartService.setCartCount(this.totalItems); // Sync count in header
   }
 

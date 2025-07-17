@@ -11,7 +11,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, retry } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -26,8 +26,7 @@ import { CustomSnackbarComponent } from '../../shared/custom-snackbar/custom-sna
   styleUrl: './products-list.component.scss',
 })
 export class ProductsListComponent
-  implements OnInit, OnDestroy, OnChanges, AfterViewInit
-{
+  implements OnInit, OnDestroy, OnChanges, AfterViewInit {
   Products: any[] = [];
   displayedProducts: any[] = [];
   totalProducts: number = 0;
@@ -41,9 +40,9 @@ export class ProductsListComponent
     private router: Router,
     private snackBar: MatSnackBar,
     private cartService: CartService,
-    private SharedService:SharedService,
+    private SharedService: SharedService,
     @Inject(PLATFORM_ID) private platformId: Object
-  ) {}
+  ) { }
   async ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
       const bootstrap = await import('bootstrap'); // ✅ lazy-loaded only in browser
@@ -57,7 +56,7 @@ export class ProductsListComponent
       }
     }
   }
-  ngOnChanges(changes: SimpleChanges): void {}
+  ngOnChanges(changes: SimpleChanges): void { }
   ngOnInit() {
     this.getProducts();
   }
@@ -65,14 +64,10 @@ export class ProductsListComponent
   getProducts() {
     this.apiService.getAllproducts().subscribe({
       next: (res: any) => {
-        this.Products = res.products;
+        this.Products = res;
         this.totalProducts = this.Products.length;
         this.displayedProducts = [...this.Products];
         this.SharedService.setProducts(this.displayedProducts);
-        // this.service.filteredProducts$.subscribe((products) => {
-        //   this.displayedProducts = products;
-        //   this.revealProducts();
-        // });
       },
     });
     console.log(this.displayedProducts);
@@ -158,7 +153,10 @@ export class ProductsListComponent
     this.filterMenuOpen = !this.filterMenuOpen;
   }
   goToProduct(product: any) {
-    this.router.navigate(['/products', product.id]);
+    // return
+    this.SharedService.setSelectedProduct(product);
+    // this.SharedService.setProducts(product._id)
+    this.router.navigate(['/products/product-details']);
   }
-  ngOnDestroy() {}
+  ngOnDestroy() { }
 }

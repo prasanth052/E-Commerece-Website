@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +11,8 @@ export class SharedService {
   private _originalProducts: any[] = [];
   private filteredProductsSubject = new BehaviorSubject<any[]>([]);
   filteredProducts$ = this.filteredProductsSubject.asObservable();
-  constructor() {}
+
+
   setCategory(category: string) {
     sessionStorage.setItem('Category', category); // Update sessionStorage
     this.categorySource.next(category); // Notify subscribers
@@ -30,14 +31,14 @@ export class SharedService {
 
     if (discounts.length) {
       filtered = filtered.filter((product) =>
-        discounts.some((d) => product.discountPercentage >= d)
+        discounts.some((d) => product.discount >= d)
       );
     }
 
     if (priceRanges.length) {
       filtered = filtered.filter((product) =>
         priceRanges.some(
-          (range) => product.price >= range.min && product.price <= range.max
+          (range) => product.finalPrice >= range.min && product.finalPrice <= range.max
         )
       );
     }
@@ -65,4 +66,13 @@ export class SharedService {
     }
     this.filteredProductsSubject.next(filtered); // ✅ Correct way to emit updated products
   }
+
+  private selectedProductSubject = new BehaviorSubject<any | null>(null);
+  selectedProduct$ = this.selectedProductSubject.asObservable();
+  setSelectedProduct(product: any) {
+      sessionStorage.setItem('selectedProduct', JSON.stringify(product));
+    this.selectedProductSubject.next(product);
+  }
+
+
 }

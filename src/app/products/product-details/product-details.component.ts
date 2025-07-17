@@ -1,7 +1,8 @@
+import { ApiService } from './../../core/api.service';
+import { SharedService } from './../../shared/services/shared.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute,  Router } from '@angular/router';
-import { ApiService } from '../../core/api.service';
-import { BehaviorSubject } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { CustomSnackbarComponent } from '../../shared/custom-snackbar/custom-snackbar.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CartService } from '../../core/cart.service';
@@ -13,46 +14,50 @@ import { CartService } from '../../core/cart.service';
   styleUrls: ['./product-details.component.scss']
 })
 export class ProductDetailsComponent implements OnInit {
-  product: any;
+  selectedProduct: any;
   similarProducts: any[] = [];
   selectedQuantity = 1;
   mainImage: string | null = null;
-  Math=Math
+  Math = Math
   shippingInfoLines = ['Free delivery within 3-5 days', 'Cash on delivery available'];
   returnPolicyLines = ['7-day return policy', 'Refund on damaged product'];
-
-  constructor(private route: ActivatedRoute, private productService: ApiService,
-    private snackBar:MatSnackBar,private cartService:CartService,private router:Router) {}
+  constructor(public SharedService: SharedService, public router: Router, private snackBar: MatSnackBar,
+    private cartService: CartService, private ApiService: ApiService) { }
+  private productSubscription!: Subscription;
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.loadProductById(id);
+    const cachedProduct = sessionStorage.getItem('selectedProduct');
+    if (cachedProduct) {
+      this.selectedProduct = JSON.parse(cachedProduct);
+      this.loadSimilarProducts(this.selectedProduct.category);
     }
+
+    this.productSubscription = this.SharedService.selectedProduct$.subscribe((product) => {
+      if (product) {
+        this.selectedProduct = product;
+        this.loadSimilarProducts(product.category);
+      }
+    });
+
   }
 
-  loadProductById(id: string): void {
-    this.productService.getProductById(+id).subscribe(data => {
-      this.product = data;
-      this.loadSimilarProducts(data.category);
+  loadSimilarProducts(category: string): void {
+    this.ApiService.getAllproducts().subscribe((products: any[]) => {
+      this.similarProducts = products.filter(
+        (p) => p.category === category && p._id !== this.selectedProduct._id
+      );
+      console.log('Similar Products:', this.similarProducts);
     });
   }
-loadSimilarProducts(category: string): void {
-  this.productService.getSimliarCateogries(category).subscribe((data: any) => {
-    console.log('Returned data:', data);
 
-    // Ensure it's an array before calling filter
-    if (Array.isArray(data)) {
-      this.similarProducts = data.filter((p: any) => p.id !== this.product.id);
-    } else if (Array.isArray(data?.products)) {
-      this.similarProducts = data.products.filter((p: any) => p.id !== this.product.id);
-    } else {
-      console.warn('Expected an array but got:', data);
-      this.similarProducts = [];
-    }
-  });
-}
-
+  navigateToProductDetails(product: any): void {
+    this.SharedService.setSelectedProduct(product);
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/products/product-details']).then(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+  }
 
   private cartItemsSubject = new BehaviorSubject<number>(0);
   cartItems$ = this.cartItemsSubject.asObservable();
@@ -88,8 +93,22 @@ loadSimilarProducts(category: string): void {
   buynow(product: any): void {
     // Your buy logic
   }
+//  addreess
+enteredPincode = '';
+pincodeMessage = '';
+productReviews = [
+  { name: 'Arun K.', comment: 'Very comfortable and lightweight. Good for long runs.' },
+  { name: 'Priya S.', comment: 'Stylish and fits perfectly. Worth the price.' }
+];
 
-  loadProduct(product: any): void {
-    this.loadProductById(product.id);
+checkDelivery() {
+  if (this.enteredPincode === '600001') {
+    this.pincodeMessage = 'Delivery available to your location.';
+  } else {
+    this.pincodeMessage = 'Sorry, not deliverable to this location.';
   }
+}
+
+
+
 }

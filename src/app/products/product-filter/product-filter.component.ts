@@ -34,6 +34,6 @@ export class ProductFilterComponent implements OnInit {
   }
 
   selectProduct(product: any): void {
-    this.router.navigate(['/products', product.id]);
+    this.router.navigate(['/products', product._id]);
   }
 }
