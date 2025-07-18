@@ -28,7 +28,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { CategoryListComponent } from './category-list/category-list.component';
-
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -56,7 +56,7 @@ import { CategoryListComponent } from './category-list/category-list.component';
     ReactiveFormsModule,
     MatCheckboxModule,
     MatRadioModule,
-    MatStepperModule,
+    MatStepperModule,MatMenuModule,
     MatButtonModule,MatAccordion,MatExpansionModule,
     MatDividerModule,MatPaginator,MatPaginatorModule,
     MatDividerModule,MatToolbarModule
