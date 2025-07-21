@@ -25,7 +25,7 @@
 
 ::ng-deep .header-content {
   display: flex;
-  justify-content:end;
+  justify-content: end;
   align-items: center;
 }
 
@@ -64,17 +64,16 @@ table {
   overflow: auto;
 }
 
-table {
-  width: 100%;
-}
 
 .highlight {
   background-color: #fff8e1 !important;
   /* light yellow */
 }
 
-.editable-cell input {
-
+.editable-cell ,input {
+  overflow: auto;
+  // width: 100rem;
+  width: 80%;
   // width: 100%;
   // padding: 4px;
   border: 1px solid #ccc;
@@ -125,7 +124,7 @@ mat-label {
   width: 100%;
   max-width: 50%;
   text-align: center;
-   font-size: smaller;
+  font-size: smaller;
   background-color: #d4edda;
   color: #155724;
   padding: 4px 6px;
@@ -138,7 +137,7 @@ mat-label {
   width: 100%;
   max-width: 50%;
   text-align: center;
-   font-size: smaller;
+  font-size: smaller;
   background-color: #f8d7da;
   color: #721c24;
   padding: 4px 6px;
@@ -159,5 +158,13 @@ mat-label {
   font-weight: bold;
   text-transform: capitalize;
 }
-
-
+mat-menu{
+  h6{
+    mat-menu-item{
+      background-color: #155724;
+      font-size: smaller;
+      margin: 0;
+      padding: 0;
+    }
+  }
+}

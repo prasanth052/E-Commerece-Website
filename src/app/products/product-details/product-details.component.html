@@ -7,12 +7,19 @@
   <div class="product-details">
     <h2 class="product-title">{{ selectedProduct?.productName }}</h2>
     <p class="product-brand">Brand: {{ selectedProduct?.brand }}</p>
-    <div class="rating-stars">
-      <mat-icon *ngFor="let star of [1,2,3,4,5]"
-        [ngClass]="star <= selectedProduct?.rating ? 'filled' : 'empty'">star</mat-icon>
+    <div class="product-rating">
+      <ng-container *ngFor="let i of [1,2,3,4,5]">
+        <span [class.filled]="i <= Math.round(selectedProduct.rating)"
+          [class.unfilled]="i > Math.round(selectedProduct.rating)">
+          &#9733;
+        </span>
+      </ng-container>
+      <span class="rating-number">({{ selectedProduct.rating }})</span>
+      <span class="rating-number">({{ selectedProduct.numReviews }} reviews)</span>
+
     </div>
-    <p class="product-description">{{ selectedProduct?.description }}</p>
-    <table class="specs-table">
+    <p class="product-description -mt-2">{{ selectedProduct?.description }}</p>
+    <table class="specs-table  -mt-3">
       <tr>
         <td>Type</td>
         <td>Running Shoes</td>
@@ -30,14 +37,21 @@
         <td>6 Months</td>
       </tr>
     </table>
-
-    <div class="product-specs">
-      <p><strong>Stock:</strong> {{ selectedProduct?.stock }}</p>
-      <p><strong>Discount:</strong> {{ selectedProduct?.discount }}%</p>
-    </div>
     <div class="price-box">
-      <div class="price">₹ {{ selectedProduct?.finalPrice }}</div>
-      <p class="note">Free delivery in 3–5 days</p>
+      <p class="product-price">
+        ₹{{ selectedProduct.finalPrice }}
+        <span *ngIf="selectedProduct.discount" class="old-price">₹{{ selectedProduct.basePrice }}</span>
+
+        <span class="stock-status" *ngIf="selectedProduct.stockStatus !== 'In Stock'" [ngStyle]="{ 'color': 'red' }">
+          <strong>{{ selectedProduct.stockStatus }}</strong>
+        </span>
+
+      </p>
+      <div class="return-policy">
+        <p>Free delivery in 3–5 days</p>
+        <p><mat-icon>autorenew</mat-icon> 7-day return</p>
+        <p><mat-icon>verified_user</mat-icon> Refund on damaged item</p>
+      </div>
     </div>
     <div class="location-check">
       <label for="pincode">Check delivery:</label>
@@ -53,16 +67,12 @@
       <button class="add-to-cart" (click)="addToCart(selectedProduct)">Add to Cart</button>
       <button class="buy-now" (click)="buynow(selectedProduct)">Buy Now</button>
     </div>
-    <div class="return-policy">
-      <p><mat-icon>autorenew</mat-icon> 7-day return</p>
-      <p><mat-icon>verified_user</mat-icon> Refund on damaged item</p>
-    </div>
   </div>
 </div>
 
 <!-- ⛔ reviews now OUTSIDE sticky container -->
 <div class="reviews-section">
-  <h4>Customer Reviews</h4>
+  <h4 class="p-2">Customer Reviews</h4>
   <div class="review">
     <strong>Arun K.</strong> ★★★★☆
     <p>Very comfortable and lightweight. Good for long runs.</p>
@@ -75,7 +85,7 @@
 
 <!-- SIMILAR PRODUCTS -->
 <div class="similar-products" *ngIf="similarProducts.length > 0">
-  <h3>Similar Products</h3>
+  <h3 class="p-2">Similar Products</h3>
   <div class="similar-products-grid">
     <div class="similar-card" *ngFor="let product of similarProducts" (click)="navigateToProductDetails(product)">
       <img [src]="product.images?.[0]" alt="{{ product.productName }}">

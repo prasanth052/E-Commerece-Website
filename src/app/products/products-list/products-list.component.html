@@ -33,10 +33,10 @@
                                 <h3 class="product-title" (click)="goToProduct(product)">
                                     {{ product.productName }}
                                     <span class="brand">({{ product.brand }})</span>
-                                    <span class="stock-status" *ngIf="product.stockStatus !== 'In Stock'"
+                                    <!-- <span class="stock-status" *ngIf="product.stockStatus !== 'In Stock'"
                                         [ngStyle]="{ 'color': 'red' }">
                                         <strong>{{ product.stockStatus }}</strong>
-                                    </span>
+                                    </span> -->
 
                                 </h3>
 
@@ -54,6 +54,12 @@
                                 <p class="product-price">
                                     ₹{{ product.finalPrice }}
                                     <span *ngIf="product.discount" class="old-price">₹{{ product.basePrice }}</span>
+
+                                    <span class="stock-status" *ngIf="product.stockStatus !== 'In Stock'"
+                                        [ngStyle]="{ 'color': 'red' }">
+                                        <strong>{{ product.stockStatus }}</strong>
+                                    </span>
+
                                 </p>
                             </div>
                             <button class="add-btn" (click)="addToCart(product)">Add to Cart</button>

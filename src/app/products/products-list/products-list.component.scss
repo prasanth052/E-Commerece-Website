@@ -23,7 +23,10 @@
   width: 100%;
   height: 220px;
   object-fit: cover;
+  // transition: all 0.3s ease-in-out;
+  background-color: #f8f8f8; /* optional for clean space */
 }
+
 
 .product-info {
   padding: 16px;
@@ -154,4 +157,8 @@
 .snack-warning {
   background-color: #ff9800 !important; // Orange
   color: white !important;
+}
+.stock-status{
+  margin-left: 10px;
+  font-size: medium;
 }

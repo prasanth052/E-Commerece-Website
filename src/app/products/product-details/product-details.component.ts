@@ -29,22 +29,23 @@ export class ProductDetailsComponent implements OnInit {
     const cachedProduct = sessionStorage.getItem('selectedProduct');
     if (cachedProduct) {
       this.selectedProduct = JSON.parse(cachedProduct);
-      this.loadSimilarProducts(this.selectedProduct.category);
+      console.log(this.selectedProduct.brand);
+      
+      this.loadSimilarProducts(this.selectedProduct.brand);
     }
 
     this.productSubscription = this.SharedService.selectedProduct$.subscribe((product) => {
       if (product) {
         this.selectedProduct = product;
-        this.loadSimilarProducts(product.category);
+        this.loadSimilarProducts(product.brand);
       }
     });
-
   }
 
-  loadSimilarProducts(category: string): void {
+  loadSimilarProducts(brand: string): void {
     this.ApiService.getAllproducts().subscribe((products: any[]) => {
       this.similarProducts = products.filter(
-        (p) => p.category === category && p._id !== this.selectedProduct._id
+        (p) => p.brand === brand && p._id !== this.selectedProduct._id
       );
       console.log('Similar Products:', this.similarProducts);
     });

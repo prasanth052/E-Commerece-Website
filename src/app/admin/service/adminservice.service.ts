@@ -9,6 +9,6 @@ export class AdminserviceService {
   constructor(private http:HttpClient) { }
 
   updateProduct(updateData :any){
-       return this.http.put<any>('http://localhost:5050/api/products/updateproduct',updateData)
+       return this.http.post<any>('http://localhost:5050/api/products/updateproduct',updateData)
   }
 }

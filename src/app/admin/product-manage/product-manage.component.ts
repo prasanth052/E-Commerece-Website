@@ -218,7 +218,7 @@ export class ProductManageComponent implements OnInit, AfterViewInit {
       },
       error: (err) => {
         console.error('Update failed:', err);
-        alert('Update failed');
+        alert(err.message);
       },
     });
   }

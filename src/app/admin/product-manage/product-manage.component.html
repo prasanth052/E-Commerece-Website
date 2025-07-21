@@ -14,11 +14,8 @@
 
     <!-- Dynamic Columns -->
     <ng-container *ngFor="let column of allColumns" [ngSwitch]="column.def">
-
       <!-- All Non-Actions Columns -->
       <ng-container *ngIf="column.visible && column.def !== 'actions'" [matColumnDef]="column.def">
-
-        <!-- Header Cell -->
         <!-- Header Cell -->
         <th mat-header-cell *matHeaderCellDef class="stock-header-cell">
           <div class="header-content">
@@ -95,11 +92,11 @@
   </table>
 </section>
 <!-- Stock Filter Menu -->
-<mat-menu #stockMenu="matMenu">
+<mat-menu #stockMenu="matMenu" >
   <!-- <button mat-menu-item (click)="onStockFilterChange('all')">All</button> -->
-  <button mat-menu-item *ngFor="let item of Stock" (click)="onStockFilterChange(item.key)">
+  <h6  mat-menu-item *ngFor="let item of Stock" (click)="onStockFilterChange(item.key)">
     {{ item.label }}
-  </button>
+  </h6>
 </mat-menu>
 
 <!-- Brand Filter Menu -->
