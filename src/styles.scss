@@ -1,7 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
@@ -9,7 +17,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 // @import "assets/css/timer.css";
 @import "assets/css/line-scale-party.css";
 
-mat-label{
+mat-label {
   color: rgb(1, 44, 165);
 }
 
@@ -18,9 +26,10 @@ mat-label{
   font-size: 14px;
   font-weight: 600;
   color: #333;
-  transform: translateY(-8px) scale(0.9); /* Slight lift */
-   margin-top: -30px !important;
-   margin-bottom: 3.5px !important;
+  transform: translateY(-8px) scale(0.9);
+  /* Slight lift */
+  margin-top: -30px !important;
+  margin-bottom: 3.5px !important;
 }
 
 

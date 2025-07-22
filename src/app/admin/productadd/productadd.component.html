@@ -15,14 +15,12 @@
     <div class="container">
       <form [formGroup]="mainForm" (ngSubmit)="onSubmit()">
         <mat-accordion multi>
-
           <!-- Basic Details -->
-          <mat-expansion-panel [expanded]="true">
+          <mat-expansion-panel [expanded]="true" [formGroup]="basic">
             <mat-expansion-panel-header>
               <mat-panel-title>Basic Details</mat-panel-title>
             </mat-expansion-panel-header>
-
-            <div class="grid mt-2" [formGroup]="basic">
+            <div class="grid3 mt-2 ">
               <mat-form-field appearance="outline">
                 <mat-label>Product Name</mat-label>
                 <input matInput formControlName="productName" />
@@ -55,23 +53,33 @@
                 <input matInput formControlName="tags" />
               </mat-form-field>
             </div>
+            <div class="grid2 ">
+              <mat-form-field appearance="outline">
+                <mat-label>Meta Title</mat-label>
+                <input matInput formControlName="brand" />
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Meta Desc</mat-label>
+                <input matInput formControlName="brand" />
+              </mat-form-field>
+            </div>
+            <mat-form-field appearance="outline">
+              <mat-label>Description</mat-label>
+              <textarea name="" id="" matInput formControlName="fullDescription"></textarea>
+            </mat-form-field>
+
           </mat-expansion-panel>
 
           <!-- Pricing -->
-          <mat-expansion-panel [expanded]="true">
+          <mat-expansion-panel [expanded]="true"  [formGroup]="pricing">
             <mat-expansion-panel-header>
               <mat-panel-title>Pricing</mat-panel-title>
             </mat-expansion-panel-header>
 
-            <div class="grid mt-2" [formGroup]="pricing">
+            <div class="grid4 mt-2">
               <mat-form-field appearance="outline">
-                <mat-label>MRP</mat-label>
+                <mat-label>Base Price</mat-label>
                 <input matInput type="number" formControlName="mrp" />
-              </mat-form-field>
-
-              <mat-form-field appearance="outline">
-                <mat-label>Selling Price</mat-label>
-                <input matInput type="number" formControlName="sellingPrice" />
               </mat-form-field>
 
               <mat-form-field appearance="outline">
@@ -80,8 +88,8 @@
               </mat-form-field>
 
               <mat-form-field appearance="outline">
-                <mat-label>Currency</mat-label>
-                <input matInput formControlName="currency" />
+                <mat-label>Selling Price</mat-label>
+                <input matInput type="number" formControlName="sellingPrice" />
               </mat-form-field>
 
               <mat-form-field appearance="outline">
@@ -93,19 +101,21 @@
                 <mat-label>Low Stock Alert</mat-label>
                 <input matInput type="number" formControlName="lowStockAlert" />
               </mat-form-field>
-              <div class="four">
-                <mat-form-field appearance="outline">
-                  <mat-label>Shipping Charges</mat-label>
-                  <input matInput type="number" formControlName="shippingCharges" />
-                </mat-form-field>
 
-                <mat-form-field appearance="outline">
-                  <mat-label>Return Window (days)</mat-label>
-                  <input matInput type="number" formControlName="returnWindow" />
-                </mat-form-field>
-                <mat-checkbox formControlName="freeShipping" class="inline-checkbox">Free Shipping</mat-checkbox>
-                <mat-checkbox formControlName="returnable" class="inline-checkbox">Returnable</mat-checkbox>
-              </div>
+              <mat-form-field appearance="outline">
+                <mat-label>Shipping Charges</mat-label>
+                <input matInput type="number" formControlName="shippingCharges" />
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Return Window (days)</mat-label>
+                <input matInput type="number" formControlName="returnWindow" />
+              </mat-form-field>
+            </div>
+            <div class="four">
+              <mat-checkbox formControlName="freeShipping" class="inline-checkbox -mt-3">Free Shipping</mat-checkbox>
+              <mat-checkbox formControlName="returnable" class="inline-checkbox -mt-3">Returnable</mat-checkbox>
+              <mat-checkbox formControlName="freeShipping" class="inline-checkbox -mt-3">Is Active</mat-checkbox>
+              <!-- <mat-checkbox formControlName="returnable" class="inline-checkbox -mt-3">Returnable</mat-checkbox> -->
             </div>
           </mat-expansion-panel>
 
@@ -123,7 +133,7 @@
                 </mat-form-field>
                 <mat-form-field appearance="outline" *ngIf="spec.label =='Slot'">
                   <mat-label>{{ spec.label }}</mat-label>
-                  <textarea matInput [formControlName]="spec.controlName" ></textarea>
+                  <textarea matInput [formControlName]="spec.controlName"></textarea>
                 </mat-form-field>
               </div>
             </div>

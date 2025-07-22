@@ -1,107 +1,118 @@
-<!-- Search Bar -->
-
-
-<!-- Table -->
 <section class="example-container mat-elevation-z8 m-3" tabindex="0">
-  <!-- <div class="search-bar"> -->
-    <mat-form-field>
-      <mat-label>Search</mat-label>
-      <input matInput (input)="Search($event)" placeholder="Search products..." />
-      <mat-icon matSuffix>search</mat-icon>
-    </mat-form-field>
-  <!-- </div> -->
-  <table mat-table [dataSource]="dataSource">
-
-    <!-- Dynamic Columns -->
-    <ng-container *ngFor="let column of allColumns" [ngSwitch]="column.def">
-      <!-- All Non-Actions Columns -->
-      <ng-container *ngIf="column.visible && column.def !== 'actions'" [matColumnDef]="column.def">
-        <!-- Header Cell -->
-        <th mat-header-cell *matHeaderCellDef class="stock-header-cell">
-          <div class="header-content">
-            <span class="header-label">{{ column.label }}</span>
-
-            <ng-container [ngSwitch]="column.def">
-              <!-- Filters only for certain columns -->
-              <ng-container *ngSwitchCase="'stockStatus'">
-                <button mat-icon-button matTooltip="Filter Stock Status" [matMenuTriggerFor]="stockMenu">
-                  <mat-icon>filter_alt</mat-icon>
-                </button>
+  <mat-form-field appearance="outline" style="width: 300px;" class="p-3">
+    <mat-label>Search</mat-label>
+    <input matInput (input)="Search($event)" placeholder="Search products..." />
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+  <div class="-mt-5">
+    <table mat-table [dataSource]="dataSource" class="m-2">
+      <ng-container *ngFor="let column of allColumns" [ngSwitch]="column.def">
+        <ng-container *ngIf="column.visible && column.def !== 'actions'" [matColumnDef]="column.def">
+          <th mat-header-cell *matHeaderCellDef class="stock-header-cell">
+            <div class="header-content">
+              <span class="header-label">{{ column.label }}</span>
+              <ng-container [ngSwitch]="column.def">
+                <ng-container *ngSwitchCase="'stockStatus'">
+                  <button mat-icon-button matTooltip="Filter Stock Status" [matMenuTriggerFor]="stockMenu">
+                    <mat-icon>filter_alt</mat-icon>
+                  </button>
+                </ng-container>
+                <ng-container *ngSwitchCase="'brand'">
+                  <button mat-icon-button matTooltip="Filter Brand" [matMenuTriggerFor]="brandMenu">
+                    <mat-icon>filter_alt</mat-icon>
+                  </button>
+                </ng-container>
               </ng-container>
-              <ng-container *ngSwitchCase="'brand'">
-                <button mat-icon-button matTooltip="Filter Brand" [matMenuTriggerFor]="brandMenu">
-                  <mat-icon>filter_alt</mat-icon>
-                </button>
-              </ng-container>
+            </div>
+          </th>
+          <td mat-cell *matCellDef="let element" [ngClass]="{ 'highlight': editRowId === element._id }">
+            <ng-container *ngIf="editRowId === element._id; else readOnly">
+              <input [(ngModel)]="element[column.def]" class="editable-cell" />
             </ng-container>
-          </div>
-        </th>
-
-
-        <!-- Cell -->
-        <td mat-cell *matCellDef="let element" [ngClass]="{ 'highlight': editRowId === element._id }">
-          <ng-container *ngIf="editRowId === element._id; else readOnly">
-            <input [(ngModel)]="element[column.def]" class="editable-cell" />
-          </ng-container>
-          <ng-template #readOnly>
-            <!-- Stock Status Badge -->
-            <ng-container *ngIf="column.def === 'stockStatus'; else normalCell">
-              <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
-                <span [ngClass]="{
+            <ng-template #readOnly>
+              <ng-container *ngIf="column.def === 'stockStatus'; else normalCell">
+                <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
+                  <span [ngClass]="{
                   'badge badge-success': element.stockStatus === 'In Stock',
                   'badge badge-danger': element.stockStatus === 'Out Of Stock',
                   'badge badge-secondary': !element.stockStatus
                 }">
-                  {{ element.stockStatus || 'Not Updated' }}
-                </span>
-              </div>
-            </ng-container>
-            <ng-template #normalCell>
-              {{ element[column.def] }}
-            </ng-template>
-          </ng-template>
-        </td>
-      </ng-container>
-
-      <!-- Actions Column -->
-      <ng-container *ngSwitchCase="'actions'" [matColumnDef]="column.def">
-        <ng-container *ngIf="column.visible">
-          <th mat-header-cell *matHeaderCellDef>{{ column.label }}</th>
-          <td mat-cell *matCellDef="let element">
-            <ng-container *ngIf="editRowId === element._id; else defaultButtons">
-              <mat-icon color="primary" (click)="saveProduct(element)">save</mat-icon>
-              <mat-icon color="warn" (click)="cancelEdit()">close</mat-icon>
-            </ng-container>
-            <ng-template #defaultButtons>
-              <button mat-icon-button color="primary" (click)="editProduct(element)">
-                <mat-icon>edit</mat-icon>
-              </button>
-              <button mat-icon-button color="warn" (click)="deleteProduct(element)">
-                <mat-icon>delete</mat-icon>
-              </button>
+                    {{ element.stockStatus || 'Not Updated' }}
+                  </span>
+                </div>
+              </ng-container>
+              <ng-template #normalCell>
+                {{ element[column.def] }}
+              </ng-template>
             </ng-template>
           </td>
         </ng-container>
+
+        <!-- Actions Column -->
+        <ng-container *ngSwitchCase="'actions'" [matColumnDef]="column.def">
+          <ng-container *ngIf="column.visible">
+            <th mat-header-cell *matHeaderCellDef>{{ column.label }}</th>
+            <td mat-cell *matCellDef="let element">
+              <ng-container *ngIf="editRowId === element._id; else defaultButtons">
+                <button mat-icon-button color="primary" (click)="editProduct(element)"></button>
+                <mat-icon color="primary" (click)="saveProduct(element)">save</mat-icon>
+                <mat-icon color="warn" (click)="cancelEdit()">close</mat-icon>
+              </ng-container>
+              <ng-template #defaultButtons>
+                <button mat-icon-button color="primary" (click)="editProduct(element)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="deleteProduct(element)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </ng-template>
+            </td>
+          </ng-container>
+        </ng-container>
+
       </ng-container>
 
-    </ng-container>
-
-    <!-- Header & Row Def -->
-    <tr mat-header-row *matHeaderRowDef="visibleColumns; sticky: true"></tr>
-    <tr mat-row *matRowDef="let row; columns: visibleColumns;"></tr>
-  </table>
+      <!-- Header & Row Def -->
+      <tr mat-header-row *matHeaderRowDef="visibleColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: visibleColumns;"></tr>
+    </table>
+  </div>
 </section>
 <!-- Stock Filter Menu -->
-<mat-menu #stockMenu="matMenu" >
-  <!-- <button mat-menu-item (click)="onStockFilterChange('all')">All</button> -->
-  <h6  mat-menu-item *ngFor="let item of Stock" (click)="onStockFilterChange(item.key)">
+<!-- Main Menu -->
+<mat-menu #stockMenu="matMenu">
+  <button mat-menu-item [matMenuTriggerFor]="stockSubMenu">Stock Filter</button>
+  <button mat-menu-item [matMenuTriggerFor]="sortSubMenu">Sort Options</button>
+</mat-menu>
+
+<!-- Stock Filter Submenu -->
+<mat-menu #stockSubMenu="matMenu" xPosition="after">
+  <button mat-menu-item *ngFor="let item of Stock" (click)="onStockFilterChange(item.key)">
     {{ item.label }}
-  </h6>
+  </button>
+</mat-menu>
+
+<!-- Sort Filter Submenu -->
+<mat-menu #sortSubMenu="matMenu">
+  <button mat-menu-item *ngFor="let item of Stock" (click)="onStockFilterChange(item.key)">
+    {{ item.label }}
+  </button>
 </mat-menu>
 
 <!-- Brand Filter Menu -->
+<!-- Main Menu -->
+
 <mat-menu #brandMenu="matMenu">
+  <button mat-menu-item [matMenuTriggerFor]="brandsubMenu">Brand Filter</button>
+  <button mat-menu-item [matMenuTriggerFor]="sortSubMenu">Sort Options</button>
+</mat-menu>
+<!-- Brand Filter Menu -->
+<mat-menu #brandsubMenu="matMenu">
   <button mat-menu-item *ngFor="let brand of uniqueBrands" (click)="onBrandFilterChange(brand)">
     {{ brand.label }}
   </button>
 </mat-menu>
+
+<ng-template #edit>
+  
+</ng-template>

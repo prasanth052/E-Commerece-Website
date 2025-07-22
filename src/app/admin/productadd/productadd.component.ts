@@ -135,7 +135,6 @@ export class ProductaddComponent implements OnInit {
         mrp: [''],
         sellingPrice: [''],
         discount: [''],
-        currency: [''],
         stock: [''],
         lowStockAlert: [''],
         freeShipping: [false],

@@ -6,6 +6,7 @@
 
   <div class="product-details">
     <h2 class="product-title">{{ selectedProduct?.productName }}</h2>
+    <h2 class="product-title">{{ selectedProduct?.FullDesc }}</h2>
     <p class="product-brand">Brand: {{ selectedProduct?.brand }}</p>
     <div class="product-rating">
       <ng-container *ngFor="let i of [1,2,3,4,5]">

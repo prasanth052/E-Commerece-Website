@@ -149,7 +149,7 @@ export class ProductManageComponent implements OnInit, AfterViewInit {
     });
     this.uniqueBrands = Array.from(brands);
   }
-  onStockFilterChange(value: string): void {
+  onStockFilterChange(value: any): void {
     this.ordersFilter = value; // ✅ value is already the selected key (not an event)
     this.applyCombinedFilters();
   }
@@ -190,7 +190,10 @@ export class ProductManageComponent implements OnInit, AfterViewInit {
   editRowId: string | null = null;
   originalRow: any;
   isSidenavOpen: boolean = true;
-
+  editingCell = {
+    rowId: null,
+    field: null,
+  };
   editProduct(row: any) {
     this.sidenavService.toggle();
     this.originalRow = { ...row };
