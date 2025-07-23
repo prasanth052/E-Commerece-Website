@@ -37,18 +37,20 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { SplitCamelCasePipe  } from '../pipes/split-camel-case.pipe';
 @NgModule({
   declarations: [
     ProductsComponent,
     ProductsListComponent,
     ProductDetailsComponent,
-    ProductFilterComponent
+    ProductFilterComponent,
+    SplitCamelCasePipe
   ],
   imports: [
     CommonModule,
-    ProductsRoutingModule,
-    MatCardModule, MatDividerModule, MatTableModule, MatRadioModule, MatSliderModule, MatAutocompleteModule, MatGridListModule,
+    ProductsRoutingModule,MatTabsModule,MatFormFieldModule,    MatCardModule, MatDividerModule, MatTableModule, MatRadioModule, MatSliderModule, MatAutocompleteModule, MatGridListModule,
     MatInputModule, MatButtonModule, CanvasJSAngularChartsModule, MatExpansionModule, MatMenuModule, NgxSpinnerModule,
     FormsModule, ReactiveFormsModule, MatPaginator, MatPaginatorModule, MatAccordion, GoogleMapsModule,
     SidebarModule, RippleModule, MatSort, MatSortModule, MatButtonToggleModule, MatDialogModule,

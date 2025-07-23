@@ -1,97 +1,114 @@
-<!-- Sticky image + scrollable details (sticky only works inside this container) -->
-<div class="product-container">
-  <div class="product-image">
-    <img [src]="selectedProduct?.images?.[0]" />
-  </div>
-
-  <div class="product-details">
-    <h2 class="product-title">{{ selectedProduct?.productName }}</h2>
-    <h2 class="product-title">{{ selectedProduct?.FullDesc }}</h2>
-    <p class="product-brand">Brand: {{ selectedProduct?.brand }}</p>
-    <div class="product-rating">
-      <ng-container *ngFor="let i of [1,2,3,4,5]">
-        <span [class.filled]="i <= Math.round(selectedProduct.rating)"
-          [class.unfilled]="i > Math.round(selectedProduct.rating)">
-          &#9733;
-        </span>
-      </ng-container>
-      <span class="rating-number">({{ selectedProduct.rating }})</span>
-      <span class="rating-number">({{ selectedProduct.numReviews }} reviews)</span>
-
-    </div>
-    <p class="product-description -mt-2">{{ selectedProduct?.description }}</p>
-    <table class="specs-table  -mt-3">
-      <tr>
-        <td>Type</td>
-        <td>Running Shoes</td>
-      </tr>
-      <tr>
-        <td>Material</td>
-        <td>Mesh & Synthetic</td>
-      </tr>
-      <tr>
-        <td>Color</td>
-        <td>Black/White</td>
-      </tr>
-      <tr>
-        <td>Warranty</td>
-        <td>6 Months</td>
-      </tr>
-    </table>
-    <div class="price-box">
-      <p class="product-price">
-        ₹{{ selectedProduct.finalPrice }}
-        <span *ngIf="selectedProduct.discount" class="old-price">₹{{ selectedProduct.basePrice }}</span>
-
-        <span class="stock-status" *ngIf="selectedProduct.stockStatus !== 'In Stock'" [ngStyle]="{ 'color': 'red' }">
-          <strong>{{ selectedProduct.stockStatus }}</strong>
-        </span>
-
-      </p>
-      <div class="return-policy">
-        <p>Free delivery in 3–5 days</p>
-        <p><mat-icon>autorenew</mat-icon> 7-day return</p>
-        <p><mat-icon>verified_user</mat-icon> Refund on damaged item</p>
+<div class="p-4">
+  <div class="product-container ">
+    <div class="left-section">
+      <div class="product-image">
+        <img [src]="selectedProduct?.images?.[0]" />
       </div>
     </div>
-    <div class="location-check">
-      <label for="pincode">Check delivery:</label>
-      <input type="text" id="pincode" maxlength="6" placeholder="Enter Pincode" [(ngModel)]="enteredPincode">
-      <button (click)="checkDelivery()">Check</button>
-      <div *ngIf="pincodeMessage">{{ pincodeMessage }}</div>
+    <div class="product-details">
+      <h2 class="product-title">{{ selectedProduct?.productName }}</h2>
+      <p class="product-brand">Brand: {{ selectedProduct?.brand }}</p>
+      <h2 class="product-description">{{ selectedProduct?.FullDesc }}</h2>
+      <div class="product-rating">
+        <ng-container *ngFor="let i of [1,2,3,4,5]">
+          <span [class.filled]="i <= Math.round(selectedProduct?.rating)"
+            [class.unfilled]="i > Math.round(selectedProduct?.rating)">
+            &#9733;
+          </span>
+        </ng-container>
+        <span class="rating-number">({{ selectedProduct?.rating }})</span>
+        <span class="rating-number">({{ selectedProduct?.numReviews }} reviews)</span>
+      </div>
+      <p class="product-description -mt-3">{{ selectedProduct?.description }}</p>
+      <div class="row price-box">
+        <div class="col-6">
+          <p class="product-price">
+            ₹{{ selectedProduct?.finalPrice }}
+            <span *ngIf="selectedProduct?.discount" class="old-price">₹{{ selectedProduct?.basePrice }}</span>
+            <span class="stock-status" *ngIf="selectedProduct?.stockStatus !== 'In Stock'"
+              [ngStyle]="{ 'color': 'red' }">
+              <strong>{{ selectedProduct?.stockStatus }}</strong>
+            </span>
+          </p>
+          <div class="return-policy">
+            <p><mat-icon>autorenew</mat-icon> 7-day return</p>
+            <p><mat-icon>verified_user</mat-icon> Refund on damaged item</p>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="location-check">
+            <label for="pincode">Check delivery:</label>
+            <input type="text" id="pincode" maxlength="6" placeholder="Enter Pincode" [(ngModel)]="enteredPincode"
+              (click)="checkDelivery()">
+            <!-- <button >Check</button> -->
+          </div>
+          <p>Free delivery in 3–5 days</p>
+        </div>
+      </div>
+      <div class="action-buttons mt-3">
+        <button class="btn btn-warning add-to-cart">Add to Cart</button>
+        <button class="btn btn-primary buy-now">Buy Now</button>
+      </div>
     </div>
-    <div class="quantity-input">
-      <label>Qty:</label>
-      <input type="number" min="1" [(ngModel)]="selectedQuantity" />
-    </div>
-    <div class="action-buttons">
-      <button class="add-to-cart" (click)="addToCart(selectedProduct)">Add to Cart</button>
-      <button class="buy-now" (click)="buynow(selectedProduct)">Buy Now</button>
-    </div>
-  </div>
-</div>
 
-<!-- ⛔ reviews now OUTSIDE sticky container -->
-<div class="reviews-section">
-  <h4 class="p-2">Customer Reviews</h4>
-  <div class="review">
-    <strong>Arun K.</strong> ★★★★☆
-    <p>Very comfortable and lightweight. Good for long runs.</p>
   </div>
-  <div class="review">
-    <strong>Priya S.</strong> ★★★★★
-    <p>Stylish and fits perfectly. Worth the price.</p>
-  </div>
-</div>
 
-<!-- SIMILAR PRODUCTS -->
-<div class="similar-products" *ngIf="similarProducts.length > 0">
-  <h3 class="p-2">Similar Products</h3>
-  <div class="similar-products-grid">
-    <div class="similar-card" *ngFor="let product of similarProducts" (click)="navigateToProductDetails(product)">
-      <img [src]="product.images?.[0]" alt="{{ product.productName }}">
-      <h4>{{ product.productName }}</h4>
-      <p>₹ {{ product.finalPrice }}</p>
+  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+    <mat-tab label="Specficaction" style="cursor: pointer;">
+      <div class="row" *ngIf="this.SpecficationLength > 6 else normal">
+        <div class="col-6">
+          <table class="specs-table">
+            <tr *ngFor="let row of leftSpecs">
+              <td><strong>{{ row?.key | splitCamelCase | titlecase }}</strong></td>
+              <td>{{ formatValue(row?.value) }}</td>
+            </tr>
+          </table>
+        </div>
+        <div class="col-6">
+          <table class="specs-table">
+            <tr *ngFor="let row of rightSpecs">
+              <td><strong>{{ row?.key | splitCamelCase | titlecase }}</strong></td>
+              <td>{{ formatValue(row?.value) }}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <ng-template #normal>
+        <table class="specs-table">
+          <tr *ngFor="let row of  rightSpecs">
+            <td><strong>{{ row?.key | splitCamelCase | titlecase }}</strong></td>
+            <td>{{ formatValue(row?.value) }}</td>
+          </tr>
+        </table>
+      </ng-template>
+
+
+
+    </mat-tab>
+    <mat-tab label="Reviews">
+      <div class="reviews-section">
+        <h4 class="p-2">Customer Reviews</h4>
+        <div class="review">
+          <strong>Arun K.</strong> ★★★★☆
+          <p>Very comfortable and lightweight. Good for long runs.</p>
+        </div>
+        <div class="review">
+          <strong>Priya S.</strong> ★★★★★
+          <p>Stylish and fits perfectly. Worth the price.</p>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+
+  <!-- SIMILAR PRODUCTS -->
+  <div class="similar-products" *ngIf="similarProducts.length > 0">
+    <h3 class="p-2">Similar Products</h3>
+    <div class="similar-products-grid">
+      <div class="similar-card" *ngFor="let product of similarProducts" (click)="navigateToProductDetails(product)">
+        <img [src]="product.images?.[0]" alt="{{ product.productName }}">
+        <h4>{{ product?.productName }}</h4>
+        <p>₹ {{ product?.finalPrice }}</p>
+      </div>
     </div>
   </div>
 </div>

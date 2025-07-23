@@ -28,8 +28,9 @@ import { SharedModule } from './shared/shared.module';
 
 import { HttpinterceptorService } from './Interceptor/httpinterceptor.service';
 import { LayoutModule } from './layout/layout.module';
+
 @NgModule({
-  declarations: [AppComponent, DemoComponent],
+  declarations: [AppComponent, DemoComponent, ],
   imports: [
     BrowserModule,
     SharedModule,

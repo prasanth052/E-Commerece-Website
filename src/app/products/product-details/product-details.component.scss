@@ -19,7 +19,7 @@ box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
 }
 
 .product-image {
-  position: sticky;
+  // position: sticky;
   top: 1.5rem;
   align-self: start;
   display: flex;
@@ -76,7 +76,7 @@ box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
 .product-description {
   color: #374151;
   line-height: 1.5;
-   margin-top: 5px;
+   margin-top: -18px;
 }
 
 .product-specs {
@@ -91,7 +91,8 @@ box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
   background: #f9f9f9;
   padding: 15px;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: .1px solid rgb(231, 231, 231);
+  // box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.05);
   // margin-bottom: 15px;
 .product-price {
   font-size: 20px;
@@ -122,6 +123,9 @@ box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
 }
 // quantity input
 .quantity-input {
+  align-items: end;
+  text-align: end;
+  justify-content: center;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -129,7 +133,7 @@ box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
   margin-top: 10px;
 
   input {
-    width: 70px;
+    width: 170px;
     padding: 6px 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -154,10 +158,6 @@ box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
 
   .add-to-cart {
     background-color: #facc15; // yellow-400
-  }
-
-  .buy-now {
-    background-color: #f97316; // orange-500
   }
 
   button:hover {

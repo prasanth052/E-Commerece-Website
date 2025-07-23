@@ -26,7 +26,8 @@ import { CustomSnackbarComponent } from '../../shared/custom-snackbar/custom-sna
   styleUrl: './products-list.component.scss',
 })
 export class ProductsListComponent
-  implements OnInit, OnDestroy, OnChanges, AfterViewInit {
+  implements OnInit, OnDestroy, OnChanges, AfterViewInit
+{
   Products: any[] = [];
   displayedProducts: any[] = [];
   totalProducts: number = 0;
@@ -42,7 +43,7 @@ export class ProductsListComponent
     private cartService: CartService,
     private SharedService: SharedService,
     @Inject(PLATFORM_ID) private platformId: Object
-  ) { }
+  ) {}
   async ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
       const bootstrap = await import('bootstrap'); // ✅ lazy-loaded only in browser
@@ -56,7 +57,7 @@ export class ProductsListComponent
       }
     }
   }
-  ngOnChanges(changes: SimpleChanges): void { }
+  ngOnChanges(changes: SimpleChanges): void {}
   ngOnInit() {
     this.getProducts();
   }
@@ -68,6 +69,19 @@ export class ProductsListComponent
         this.totalProducts = this.Products.length;
         this.displayedProducts = [...this.Products];
         this.SharedService.setProducts(this.displayedProducts);
+        this.displayedProducts = this.displayedProducts.map((product: any) => {
+          return {
+            ...product,
+            finalPrice:
+              product.basePrice - (product.basePrice * product.discount) / 100,
+            stockStatus:
+              product.stock === 0
+                ? 'Out of Stock'
+                : product.stock > 10
+                ? 'In Stock'
+                : 'Low Stock',
+          };
+        });
       },
     });
     console.log(this.displayedProducts);
@@ -93,12 +107,12 @@ export class ProductsListComponent
         data: {
           title: product.title,
           message: 'added to cart!',
-          type: 'success' // or 'error', 'warning'
+          type: 'success', // or 'error', 'warning'
         },
         duration: 3000,
         horizontalPosition: 'right',
         verticalPosition: 'top',
-        panelClass: ['snackbar-panel'] // Optional class
+        panelClass: ['snackbar-panel'], // Optional class
       });
     } else {
       this.router.navigate(['/login']);
@@ -158,5 +172,5 @@ export class ProductsListComponent
     // this.SharedService.setProducts(product._id)
     this.router.navigate(['/products/product-details']);
   }
-  ngOnDestroy() { }
+  ngOnDestroy() {}
 }
