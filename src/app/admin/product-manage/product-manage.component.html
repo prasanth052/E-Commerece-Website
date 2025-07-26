@@ -48,7 +48,6 @@
           </td>
         </ng-container>
 
-        <!-- Actions Column -->
         <ng-container *ngSwitchCase="'actions'" [matColumnDef]="column.def">
           <ng-container *ngIf="column.visible">
             <th mat-header-cell *matHeaderCellDef>{{ column.label }}</th>
@@ -71,8 +70,6 @@
         </ng-container>
 
       </ng-container>
-
-      <!-- Header & Row Def -->
       <tr mat-header-row *matHeaderRowDef="visibleColumns; sticky: true"></tr>
       <tr mat-row *matRowDef="let row; columns: visibleColumns;"></tr>
     </table>

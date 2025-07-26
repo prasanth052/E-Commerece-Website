@@ -20,6 +20,10 @@ export class ProductDetailsComponent implements OnInit {
   SpecficationLength = 0;
   Math = Math;
 
+  mainImage: string = '';
+  defaultMainImage: string = '';
+  thumbImages: string[] = [];
+
   private productSubscription!: Subscription;
   private cartItemsSubject = new BehaviorSubject<number>(0);
   cartItems$ = this.cartItemsSubject.asObservable();
@@ -43,14 +47,12 @@ export class ProductDetailsComponent implements OnInit {
     const cached = sessionStorage.getItem('selectedProduct');
     if (cached) this.setProduct(JSON.parse(cached));
 
-    this.productSubscription = this.shared.selectedProduct$.subscribe(
-      (product) => {
-        if (product) {
-          sessionStorage.setItem('selectedProduct', JSON.stringify(product));
-          this.setProduct(product);
-        }
+    this.productSubscription = this.shared.selectedProduct$.subscribe((product) => {
+      if (product) {
+        sessionStorage.setItem('selectedProduct', JSON.stringify(product));
+        this.setProduct(product);
       }
-    );
+    });
   }
 
   private setProduct(product: any) {
@@ -66,54 +68,91 @@ export class ProductDetailsComponent implements OnInit {
           : 'Low Stock',
     };
 
+    // Set default main image
+    this.defaultMainImage = this.selectedProduct?.images?.[0] || '';
+    this.mainImage = this.defaultMainImage;
+
+    // Parse thumbnail images
+
+
+    // Load similar products and specs
     this.loadSimilarProducts(product.brand);
     this.setSpecs(
       product?.mobileSpecs?.[0] ||
-        product?.clothesSpecs?.[0] ||
-        product?.shoesSpecs?.[0] ||
-        product?.laptopSpecs?.[0] ||
-        {}
+      product?.clothesSpecs?.[0] ||
+      product?.shoesSpecs?.[0] ||
+      product?.laptopSpecs?.[0] ||
+      {}
     );
   }
 
-private setSpecs(specs: any) {
-  let entries = Object.entries(specs);
-  const [firstKey, firstValue] = entries[0];
-  const hiddenKeyPatterns = [firstKey.toLowerCase()];
-  const hiddenValuePatterns = [String(firstValue).toLowerCase()];
+  private setSpecs(specs: any) {
+    if (!specs) return;
+  const thumbs = specs?.thumbnails;
+  let thumbString = '';
 
-  // Filter entries based on key or value match
-  entries = entries.filter(([key, value]) => {
-    const keyLower = key.toLowerCase();
-    const valueLower = String(value).toLowerCase();
-
-    const shouldHide =
-      hiddenKeyPatterns.some((pattern) => keyLower.includes(pattern)) ||
-      hiddenValuePatterns.some((pattern) => valueLower.includes(pattern));
-
-    return !shouldHide;
-  });
-
-  this.SpecficationLength = entries.length;
-
-  if (this.SpecficationLength > 6) {
-    const mid = Math.ceil(entries.length / 2);
-    this.leftSpecs = entries.slice(0, mid).map(([key, value]) => ({ key, value }));
-    this.rightSpecs = entries.slice(mid).map(([key, value]) => ({ key, value }));
-  } else {
-    this.leftSpecs = [];
-    this.rightSpecs = entries.map(([key, value]) => ({ key, value }));
+  if (typeof thumbs === 'string') {
+    thumbString = thumbs;
+  } else if (Array.isArray(thumbs)) {
+    thumbString = thumbs.join(',');
   }
-}
 
+  this.thumbImages = thumbString
+    .split(',')
+    .map(url => url.trim())
+    .filter(Boolean);
 
-  private loadSimilarProducts(brand: string): void {
-    this.api.getAllproducts().subscribe((products) => {
-      this.similarProducts = products.filter(
-        (p) => p.brand === brand && p._id !== this.selectedProduct?._id
+  this.mainImage = this.thumbImages[0] || specs?.images?.[0] || '';
+    let entries = Object.entries(specs);
+
+    // Remove first and last spec (usually non-display fields)
+    const [firstKey, firstValue] = entries[0];
+    const [lastKey, lastValue] = entries[entries.length - 1];
+
+    const hiddenKeyPatterns = [firstKey.toLowerCase(), lastKey.toLowerCase()];
+    const hiddenValuePatterns = [String(firstValue).toLowerCase(), String(lastValue).toLowerCase()];
+
+    entries = entries.filter(([key, value]) => {
+      const keyLower = key.toLowerCase();
+      const valueLower = String(value).toLowerCase();
+      return !(
+        hiddenKeyPatterns.some((pattern) => keyLower.includes(pattern)) ||
+        hiddenValuePatterns.some((pattern) => valueLower.includes(pattern))
       );
     });
+
+    this.SpecficationLength = entries.length;
+
+    if (entries.length > 6) {
+      const mid = Math.ceil(entries.length / 2);
+      this.leftSpecs = entries.slice(0, mid).map(([key, value]) => ({ key, value }));
+      this.rightSpecs = entries.slice(mid).map(([key, value]) => ({ key, value }));
+    } else {
+      this.leftSpecs = [];
+      this.rightSpecs = entries.map(([key, value]) => ({ key, value }));
+    }
+    
   }
+
+private loadSimilarProducts(brand: string): void {
+  this.api.getAllproducts().subscribe((products) => {
+    this.similarProducts = products
+      .filter(
+        (p) => p.brand === brand && p._id !== this.selectedProduct?._id
+      )
+      .map((product) => ({
+        ...product,
+        finalPrice: product.basePrice - (product.basePrice * product.discount) / 100,
+        stockStatus:
+          product.stock === 0
+            ? 'Out of Stock'
+            : product.stock > 10
+            ? 'In Stock'
+            : 'Low Stock',
+      }));
+  });
+}
+
 
   formatValue(val: any): string {
     return val === true ? 'Yes' : val === false ? 'No' : val;
@@ -161,6 +200,6 @@ private setSpecs(specs: any) {
   }
 
   buynow(product: any): void {
-    // Buy now logic (optional)
+    // Buy now logic here
   }
 }

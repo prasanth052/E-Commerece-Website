@@ -1,10 +1,23 @@
 <div class="p-4">
   <div class="product-container ">
-    <div class="left-section">
-      <div class="product-image">
-        <img [src]="selectedProduct?.images?.[0]" />
-      </div>
-    </div>
+<div class="product-gallery">
+  <!-- Thumbnails -->
+  <div class="thumbnails">
+    <img
+      *ngFor="let thumb of thumbImages"
+      [src]="thumb"
+      (click)="mainImage = thumb"
+      [ngClass]="{ 'active-thumb': mainImage === thumb }"
+      alt="Thumbnail"
+    />
+  </div>
+
+  <!-- Main Image -->
+  <div class="product-image">
+    <img [src]="mainImage || selectedProduct?.images?.[0]" alt="Main Image" />
+  </div>
+</div>
+
     <div class="product-details">
       <h2 class="product-title">{{ selectedProduct?.productName }}</h2>
       <p class="product-brand">Brand: {{ selectedProduct?.brand }}</p>
@@ -107,7 +120,7 @@
       <div class="similar-card" *ngFor="let product of similarProducts" (click)="navigateToProductDetails(product)">
         <img [src]="product.images?.[0]" alt="{{ product.productName }}">
         <h4>{{ product?.productName }}</h4>
-        <p>₹ {{ product?.finalPrice }}</p>
+      ₹{{ product?.finalPrice }}
       </div>
     </div>
   </div>
