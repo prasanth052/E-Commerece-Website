@@ -44,6 +44,7 @@ export class ProductDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
     const cached = sessionStorage.getItem('selectedProduct');
     if (cached) this.setProduct(JSON.parse(cached));
 
@@ -53,6 +54,7 @@ export class ProductDetailsComponent implements OnInit {
         this.setProduct(product);
       }
     });
+          window.scrollTo({ top: 0, behavior: 'auto' }); // Or 'smooth'
   }
 
   private setProduct(product: any) {
@@ -131,7 +133,7 @@ export class ProductDetailsComponent implements OnInit {
       this.leftSpecs = [];
       this.rightSpecs = entries.map(([key, value]) => ({ key, value }));
     }
-    
+
   }
 
 private loadSimilarProducts(brand: string): void {

@@ -1,3 +1,4 @@
+<div *ngIf="Sidebar==true else Routetshow">
 <div class="sidenav-container" *ngIf="admin ==false ">
   <mat-sidenav-container class="sidenav-container overflow-hidden">
     <mat-sidenav #sidenav mode="side" position="start" [opened]="isSidenavOpen">
@@ -122,3 +123,19 @@
   </mat-sidenav-container>
 
 </div>
+</div>
+<ng-template #Routetshow>
+<div>
+  <mat-sidenav-container class="sidenav-container overflow-hidden">
+    <mat-sidenav #sidenav mode="side" position="start" [opened]="isSidenavOpen">
+      <!-- <mat-nav-list class="nav-list overflow-hidden">
+      </mat-nav-list> -->
+    </mat-sidenav>
+        <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
+
+</ng-template>
+

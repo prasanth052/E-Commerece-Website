@@ -10,9 +10,9 @@ const routes: Routes = [
     path: '',
     component: ProductsComponent, // Must have <router-outlet> in its template
     children: [
-      { path: '', component: ProductsListComponent },
-      { path: 'filter', component: ProductFilterComponent },
-      { path: 'product-details', component:ProductDetailsComponent } // ✅ This matches /products/1
+      { path: '', component: ProductsListComponent , data: { Sidebar: true}},
+      { path: 'filter', component: ProductFilterComponent, data: { Sidebar: true} },
+      { path: 'product-details', component:ProductDetailsComponent , data: { Sidebar: false}} // ✅ This matches /products/1
     ]
   }
 ];

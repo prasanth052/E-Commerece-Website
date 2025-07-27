@@ -26,8 +26,7 @@ import { CustomSnackbarComponent } from '../../shared/custom-snackbar/custom-sna
   styleUrl: './products-list.component.scss',
 })
 export class ProductsListComponent
-  implements OnInit, OnDestroy, OnChanges, AfterViewInit
-{
+  implements OnInit, OnDestroy, OnChanges, AfterViewInit {
   Products: any[] = [];
   displayedProducts: any[] = [];
   totalProducts: number = 0;
@@ -43,7 +42,7 @@ export class ProductsListComponent
     private cartService: CartService,
     private SharedService: SharedService,
     @Inject(PLATFORM_ID) private platformId: Object
-  ) {}
+  ) { }
   async ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
       const bootstrap = await import('bootstrap'); // ✅ lazy-loaded only in browser
@@ -57,35 +56,36 @@ export class ProductsListComponent
       }
     }
   }
-  ngOnChanges(changes: SimpleChanges): void {}
+  ngOnChanges(changes: SimpleChanges): void { }
   ngOnInit() {
     this.getProducts();
+      this.SharedService.filteredProducts$.subscribe((filtered) => {
+    this.displayedProducts = filtered;
+    this.totalProducts = filtered.length;
+  });
   }
   Math = Math;
   getProducts() {
     this.apiService.getAllproducts().subscribe({
       next: (res: any) => {
-        this.Products = res;
-        this.totalProducts = this.Products.length;
-        this.displayedProducts = [...this.Products];
-        this.SharedService.setProducts(this.displayedProducts);
-        this.displayedProducts = this.displayedProducts.map((product: any) => {
-          return {
-            ...product,
-            finalPrice:
-              product.basePrice - (product.basePrice * product.discount) / 100,
-            stockStatus:
-              product.stock === 0
-                ? 'Out of Stock'
-                : product.stock > 10
+        this.Products = res.map((product: any) => ({
+          ...product,
+          finalPrice:
+            product.basePrice - (product.basePrice * product.discount) / 100,
+          stockStatus:
+            product.stock === 0
+              ? 'Out of Stock'
+              : product.stock > 10
                 ? 'In Stock'
                 : 'Low Stock',
-          };
-        });
+        }));
+
+        this.totalProducts = this.Products.length;
+        this.SharedService.setProducts(this.Products); // ✅ send finalPrice-ready products
       },
     });
-    console.log(this.displayedProducts);
   }
+
 
   private cartItemsSubject = new BehaviorSubject<number>(0);
   cartItems$ = this.cartItemsSubject.asObservable();
@@ -118,17 +118,26 @@ export class ProductsListComponent
       this.router.navigate(['/login']);
     }
   }
-  Sort(value: any) {
-    if (value === 'lowtohigh') {
-      this.displayedProducts = this.displayedProducts.sort(
-        (a: any, b: any) => a.price - b.price
-      );
-    } else {
-      this.displayedProducts = this.displayedProducts.sort(
-        (a: any, b: any) => b.price - a.price
-      );
-    }
+Sort(value: string) {
+  switch (value) {
+    case 'lowtohigh':
+      this.SharedService.applySort('finalPrice', 'asc');
+      break;
+    case 'hightolow':
+      this.SharedService.applySort('finalPrice', 'desc');
+      break;
+    case 'a-z':
+      this.SharedService.applySort('title', 'asc');
+      break;
+    case 'z-a':
+      this.SharedService.applySort('title', 'desc');
+      break;
+    default:
+      this.SharedService.applySort('', 'asc'); // reset
+      break;
   }
+}
+
   // revealProducts(): void {
   //   let index = 0;
   //   this.ProdCards = 0;
@@ -172,5 +181,5 @@ export class ProductsListComponent
     // this.SharedService.setProducts(product._id)
     this.router.navigate(['/products/product-details']);
   }
-  ngOnDestroy() {}
+  ngOnDestroy() { }
 }

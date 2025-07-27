@@ -1,5 +1,5 @@
 <mat-card>
-    <!-- <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+  <!-- <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <img [src]="'assets/slider.png'" class="img-size" alt="Back" />
@@ -21,54 +21,64 @@
 
 
 
-    <mat-card-content>
-        <mat-card id="products" class="mt-3">
-            <mat-card-content>
-                <div class="product-grid mb-4">
-                    <div class="product-card" *ngFor="let product of displayedProducts">
-                        <img [src]="product.images[0]" alt="Product Image" class="product-img"
-                            (click)="goToProduct(product)">
-                        <div class="product-info">
-                            <div>
-                                <h3 class="product-title" (click)="goToProduct(product)">
-                                    {{ product.productName }}
-                                    <span class="brand">({{ product.brand }})</span>
-                                    <!-- <span class="stock-status" *ngIf="product.stockStatus !== 'In Stock'"
+  <mat-card-content>
+    <mat-card id="products" class="mt-3" *ngIf="displayedProducts.length >0 else noProdcut">
+      <div >
+
+
+      </div>
+      <mat-card-content>
+        <div class="product-grid mb-4" >
+          <div class="product-card" *ngFor="let product of displayedProducts">
+            <img [src]="product.images[0]" alt="Product Image" class="product-img" (click)="goToProduct(product)">
+            <div class="product-info">
+              <div>
+                <h3 class="product-title" (click)="goToProduct(product)">
+                  {{ product.productName }}
+                  <span class="brand">({{ product.brand }})</span>
+                  <!-- <span class="stock-status" *ngIf="product.stockStatus !== 'In Stock'"
                                         [ngStyle]="{ 'color': 'red' }">
                                         <strong>{{ product.stockStatus }}</strong>
                                     </span> -->
 
-                                </h3>
+                </h3>
 
-                                <div class="product-rating">
-                                    <ng-container *ngFor="let i of [1,2,3,4,5]">
-                                        <span [class.filled]="i <= Math.round(product.rating)"
-                                            [class.unfilled]="i > Math.round(product.rating)">
-                                            &#9733;
-                                        </span>
-                                    </ng-container>
-                                    <span class="rating-number">({{ product.rating }})</span>
-                                    <span class="rating-number">({{ product.numReviews }} reviews)</span>
+                <div class="product-rating">
+                  <ng-container *ngFor="let i of [1,2,3,4,5]">
+                    <span [class.filled]="i <= Math.round(product.rating)"
+                      [class.unfilled]="i > Math.round(product.rating)">
+                      &#9733;
+                    </span>
+                  </ng-container>
+                  <span class="rating-number">({{ product.rating }})</span>
+                  <span class="rating-number">({{ product.numReviews }} reviews)</span>
 
-                                </div>
-                                <p class="product-price">
-                                    ₹{{ product.finalPrice }}
-                                    <span *ngIf="product.discount" class="old-price">₹{{ product.basePrice }}</span>
-
-                                    <span class="stock-status" *ngIf="product.stockStatus !== 'In Stock'"
-                                        [ngStyle]="{ 'color': 'red' }">
-                                        <strong>{{ product.stockStatus }}</strong>
-                                    </span>
-
-                                </p>
-                            </div>
-                            <button class="add-btn" (click)="addToCart(product)">Add to Cart</button>
-                        </div>
-                    </div>
                 </div>
+                <p class="product-price">
+                  ₹{{ product.finalPrice }}
+                  <span *ngIf="product.discount" class="old-price">₹{{ product.basePrice }}</span>
 
-            </mat-card-content>
-        </mat-card>
-    </mat-card-content>
-    <mat-card-footer></mat-card-footer>
+                  <span class="stock-status" *ngIf="product.stockStatus !== 'In Stock'" [ngStyle]="{ 'color': 'red' }">
+                    <strong>{{ product.stockStatus }}</strong>
+                  </span>
+
+                </p>
+              </div>
+              <button class="add-btn" (click)="addToCart(product)">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+
+
+      </mat-card-content>
+    </mat-card>
+            <ng-template #noProdcut>
+          <div class="no-product-container">
+            <mat-icon class="no-product-icon" color="warn">search_off</mat-icon>
+            <h4 class="no-product-text">No Products Found</h4>
+            <p class="no-product-subtext">Try adjusting filters or searching again.</p>
+          </div>
+        </ng-template>
+  </mat-card-content>
+  <mat-card-footer></mat-card-footer>
 </mat-card>

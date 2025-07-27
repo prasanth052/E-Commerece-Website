@@ -5,7 +5,7 @@
       <span class="logo cursor-pointer" routerLink="/">Smart Store</span>
 
       <div class="toolbar-center">
-        <input type="text" matInput placeholder="Search for a product, category or brand" (input)="searchEvent($event)"
+        <input type="text" matInput placeholder="Search for a product, category or brand" (input)="onSearch($event)"
           class="search-input form-control" />
         <button mat-flat-button color="warn" class="search-btn" (click)="Searchbtn()">
           SEARCH

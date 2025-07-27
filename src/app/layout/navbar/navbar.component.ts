@@ -47,7 +47,7 @@ export class NavbarComponent implements OnInit {
     return route;
   }
   searchValue: string = '';
-  searchEvent(e: any) {
+  onSearch(e: any) {
     this.searchValue = e.target.value;
     this.SharedService.Search(this.searchValue);
   }
@@ -58,5 +58,5 @@ export class NavbarComponent implements OnInit {
   toggleSidenav() {
     this.sidenavService.toggle();
   }
-  
+
 }

@@ -15,6 +15,8 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-sidebar',
@@ -41,23 +43,28 @@ import {
   ],
 })
 export class SidebarComponent implements OnInit {
-    @Input() admin: boolean = false;
+  @Input() admin: boolean = false;
   hideNavbar = false;
-  secondnavbar = false;
+  public secondnavbar = false;
+  public Sidebar:any
   hidesidebar = true;
   sidenavClass = 'lg';
   isSidenavOpen = true;
   constructor(
     private SharedService: SharedService,
-    private sidenavService: SidenavService
-  ) {}
+    private sidenavService: SidenavService, private router: Router
+  ) { }
 
 
   ngOnInit(): void {
+     if (this.admin === false) {
+    return; // Skip init logic
+  }
     this.sidenavService.sidenavOpen$.subscribe((isOpen) => {
       this.isSidenavOpen = isOpen;
       console.log('Sidebar is now', isOpen ? 'open' : 'closed');
     });
+
   }
   activeSubmenu: string | null = null;
 

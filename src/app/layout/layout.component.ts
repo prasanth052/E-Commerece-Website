@@ -1,4 +1,5 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { ChangeDetectorRef, Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
@@ -10,47 +11,49 @@ import { filter } from 'rxjs/operators';
 export class LayoutComponent implements OnInit {
   hideNavbar = false;
   secondnavbar = false;
-  sidenavbar = false;
+  Sidebar = false;
+  adminSidebar = false;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private cdr: ChangeDetectorRef // 👈 Add this
-  ) {}
-
-  ngOnInit(): void {
-    // ✅ Check once after load
-    setTimeout(() => {
-      const activeRoute = this.getDeepestChild(this.route);
-      this.updateFlagsFromRoute(activeRoute);
-      this.cdr.detectChanges(); // 👈 Ensure UI reflects updates
-    });
-
-    // ✅ Also handle on route change
+    private cdr: ChangeDetectorRef,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
-        const currentRoute = this.getDeepestChild(this.route);
-        this.updateFlagsFromRoute(currentRoute);
-        this.cdr.detectChanges(); // 👈 Ensure UI reflects updates
+        const childRoute = this.getChild(this.route);
+        const routeData = childRoute.snapshot.data;
+        console.log(routeData['Sidebar']);
+
+        this.hideNavbar = routeData['hideNavbar'] ?? false;
+        this.secondnavbar = routeData['secondnavbar'] ?? false;
+        this.Sidebar = routeData['Sidebar']
+        console.log(this.Sidebar);
+
+        this.adminSidebar = routeData['userRole'] === 'admin';
+
+        // Scroll to top on route change
+        if (isPlatformBrowser(this.platformId)) {
+          window.scrollTo({ top: 0, behavior: 'auto' });
+        }
+
+        // Mark for check in case of OnPush strategy
+        this.cdr.markForCheck();
       });
   }
 
-adminSidebar = false;
+  ngOnInit(): void { }
 
-updateFlagsFromRoute(route: ActivatedRoute) {
-  console.log(route.snapshot.data);
-  this.hideNavbar = route.snapshot.data['hideNavbar'] ?? false;
-  this.secondnavbar = route.snapshot.data['secondnavbar'] ?? false;
-
-  const role = route.snapshot.data['userRole'];
-  this.adminSidebar = role === 'admin';
-}
-
-  getDeepestChild(route: ActivatedRoute): ActivatedRoute {
+  private getChild(route: ActivatedRoute): ActivatedRoute {
     while (route.firstChild) {
       route = route.firstChild;
     }
     return route;
+  }
+
+  toggleSidenav() {
+    // Optional method if you need to trigger sidenav toggle from toolbar icon
   }
 }
