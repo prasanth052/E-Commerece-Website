@@ -40,6 +40,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { SplitCamelCasePipe  } from '../pipes/split-camel-case.pipe';
+
 @NgModule({
   declarations: [
     ProductsComponent,

@@ -145,4 +145,19 @@ export class SharedService {
 
     this.filteredProductsSubject.next(filtered);
   }
+private sidenavOpenSubject = new BehaviorSubject<boolean>(true);
+  sidenavOpen$ = this.sidenavOpenSubject.asObservable();
+
+  toggle(): void {
+    const current = this.sidenavOpenSubject.value;
+    this.sidenavOpenSubject.next(!current);
+  }
+
+  open(): void {
+    this.sidenavOpenSubject.next(true);
+  }
+
+  close(): void {
+    this.sidenavOpenSubject.next(false);
+  }
 }

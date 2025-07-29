@@ -1,13 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
 
-html,
-body {
+html, body {
   height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
@@ -16,6 +23,7 @@ body {
 // @import "assets/css/pacman.css";
 // @import "assets/css/timer.css";
 @import "assets/css/line-scale-party.css";
+
 
 mat-label {
   color: rgb(1, 44, 165);

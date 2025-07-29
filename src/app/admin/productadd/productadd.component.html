@@ -67,11 +67,25 @@
               <mat-label>Description</mat-label>
               <textarea name="" id="" matInput formControlName="fullDescription"></textarea>
             </mat-form-field>
+            <!-- <mat-form-field appearance="outline" class="w-full"> -->
+            <!-- <mat-label>Upload Image</mat-label> -->
+            <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+            <!-- </mat-form-field> -->
 
+            <div class="image-preview mt-3" *ngIf="previewUrl; else noImage">
+              <img [src]="previewUrl" alt="Preview" class="preview-img" />
+              <p class="mt-2 text-sm text-gray-600">Name: {{ selectedFile?.name }} | Size: {{ selectedFileSize }}</p>
+            </div>
+            <ng-template #noImage>
+              <div class="placeholder">No image selected</div>
+            </ng-template>
+            <div *ngIf="validationError" class="text-red-500 mt-2">
+              {{ validationError }}
+            </div>
           </mat-expansion-panel>
 
           <!-- Pricing -->
-          <mat-expansion-panel [expanded]="true"  [formGroup]="pricing">
+          <mat-expansion-panel [expanded]="true" [formGroup]="pricing">
             <mat-expansion-panel-header>
               <mat-panel-title>Pricing</mat-panel-title>
             </mat-expansion-panel-header>

@@ -1,3 +1,7 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 :root {
     --sidebar-width: 4.5em;
   }
@@ -43,3 +47,4 @@
       padding: 2.5em;
     }
   }
+  

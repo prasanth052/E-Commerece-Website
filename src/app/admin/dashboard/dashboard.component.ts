@@ -24,8 +24,8 @@ export class DashboardComponent implements OnInit ,AfterViewInit {
     { label: 'Returns', value: 12 }
   ];
   constructor(private router:Router){}
-  ngAfterViewInit(): void {
-    throw new Error('Method not implemented.');
+  ngAfterViewInit() {
+
   }
 
 

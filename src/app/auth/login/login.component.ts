@@ -21,8 +21,8 @@ export class LoginComponent implements OnInit {
       password: ['admin', Validators.required],
     });
   }
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
+  ngOnInit() {
+   
   }
   loginVaildbtn = false;
   login() {

@@ -3,7 +3,6 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { SharedService } from './../../shared/services/shared.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { filter } from 'rxjs';
-import { SidenavService } from '../../shared/sideNav/sidenav.service';
 import { CartService } from '../../core/cart.service';
 
 @Component({
@@ -21,7 +20,6 @@ export class NavbarComponent implements OnInit {
     private SharedService: SharedService,
     private router: Router,
     private route: ActivatedRoute,
-    private sidenavService: SidenavService,
     private cartService: CartService,
     private SharedCartService: SharedCartService
   ) {}
@@ -56,7 +54,9 @@ export class NavbarComponent implements OnInit {
   }
   isSidenavOpen: boolean = true;
   toggleSidenav() {
-    this.sidenavService.toggle();
+    console.log('Toggle Sidenav');
+    
+    this.SharedService.toggle();
   }
 
 }

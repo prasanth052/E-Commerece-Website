@@ -26,14 +26,15 @@
 
 .product-image {
   display: flex;
-  justify-content: center;
+  justify-content:flex-start;
   align-items: center;
   width: 100%;
-
+  margin-left: 6rem;
+  // border-right: silver .5px solid;
   img {
   width: 100%;
-  max-width: 450px;   /* You can go up to 600px if needed */
-  height: 400px;       /* Maintain aspect ratio */
+  max-width: 550px;   /* You can go up to 600px if needed */
+  height: 450px;       /* Maintain aspect ratio */
   object-fit: cover;
   border-radius: 1rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -42,21 +43,21 @@
 
 .product-gallery {
   display: flex;
-  gap: 1rem;
+  gap: .5rem;
   align-items: flex-start;
 }
 
 .thumbnails {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: .8rem;
   max-height: 500px;
   // overflow-y: auto;
 }
 
 .thumbnails img {
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   object-fit: cover;
   border-radius: 8px;
   border: 1px solid #ccc;
@@ -70,6 +71,7 @@
   /* Amazon blue */
   box-shadow: 0 0 0 2px rgba(0, 113, 133, 0.4);
 }
+
 
 
 

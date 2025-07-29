@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,5 +11,8 @@ export class AdminserviceService {
 
   updateProduct(updateData :any){
        return this.http.post<any>('http://localhost:5050/api/products/updateproduct',updateData)
+  }
+  CategorySpec(category:any):Observable<any>{
+    return this.http.get<any>('http://localhost:5050/api/products/productfilterbyCatg?category='+category)
   }
 }

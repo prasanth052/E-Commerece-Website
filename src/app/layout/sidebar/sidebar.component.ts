@@ -1,13 +1,6 @@
 import { SharedService } from './../../shared/services/shared.service';
 import { Component, Input, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { fail } from 'assert';
-import { SidenavService } from '../../shared/sideNav/sidenav.service';
+
 import {
   animate,
   state,
@@ -15,8 +8,8 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
-import { NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs';
+import {  Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-sidebar',
@@ -42,6 +35,7 @@ import { filter } from 'rxjs';
     ]),
   ],
 })
+
 export class SidebarComponent implements OnInit {
   @Input() admin: boolean = false;
   hideNavbar = false;
@@ -49,22 +43,60 @@ export class SidebarComponent implements OnInit {
   public Sidebar:any
   hidesidebar = true;
   sidenavClass = 'lg';
-  isSidenavOpen = true;
+ public isSidenavOpen = true;
   constructor(
-    private SharedService: SharedService,
-    private sidenavService: SidenavService, private router: Router
+    private SharedService: SharedService, private router: Router
   ) { }
 
+  adminMenus = [
+    {
+      key: 'ecommerce',
+      label: 'Ecommerce',
+      icon: 'shopping_cart',
+      items: [
+        { label: 'All Products', link: '/admin/prodctmanage' },
+        { label: 'Add Product', link: '/admin/productadd' }
+      ]
+    },
+    {
+      key: 'category',
+      label: 'Category',
+      icon: 'layers',
+      items: [{ label: 'List', link: '/admin/Catglist' }]
+    },
+    {
+      key: 'attributes',
+      label: 'Attributes',
+      icon: 'inventory_2',
+      items: [{ label: 'Manage', link: '/attributes' }]
+    },
+    {
+      key: 'order',
+      label: 'Order',
+      icon: 'add_box',
+      items: [{ label: 'All Orders', link: '/admin/adminordermanage' }]
+    },
+    {
+      key: 'user',
+      label: 'User',
+      icon: 'person',
+      items: [{ label: 'All Users', link: '/users' }]
+    },
+    {
+      key: 'roles',
+      label: 'Roles',
+      icon: 'supervisor_account',
+      items: [{ label: 'All Roles', link: '/roles' }]
+    }
+  ];
 
   ngOnInit(): void {
-     if (this.admin === false) {
-    return; // Skip init logic
-  }
-    this.sidenavService.sidenavOpen$.subscribe((isOpen) => {
+
+    this.SharedService.sidenavOpen$.subscribe((isOpen) => {
       this.isSidenavOpen = isOpen;
       console.log('Sidebar is now', isOpen ? 'open' : 'closed');
     });
-
+  
   }
   activeSubmenu: string | null = null;
 

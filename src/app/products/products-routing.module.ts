@@ -11,7 +11,7 @@ const routes: Routes = [
     component: ProductsComponent, // Must have <router-outlet> in its template
     children: [
       { path: '', component: ProductsListComponent , data: { Sidebar: true}},
-      { path: 'filter', component: ProductFilterComponent, data: { Sidebar: true} },
+      { path: 'filter', component: ProductFilterComponent, data: { Sidebar: true}},
       { path: 'product-details', component:ProductDetailsComponent , data: { Sidebar: false}} // ✅ This matches /products/1
     ]
   }
