@@ -10,9 +10,9 @@ export class AdminserviceService {
   constructor(private http:HttpClient) { }
 
   updateProduct(updateData :any){
-       return this.http.post<any>('http://localhost:5050/api/products/updateproduct',updateData)
+       return this.http.post<any>('http:/https://erpapi-bgyq.onrender.com/api/products/updateproduct',updateData)
   }
   CategorySpec(category:any):Observable<any>{
-    return this.http.get<any>('http://localhost:5050/api/products/productfilterbyCatg?category='+category)
+    return this.http.get<any>('http:/https://erpapi-bgyq.onrender.com/api/products/productfilterbyCatg?category='+category)
   }
 }
