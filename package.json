@@ -27,7 +27,7 @@
     "@angular/ssr": "^18.1.1",
     "@canvasjs/angular-charts": "^1.2.0",
     "@canvasjs/charts": "^3.10.13",
-    "@ngrx/effects": "^19.0.0",
+    "@ngrx/effects": "^18.0.0",
     "@ngrx/store": "^1.5.0",
     "@ngrx/store-devtools": "^19.0.0",
     "@popperjs/core": "^2.11.8",
