@@ -1,121 +1,135 @@
-{
-  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1,
-  "newProjectRoot": "projects",
-  "projects": {
-    "Prasanth": {
-      "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss",
-          "standalone": false
-        },
-        "@schematics/angular:directive": {
-          "standalone": false
-        },
-        "@schematics/angular:pipe": {
-          "standalone": false
-        }
-      },
-      "root": "",
-      "sourceRoot": "src",
-      "prefix": "app",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-angular:application",
-          "options": {
-            "watch": true,
-            "outputPath": "dist/prasanth",
-            "index": "src/index.html",
-            "browser": "src/main.ts",
-            "polyfills": ["zone.js"],
-            "tsConfig": "tsconfig.app.json",
-            "inlineStyleLanguage": "scss",
-            "assets": ["src/assets", "src/favicon.ico"],
-            "styles": [
-              "@angular/material/prebuilt-themes/azure-blue.css",
-              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
-              "node_modules/primeng/resources/primeng.min.css",
-              "node_modules/font-awesome/css/font-awesome.min.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/quill/dist/quill.snow.css",
-               "node_modules/swiper/swiper-bundle.min.css",
-              "src/styles.scss"
-            ],
-            "scripts": [
-              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
-            ],
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "server.ts"
-            }
+  {
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "version": 1,
+    "newProjectRoot": "projects",
+    "projects": {
+      "Prasanth": {
+        "projectType": "application",
+        "schematics": {
+          "@schematics/angular:component": {
+            "style": "scss",
+            "standalone": false
           },
-          "configurations": {
-            "production": {
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2MB",
-                  "maximumError": "1.5MB"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2MB",
-                  "maximumError": "2MB"
-                }
+          "@schematics/angular:directive": {
+            "standalone": false
+          },
+          "@schematics/angular:pipe": {
+            "standalone": false
+          }
+        },
+        "root": "",
+        "sourceRoot": "src",
+        "prefix": "app",
+        "architect": {
+          "build": {
+            "builder": "@angular-devkit/build-angular:application",
+            "options": {
+              "watch": true,
+              "outputPath": "dist/prasanth",
+              "index": "src/index.html",
+              "browser": "src/main.ts",
+              "polyfills": [
+                "zone.js"
               ],
-              "outputHashing": "all"
+              "tsConfig": "tsconfig.app.json",
+              "inlineStyleLanguage": "scss",
+              "assets": [
+                "src/assets",
+                "src/favicon.ico"
+              ],
+              "styles": [
+                "@angular/material/prebuilt-themes/azure-blue.css",
+                "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+                "node_modules/primeng/resources/primeng.min.css",
+                "node_modules/font-awesome/css/font-awesome.min.css",
+                "node_modules/bootstrap/dist/css/bootstrap.min.css",
+                "node_modules/quill/dist/quill.snow.css",
+                "node_modules/swiper/swiper-bundle.min.css",
+                "src/styles.scss"
+              ],
+              "scripts": [
+                "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+              ],
+              "server": "src/main.server.ts",
+              "prerender": true,
+              "ssr": {
+                "entry": "server.ts"
+              },
+              "allowedCommonJsDependencies": [
+                "@canvasjs/charts"
+              ]
             },
-            "development": {
-              "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "configurations": {
-            "production": {
-              "buildTarget": "Prasanth:build:production"
+            "configurations": {
+              "production": {
+                "budgets": [
+                  {
+                    "type": "initial",
+                    "maximumWarning": "2MB",
+                    "maximumError": "1.5MB"
+                  },
+                  {
+                    "type": "anyComponentStyle",
+                    "maximumWarning": "2MB",
+                    "maximumError": "2MB"
+                  }
+                ],
+                "outputHashing": "all"
+              },
+              "development": {
+                "optimization": false,
+                "extractLicenses": false,
+                "sourceMap": true
+              }
             },
-            "development": {
-              "buildTarget": "Prasanth:build:development"
-            }
+            "defaultConfiguration": "production"
           },
-          "defaultConfiguration": "development"
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "polyfills": ["zone.js", "zone.js/testing"],
-            "tsConfig": "tsconfig.spec.json",
-            "inlineStyleLanguage": "scss",
-            "assets": ["src/assets", "src/favicon.ico"],
-            "styles": [
-              "@angular/material/prebuilt-themes/azure-blue.css",
-              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
-              "node_modules/primeng/resources/primeng.min.css",
-              "node_modules/font-awesome/css/font-awesome.min.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/quill/dist/quill.snow.css",
-               "node_modules/swiper/swiper-bundle.min.css",
-              "src/styles.scss"
-            ],
-            "scripts": [
-              "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
-            ]
+          "serve": {
+            "builder": "@angular-devkit/build-angular:dev-server",
+            "configurations": {
+              "production": {
+                "buildTarget": "Prasanth:build:production"
+              },
+              "development": {
+                "buildTarget": "Prasanth:build:development"
+              }
+            },
+            "defaultConfiguration": "development"
+          },
+          "extract-i18n": {
+            "builder": "@angular-devkit/build-angular:extract-i18n"
+          },
+          "test": {
+            "builder": "@angular-devkit/build-angular:karma",
+            "options": {
+              "polyfills": [
+                "zone.js",
+                "zone.js/testing"
+              ],
+              "tsConfig": "tsconfig.spec.json",
+              "inlineStyleLanguage": "scss",
+              "assets": [
+                "src/assets",
+                "src/favicon.ico"
+              ],
+              "styles": [
+                "@angular/material/prebuilt-themes/azure-blue.css",
+                "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
+                "node_modules/primeng/resources/primeng.min.css",
+                "node_modules/font-awesome/css/font-awesome.min.css",
+                "node_modules/bootstrap/dist/css/bootstrap.min.css",
+                "node_modules/quill/dist/quill.snow.css",
+                "node_modules/swiper/swiper-bundle.min.css",
+                "src/styles.scss"
+              ],
+              "scripts": [
+                "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+              ]
+            }
           }
         }
       }
+    },
+    "cli": {
+      "analytics": "3c5a9b62-2723-4ad1-932a-fd57f344d603"
     }
-  },
-  "cli": {
-    "analytics": "3c5a9b62-2723-4ad1-932a-fd57f344d603"
   }
-}
