@@ -9,7 +9,7 @@ export class ApiService {
  
    constructor(private http: HttpClient) { }
    getAllproducts(): Observable<any[]> {
-     return this.http.get<any[]>('http:/https://erpapi-bgyq.onrender.com/api/products')
+     return this.http.get<any[]>('https://erpapi-bgyq.onrender.com/api/products')
    }
    getProductById(id: number): Observable<any> {
      return this.http.get<any>(`https://dummyjson.com/products/${id}`);
