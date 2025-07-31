@@ -7,6 +7,7 @@ import {
   FormControl,
 } from '@angular/forms';
 import { AdminserviceService } from '../service/adminservice.service';
+import { log } from 'console';
 
 @Component({
   selector: 'app-productadd',
@@ -17,109 +18,9 @@ export class ProductaddComponent implements OnInit {
   mainForm!: FormGroup;
   imagePreviews: string[] = [];
   categoryList = ['Select', 'Mobile', 'Clothes', 'Shoes', 'Laptop'];
-  categorySpecifications: Record<
-    string,
-    { label: string; controlName: string; sideHeader?: string }[]
-  > = {
-      mobile: [
-        // I. Core Components
-        {
-          label: 'Processor (CPU)',
-          controlName: 'processor',
-        },
-        { label: 'RAM', controlName: 'ram' },
-        { label: 'Storage Capacity (ROM)', controlName: 'storage' },
-
-        // II. Display
-        {
-          label: 'Display Size & Resolution',
-          controlName: 'displaySize',
-        },
-        { label: 'Refresh Rate', controlName: 'refreshRate' },
-
-        // III. Camera
-        {
-          label: 'Megapixels (Main Camera)',
-          controlName: 'megapixels',
-        },
-        { label: 'Lenses (Wide/UltraWide/Telephoto)', controlName: 'lenses' },
-        {
-          label: 'Computational Photography',
-          controlName: 'computationalPhotography',
-        },
-        { label: 'ToF Sensor Support', controlName: 'tofSensor' },
-
-        // IV. Battery
-        {
-          sideHeader: 'Battery',
-          label: 'Battery Capacity (mAh)',
-          controlName: 'batteryCapacity',
-        },
-        {
-          label: 'Fast Charging Type (e.g., 80W SUPERVOOC)',
-          controlName: 'fastCharging',
-        },
-        { label: 'Battery Type (Li-ion/Li-Po)', controlName: 'batteryType' },
-
-        // V. Connectivity
-        {
-          label: '5G Support',
-          controlName: 'support5g',
-        },
-        { label: 'Wi-Fi Version', controlName: 'wifi' },
-        { label: 'Bluetooth Version', controlName: 'bluetooth' },
-        { label: 'GPS Support', controlName: 'gps' },
-        { label: 'IR Blaster', controlName: 'irBlaster' },
-
-        // VI. Other Features
-        {
-          sideHeader: 'Other Features',
-          label: 'Operating System (OS)',
-          controlName: 'os',
-        },
-        {
-          label: 'Biometric Security (Fingerprint/Face)',
-          controlName: 'biometric',
-        },
-        { label: 'AI & Machine Learning Support', controlName: 'aiFeatures' },
-        { label: 'Build Quality / Material', controlName: 'buildQuality' },
-        { label: 'Water Resistance Rating', controlName: 'waterResistance' },
-      ],
-      clothes: [
-        { label: 'FABRIC', controlName: 'fabric' },
-        { label: 'Size', controlName: 'size' },
-        { label: 'Material', controlName: 'material' },
-        { label: 'Color', controlName: 'color' },
-        { label: 'Fit Type', controlName: 'fitType' },
-        { label: 'Sleeve Type', controlName: 'sleeveType' },
-        { label: 'Neck Type', controlName: 'neckType' },
-      ],
-      shoes: [
-        { label: 'Shoe Size', controlName: 'shoeSize' },
-        { label: 'Material', controlName: 'material' },
-        { label: 'Color', controlName: 'color' },
-        { label: 'Sole Type', controlName: 'soleType' },
-      ],
-      laptop: [
-        { label: 'Processor', controlName: 'processor' },
-        { label: 'RAM', controlName: 'ram' },
-        { label: 'Memory', controlName: 'Memory' },
-        { label: 'Screen Size', controlName: 'screensize' },
-        { label: 'Graphics Card', controlName: 'graphics' },
-        { label: 'Battery', controlName: 'battery' },
-        { label: 'Bluetooth Version', controlName: 'bluetooth' },
-        { label: 'OS', controlName: 'os' },
-        { label: 'Dimension', controlName: 'dimension' },
-        { label: 'Weight', controlName: 'weight' },
-        { label: 'Resolution', controlName: 'resolution' },
-        { label: 'Slot', controlName: 'slot' },
-      ],
-    };
-
-  specFields: { label: string; controlName: string }[] = [];
   sideHeader?: string;
 
-  constructor(private fb: FormBuilder,private adminservice:AdminserviceService) { }
+  constructor(private fb: FormBuilder, private adminservice: AdminserviceService) { }
 
   ngOnInit(): void {
     this.mainForm = this.fb.group({
@@ -158,25 +59,42 @@ export class ProductaddComponent implements OnInit {
   get specifications(): FormGroup {
     return this.mainForm.get('specifications') as FormGroup;
   }
+  specFields: { label: string; controlName: string }[] = [];
 
   onCategoryChange(category: string): void {
-    const specs = this.categorySpecifications[category.toLowerCase()] || [];
-    console.log(specs);
-    
-    this.specFields = specs;
-    const specGroup = this.fb.group({});
-    specs.forEach((s) => {
-      specGroup.addControl(
-        s.controlName,
-        new FormControl('', Validators.required)
-      );
-    });
-    this.mainForm.setControl('specifications', specGroup);
-    this.adminservice.CategorySpec( this.mainForm.controls['specifications'].value).subscribe({next:(res:any)=>{
-        console.log(res);
-    }})
-  }
+    console.log('Selected Category:', category);
 
+    this.adminservice.CategorySpec(category).subscribe({
+      next: (res: string[]) => {
+        console.log('API Response:', res);
+
+        // Convert array of strings to array of { label, controlName } objects
+        this.specFields = res.map((field) => ({
+          controlName: field,
+          label: this.toTitleCase(field)
+        }));
+
+        // Create new FormGroup for specifications
+        const specGroup = this.fb.group({});
+        this.specFields.forEach((spec) => {
+          specGroup.addControl(spec.controlName, new FormControl('', Validators.required));
+        });
+        console.log('Specification Fields:', this.specFields);
+        this.mainForm.setControl('specifications', specGroup);
+      },
+      error: (err) => {
+        console.error('Failed to load category specs', err);
+      }
+    });
+  }
+  toTitleCase(str: string): string {
+    return str
+      .replace(/([A-Z])/g, ' $1')        // insert space before capital letters
+      .replace(/[_-]/g, ' ')             // replace _ or - with space
+      .replace(/\s+/g, ' ')              // remove extra spaces
+      .trim()
+      .replace(/^./, (c) => c.toUpperCase()); // capitalize first letter
+  }
   previewUrl: string | ArrayBuffer | null = null;
   selectedFile: File | null = null;
   validationError: string | null = null;
@@ -185,7 +103,7 @@ export class ProductaddComponent implements OnInit {
     if (!this.selectedFile) return '';
     const sizeInKB = this.selectedFile.size / 1024;
     console.log(sizeInKB);
-    
+
     return sizeInKB > 1024
       ? (sizeInKB / 1024).toFixed(2) + ' MB'
       : sizeInKB.toFixed(2) + ' KB';
