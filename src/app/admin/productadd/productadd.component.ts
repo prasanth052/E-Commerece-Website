@@ -7,7 +7,7 @@ import {
   FormControl,
 } from '@angular/forms';
 import { AdminserviceService } from '../service/adminservice.service';
-import { log } from 'console';
+
 
 @Component({
   selector: 'app-productadd',
