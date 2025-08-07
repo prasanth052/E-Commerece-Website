@@ -1,6 +1,5 @@
-[build]
-  command = "npm ci --legacy-peer-deps && npm run build"
-  publish = "dist/prasanth/browser"
+[[plugins]]
+  package = "netlify-plugin-cache"
 
-[build.environment]
-  NPM_FLAGS = "--legacy-peer-deps"
+  [plugins.inputs]
+  paths = ["node_modules", ".angular", "dist"]
