@@ -24,7 +24,7 @@
           "build": {
             "builder": "@angular-devkit/build-angular:application",
             "options": {
-              "watch": true,
+              "watch": false,
               "outputPath": "dist/prasanth",
               "index": "src/index.html",
               "browser": "src/main.ts",
@@ -73,7 +73,9 @@
                     "maximumError": "2MB"
                   }
                 ],
-                "outputHashing": "all"
+                "outputHashing": "media",
+                "sourceMap": false,
+                "optimization": true
               },
               "development": {
                 "optimization": true,
