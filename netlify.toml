@@ -1,5 +1,4 @@
-[[plugins]]
-  package = "netlify-plugin-cache"
-
-  [plugins.inputs]
-  paths = ["node_modules", ".angular", "dist"]
+[build]
+  command = "npm run build"
+  publish = "dist"
+  environment = { NODE_VERSION = "18" }
