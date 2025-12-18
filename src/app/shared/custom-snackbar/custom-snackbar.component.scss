@@ -1,19 +1,18 @@
-.snackbar-container {
-  color: #fff;
-  font-size: 14px;
-  padding: 10px;
-  border-radius: 4px;
-  margin: -15px -17px;
-  font-family: 'Times New Roman', Times, serif;
+.simple-snackbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  color: white;
 }
 
-.success {
-  background-color: #4caf50;
+.msg {
+  font-size: 14px;
+  font-weight: 500;
 }
-.error {
-  background-color: #f44336;
-}
-.warning {
-  background-color: #ff9800;
-}
-    
+
+// .action {
+//   color: #64b5f6 !important;
+//   font-weight: 600;
+//   font-size: 14px;
+// }

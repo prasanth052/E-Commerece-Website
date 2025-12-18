@@ -1,9 +1,8 @@
-import { SharedCartService } from './../../shared/services/shared-cart.service';
+
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { SharedService } from './../../shared/services/shared.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { filter } from 'rxjs';
-import { SidenavService } from '../../shared/sideNav/sidenav.service';
 import { CartService } from '../../core/cart.service';
 
 @Component({
@@ -21,17 +20,15 @@ export class NavbarComponent implements OnInit {
     private SharedService: SharedService,
     private router: Router,
     private route: ActivatedRoute,
-    private sidenavService: SidenavService,
     private cartService: CartService,
-    private SharedCartService: SharedCartService
+
   ) {}
   ngOnInit() {
-    this.SharedCartService.setCartCount(
-      this.cartService.calculateInitialCount()
-    );
+
     this.cartService.cartCount$.subscribe((count) => {
       this.cartCount = count;
     });
+
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe(() => {
@@ -54,9 +51,8 @@ export class NavbarComponent implements OnInit {
   Searchbtn() {
     this.SharedService.Search(this.searchValue);
   }
-  isSidenavOpen: boolean = true;
-  toggleSidenav() {
-    this.sidenavService.toggle();
-  }
+toggleSidenav() {
+  this.SharedService.toggle();
+}
 
 }

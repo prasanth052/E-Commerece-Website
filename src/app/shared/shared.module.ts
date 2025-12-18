@@ -4,6 +4,8 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ProductCardComponent } from './product-card/product-card.component';
 import { CustomSnackbarComponent } from './custom-snackbar/custom-snackbar.component';
+import { MatFormField, MatLabel } from "@angular/material/form-field";
+import { MatIcon } from "@angular/material/icon";
 
 
 
@@ -15,7 +17,10 @@ import { CustomSnackbarComponent } from './custom-snackbar/custom-snackbar.compo
     CustomSnackbarComponent
   ],
   imports: [
-    CommonModule
-  ]
+    CommonModule,
+    MatFormField,
+    MatLabel,
+    MatIcon
+]
 })
 export class SharedModule { }

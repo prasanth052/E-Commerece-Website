@@ -9,6 +9,9 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 @import "primeng/resources/themes/lara-light-blue/theme.css";

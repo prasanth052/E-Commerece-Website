@@ -28,6 +28,7 @@ import { SharedModule } from './shared/shared.module';
 
 import { HttpinterceptorService } from './Interceptor/httpinterceptor.service';
 import { LayoutModule } from './layout/layout.module';
+import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [AppComponent, DemoComponent, ],
@@ -39,6 +40,8 @@ import { LayoutModule } from './layout/layout.module';
     NgxSpinnerModule,
     FormsModule,
     ReactiveFormsModule,
+    MatFormFieldModule,
+
   ],
 
   providers: [

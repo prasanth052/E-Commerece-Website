@@ -1,3 +1,21 @@
-<div class="snackbar-container" [ngClass]="data.type">
-  <strong class="snackbar-title text-light">{{ data.title }}</strong> <label class="text-black">&nbsp;{{ data.message }}</label>
+<!-- <div class="snackbar-wrapper" [ngClass]="data.type">
+  <div class="snackbar-icon" *ngIf="data.type">
+    <ng-container [ngSwitch]="data.type">
+      <mat-icon *ngSwitchCase="'success'">check_circle</mat-icon>
+      <mat-icon *ngSwitchCase="'error'">error</mat-icon>
+      <mat-icon *ngSwitchCase="'warning'">warning</mat-icon>
+      <mat-icon *ngSwitchDefault>info</mat-icon>
+    </ng-container>
+  </div>
+
+  <div class="snackbar-content">
+    <div class="title">{{ data.title }}</div>
+    <div class="message">{{ data.message }}</div>
+  </div>
+</div> -->
+<div class="simple-snackbar">
+  <span class="msg">{{ data.message }}</span>
+  <button class="action" mat-button (click)="close()">
+    {{ data.title }}
+  </button>
 </div>

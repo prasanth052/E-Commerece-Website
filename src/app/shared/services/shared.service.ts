@@ -145,4 +145,24 @@ export class SharedService {
 
     this.filteredProductsSubject.next(filtered);
   }
+
+
+
+  // SideNav Close And Open
+   private sidenavOpenSubject = new BehaviorSubject<boolean>(false); // start closed
+  sidenavOpen$ = this.sidenavOpenSubject.asObservable();
+
+  toggle(): void {
+    const current = this.sidenavOpenSubject.value;
+    this.sidenavOpenSubject.next(!current);
+    console.log('Service toggle ->', !current);
+  }
+
+  open(): void {
+    this.sidenavOpenSubject.next(true);
+  }
+
+  close(): void {
+    this.sidenavOpenSubject.next(false);
+  }
 }

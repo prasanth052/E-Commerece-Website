@@ -44,7 +44,7 @@ export class AppComponent implements OnInit {
   secondnavbar = false;
   sidenavbar = true;
   ngOnInit() {
-    this.cartService.setCartCount(this.cartService.calculateInitialCount());
+    // this.cartService.setCartCount(this.cartService.calculateInitialCount());
 
     this.cartService.cartCount$.subscribe((count) => {
       this.cartCount = count;

@@ -1,3 +1,4 @@
+import { SharedService } from './../../shared/services/shared.service';
 import { AdminserviceService } from './../service/adminservice.service';
 import { ApiService } from './../../core/api.service';
 import {
@@ -9,7 +10,7 @@ import {
 } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { SidenavService } from '../../shared/sideNav/sidenav.service';
+
 
 @Component({
   selector: 'app-product-manage',
@@ -48,8 +49,8 @@ export class ProductManageComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
-    private ApiService: ApiService,
-    private sidenavService: SidenavService,
+    private ApiService: ApiService,private SharedService:SharedService,
+
     private Adminservice: AdminserviceService
   ) {}
 
@@ -195,7 +196,7 @@ export class ProductManageComponent implements OnInit, AfterViewInit {
     field: null,
   };
   editProduct(row: any) {
-    this.sidenavService.toggle();
+    this.SharedService.toggle();
     this.originalRow = { ...row };
     this.editRowId = row._id;
   }

@@ -1,122 +1,236 @@
-<div >
-  <div class="product-container ">
-    <div class="product-gallery">
+<div class="p-6 bg-gray-100 dark:bg-gray-900 min-h-screen transition-colors">
+
+  <!-- ================= PRODUCT MAIN ================= -->
+  <div
+    class="max-w-7xl mx-auto bg-white dark:bg-gray-800
+           rounded-2xl shadow p-6
+           grid grid-cols-1 lg:grid-cols-2 gap-10"
+  >
+
+    <!-- ========== LEFT : IMAGE GALLERY ========== -->
+    <div class="flex gap-4">
+
       <!-- Thumbnails -->
-      <div class="thumbnails">
-        <img *ngFor="let thumb of thumbImages" [src]="thumb" (click)="mainImage = thumb"
-          [ngClass]="{ 'active-thumb': mainImage === thumb }" alt="Thumbnail" />
+      <div class="flex flex-col gap-3">
+        <img
+          *ngFor="let thumb of thumbImages"
+          [src]="thumb"
+          (click)="mainImage = thumb"
+          [ngClass]="{
+            'ring-2 ring-primary-600': mainImage === thumb
+          }"
+          class="w-20 h-20 object-cover rounded-lg cursor-pointer
+                 border border-gray-200 dark:border-gray-700
+                 hover:ring-2 hover:ring-primary-400 transition"
+          alt="Thumbnail"
+        />
       </div>
 
       <!-- Main Image -->
-      <div class="product-image">
-        <img [src]="mainImage || selectedProduct?.images?.[0]" alt="Main Image" />
+      <div class="flex-1 flex items-center justify-center">
+        <img
+          [src]="mainImage || selectedProduct?.images?.[0]"
+          class="max-h-[420px] object-contain rounded-xl"
+          alt="Main product image"
+        />
       </div>
+
     </div>
 
-    <div class="product-details">
-      <h2 class="product-title">{{ selectedProduct?.productName }}</h2>
-      <p class="product-brand">Brand: {{ selectedProduct?.brand }}</p>
-      <h2 class="product-description">{{ selectedProduct?.FullDesc }}</h2>
-      <div class="product-rating">
+    <!-- ========== RIGHT : PRODUCT DETAILS ========== -->
+    <div class="space-y-4">
+
+      <h2 class="text-2xl font-bold text-gray-900 dark:text-white">
+        {{ selectedProduct?.productName }}
+      </h2>
+
+      <p class="text-sm text-gray-500">
+        Brand:
+        <span class="font-medium">{{ selectedProduct?.brand }}</span>
+      </p>
+
+      <p class="text-gray-700 dark:text-gray-300">
+        {{ selectedProduct?.FullDesc }}
+      </p>
+
+      <!-- Rating -->
+      <div class="flex items-center gap-1">
         <ng-container *ngFor="let i of [1,2,3,4,5]">
-          <span [class.filled]="i <= Math.round(selectedProduct?.rating)"
-            [class.unfilled]="i > Math.round(selectedProduct?.rating)">
-            &#9733;
-          </span>
+          <span
+            class="text-amber-400 text-lg"
+            [class.opacity-30]="i > Math.round(selectedProduct?.rating)"
+          >★</span>
         </ng-container>
-        <span class="rating-number">({{ selectedProduct?.rating }})</span>
-        <span class="rating-number">({{ selectedProduct?.numReviews }} reviews)</span>
+        <span class="text-sm text-gray-600 dark:text-gray-400 ml-2">
+          {{ selectedProduct?.rating }}
+          ({{ selectedProduct?.numReviews }} reviews)
+        </span>
       </div>
-      <p class="product-description -mt-3">{{ selectedProduct?.description }}</p>
-      <div class="row price-box">
-        <div class="col-6">
-          <p class="product-price">
-            ₹{{ selectedProduct?.finalPrice }}
-            <span *ngIf="selectedProduct?.discount" class="old-price">₹{{ selectedProduct?.basePrice }}</span>
-            <span class="stock-status" *ngIf="selectedProduct?.stockStatus !== 'In Stock'"
-              [ngStyle]="{ 'color': 'red' }">
-              <strong>{{ selectedProduct?.stockStatus }}</strong>
-            </span>
-          </p>
-          <div class="return-policy">
-            <p><mat-icon>autorenew</mat-icon> 7-day return</p>
-            <p><mat-icon>verified_user</mat-icon> Refund on damaged item</p>
-          </div>
-        </div>
-        <div class="col-6">
-          <div class="location-check">
-            <label for="pincode">Check delivery:</label>
-            <input type="text" id="pincode" maxlength="6" placeholder="Enter Pincode" [(ngModel)]="enteredPincode"
-              (click)="checkDelivery()">
-            <!-- <button >Check</button> -->
-          </div>
-          <p>Free delivery in 3–5 days</p>
-        </div>
-      </div>
-      <div class="action-buttons mt-3">
-        <button class="btn btn-warning add-to-cart">Add to Cart</button>
-        <button class="btn btn-primary buy-now">Buy Now</button>
-      </div>
-    </div>
 
+      <!-- Price -->
+      <div class="space-y-1">
+        <p class="text-3xl font-bold text-primary-600 dark:text-primary-400">
+          ₹{{ selectedProduct?.finalPrice }}
+          <span
+            *ngIf="selectedProduct?.discount"
+            class="ml-3 text-lg text-gray-400 line-through"
+          >
+            ₹{{ selectedProduct?.basePrice }}
+          </span>
+        </p>
+
+        <p
+          *ngIf="selectedProduct?.stockStatus !== 'In Stock'"
+          class="text-red-500 font-semibold"
+        >
+          {{ selectedProduct?.stockStatus }}
+        </p>
+      </div>
+
+      <!-- Return Policy -->
+      <div class="space-y-1 text-sm text-gray-600 dark:text-gray-400">
+        <p class="flex items-center gap-2">
+          <mat-icon>autorenew</mat-icon>
+          7-day return
+        </p>
+        <p class="flex items-center gap-2">
+          <mat-icon>verified_user</mat-icon>
+          Refund on damaged item
+        </p>
+      </div>
+
+      <!-- Delivery Check -->
+      <div class="space-y-2 pt-2">
+        <label class="text-sm font-medium">Check delivery</label>
+        <input
+          type="text"
+          maxlength="6"
+          placeholder="Enter Pincode"
+          [(ngModel)]="enteredPincode"
+          (blur)="checkDelivery()"
+          class="w-48 px-3 py-2 rounded-lg
+                 border border-gray-300 dark:border-gray-600
+                 bg-white dark:bg-gray-700
+                 focus:outline-none focus:ring-2
+                 focus:ring-primary-400"
+        />
+        <p class="text-sm text-green-600">
+          Free delivery in 3–5 days
+        </p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex gap-4 pt-4">
+
+        <button
+          class="flex-1 bg-primary-600/100 hover:bg-primary-700/90
+                 text-white py-3 rounded-xl font-semibold
+                 shadow-md transition
+                 focus:outline-none focus-visible:ring-4"
+          (click)="addToCart(selectedProduct)"
+        >
+          Add to Cart
+        </button>
+
+        <button
+          class="flex-1 bg-orange-500/100 hover:bg-orange-600/90
+                 text-white py-3 rounded-xl font-semibold
+                 shadow-md transition
+                 focus:outline-none focus-visible:ring-4"
+        >
+          Buy Now
+        </button>
+
+      </div>
+
+    </div>
   </div>
 
-  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
-    <mat-tab label="Specficaction" style="cursor: pointer;">
-      <div class="row" *ngIf="this.SpecficationLength > 6 else normal">
-        <div class="col-6">
-          <table class="specs-table">
-            <tr *ngFor="let row of leftSpecs">
-              <td><strong>{{ row?.key | splitCamelCase | titlecase }}</strong></td>
-              <td>{{ formatValue(row?.value) }}</td>
-            </tr>
-          </table>
-        </div>
-        <div class="col-6">
-          <table class="specs-table">
-            <tr *ngFor="let row of rightSpecs">
-              <td><strong>{{ row?.key | splitCamelCase | titlecase }}</strong></td>
-              <td>{{ formatValue(row?.value) }}</td>
-            </tr>
-          </table>
-        </div>
-      </div>
-      <ng-template #normal>
-        <table class="specs-table">
-          <tr *ngFor="let row of  rightSpecs">
-            <td><strong>{{ row?.key | splitCamelCase | titlecase }}</strong></td>
-            <td>{{ formatValue(row?.value) }}</td>
+  <!-- ================= TABS ================= -->
+  <mat-tab-group
+    class="mt-10 bg-white dark:bg-gray-800
+           rounded-xl shadow p-4"
+  >
+
+    <!-- Specification -->
+    <mat-tab label="Specification">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <table class="w-full text-sm">
+          <tr *ngFor="let row of leftSpecs">
+            <td class="py-2 px-2 font-medium">
+              {{ row?.key | splitCamelCase | titlecase }}
+            </td>
+            <td class="text-gray-600 dark:text-gray-300">
+              {{ formatValue(row?.value) }}
+            </td>
           </tr>
         </table>
-      </ng-template>
 
+        <table class="w-full text-sm">
+          <tr *ngFor="let row of rightSpecs">
+            <td class="py-2 font-medium">
+              {{ row?.key | splitCamelCase | titlecase }}
+            </td>
+            <td class="text-gray-600 dark:text-gray-300">
+              {{ formatValue(row?.value) }}
+            </td>
+          </tr>
+        </table>
 
-
+      </div>
     </mat-tab>
+
+    <!-- Reviews -->
     <mat-tab label="Reviews">
-      <div class="reviews-section">
-        <h4 class="p-2">Customer Reviews</h4>
-        <div class="review">
+      <div class="space-y-4">
+        <div class="border-b pb-3">
           <strong>Arun K.</strong> ★★★★☆
-          <p>Very comfortable and lightweight. Good for long runs.</p>
+          <p class="text-gray-600 dark:text-gray-400">
+            Very comfortable and lightweight.
+          </p>
         </div>
-        <div class="review">
+        <div>
           <strong>Priya S.</strong> ★★★★★
-          <p>Stylish and fits perfectly. Worth the price.</p>
+          <p class="text-gray-600 dark:text-gray-400">
+            Stylish and fits perfectly.
+          </p>
         </div>
       </div>
     </mat-tab>
+
   </mat-tab-group>
 
-  <!-- SIMILAR PRODUCTS -->
-  <div class="similar-products" *ngIf="similarProducts.length > 0">
-    <h3 class="p-2">Similar Products</h3>
-    <div class="similar-products-grid">
-      <div class="similar-card" *ngFor="let product of similarProducts" (click)="navigateToProductDetails(product)">
-        <img [src]="product.images?.[0]" alt="{{ product.productName }}">
-        <h4>{{ product?.productName }}</h4>
-        ₹{{ product?.finalPrice }}
+  <!-- ================= SIMILAR PRODUCTS ================= -->
+  <div *ngIf="similarProducts.length > 0" class="mt-12">
+
+    <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-white">
+      Similar Products
+    </h3>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+
+      <div
+        *ngFor="let product of similarProducts"
+        class="bg-white dark:bg-gray-800
+               rounded-xl shadow hover:shadow-lg
+               p-4 cursor-pointer transition"
+        (click)="navigateToProductDetails(product)"
+      >
+        <img
+          [src]="product.images?.[0]"
+          class="h-40 w-full object-cover rounded-lg mb-2"
+          alt="{{ product.productName }}"
+        />
+        <h4 class="text-sm font-semibold line-clamp-2">
+          {{ product?.productName }}
+        </h4>
+        <p class="font-bold text-primary-600">
+          ₹{{ product?.finalPrice }}
+        </p>
       </div>
+
     </div>
   </div>
+
 </div>

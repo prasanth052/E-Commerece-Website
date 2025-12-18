@@ -1,3 +1,20 @@
-<app-navbar [admin]="!adminSidebar"></app-navbar>
-<app-sidebar *ngIf="Sidebar" [admin]="adminSidebar"></app-sidebar>
+<!-- Admin Sidebar Layout -->
+<ng-container *ngIf="Sidebar && !adminSidebar; else userScreenNoSidebar">
+    <app-navbar [admin]="true"></app-navbar>
+    <app-sidebar [admin]="true"></app-sidebar>
+</ng-container>
 
+<!-- User Sidebar or No Sidebar -->
+<ng-template #userScreenNoSidebar>
+    <ng-container *ngIf="!Sidebar && !adminSidebar; else admin">
+        <app-navbar [admin]="true"></app-navbar>
+        <router-outlet></router-outlet>
+    </ng-container>
+</ng-template>
+
+<!-- No Sidebar at All -->
+<ng-template #admin>
+    <app-navbar [admin]="false"></app-navbar>
+    <app-sidebar [admin]="false">
+    </app-sidebar>
+</ng-template>

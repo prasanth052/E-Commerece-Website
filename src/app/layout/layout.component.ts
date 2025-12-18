@@ -11,7 +11,7 @@ import { filter } from 'rxjs/operators';
 export class LayoutComponent implements OnInit {
   hideNavbar = false;
   secondnavbar = false;
-  Sidebar = false;
+  Sidebar:any
   adminSidebar = false;
 
   constructor(
@@ -20,28 +20,23 @@ export class LayoutComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
-    this.router.events
-      .pipe(filter((event) => event instanceof NavigationEnd))
-      .subscribe(() => {
-        const childRoute = this.getChild(this.route);
-        const routeData = childRoute.snapshot.data;
-        console.log(routeData['Sidebar']);
+this.router.events
+  .pipe(filter(event => event instanceof NavigationEnd))
+  .subscribe(() => {
+    const childRoute = this.getChild(this.route);
+    const routeData = childRoute.snapshot.data;
 
-        this.hideNavbar = routeData['hideNavbar'] ?? false;
-        this.secondnavbar = routeData['secondnavbar'] ?? false;
-        this.Sidebar = routeData['Sidebar']
-        console.log(this.Sidebar);
+    this.hideNavbar = routeData['hideNavbar'] ?? false;
+    this.secondnavbar = routeData['secondnavbar'] ?? false;
+    this.Sidebar = routeData['Sidebar'] ?? false;
+    this.adminSidebar = routeData['userRole'] === 'admin';
 
-        this.adminSidebar = routeData['userRole'] === 'admin';
+    if (isPlatformBrowser(this.platformId)) {
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    }
 
-        // Scroll to top on route change
-        if (isPlatformBrowser(this.platformId)) {
-          window.scrollTo({ top: 0, behavior: 'auto' });
-        }
-
-        // Mark for check in case of OnPush strategy
-        this.cdr.markForCheck();
-      });
+    this.cdr.markForCheck();
+  });
   }
 
   ngOnInit(): void { }

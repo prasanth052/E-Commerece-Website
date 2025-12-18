@@ -8,7 +8,7 @@ import {
   OnInit,
   PLATFORM_ID,
   SimpleChanges,
-  ViewChild,
+  inject,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, retry } from 'rxjs';
@@ -18,6 +18,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ApiService } from '../../core/api.service';
 import { CartService } from '../../core/cart.service';
 import { CustomSnackbarComponent } from '../../shared/custom-snackbar/custom-snackbar.component';
+import { SnackbarService } from '../../shared/custom-snackbar/SnackbarService';
 
 // import { CustomSnackbarComponent } from '../custom-snackbar/custom-snackbar.component';
 @Component({
@@ -35,6 +36,7 @@ export class ProductsListComponent
   Limit: number | null = null;
   // Track selected category
   filterMenuOpen: boolean = false; // Manage filter menu visibility
+  isLoading:any
   constructor(
     private apiService: ApiService,
     private router: Router,
@@ -56,13 +58,22 @@ export class ProductsListComponent
       }
     }
   }
+  loadingProductId: number | null = null;
   ngOnChanges(changes: SimpleChanges): void { }
   ngOnInit() {
     this.getProducts();
-      this.SharedService.filteredProducts$.subscribe((filtered) => {
-    this.displayedProducts = filtered;
-    this.totalProducts = filtered.length;
-  });
+    this.SharedService.filteredProducts$.subscribe((filtered) => {
+      this.displayedProducts = filtered;
+      this.totalProducts = filtered.length;
+    });
+  }
+
+  toggleWishlist(product: any) {
+    console.log('Wishlist toggled', product);
+  }
+
+  openQuickView(product: any) {
+    console.log('Quick view', product);
   }
   Math = Math;
   getProducts() {
@@ -89,54 +100,37 @@ export class ProductsListComponent
 
   private cartItemsSubject = new BehaviorSubject<number>(0);
   cartItems$ = this.cartItemsSubject.asObservable();
+  snackbar=inject(SnackbarService)
   addToCart(product: any): void {
-    const login: boolean = JSON.parse(localStorage.getItem('isLogin') || '[]');
-    if (login) {
-      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-      const existingProduct = cart.find((item: any) => item.id === product.id);
 
-      if (existingProduct) {
-        existingProduct.quantity += 1;
-      } else {
-        cart.push({ ...product, quantity: 1 });
-      }
-      localStorage.setItem('cart', JSON.stringify(cart));
-      this.cartItemsSubject.next(cart.length);
-      this.cartService.triggerUpdate();
-      this.snackBar.openFromComponent(CustomSnackbarComponent, {
-        data: {
-          title: product.title,
-          message: 'added to cart!',
-          type: 'success', // or 'error', 'warning'
-        },
-        duration: 3000,
-        horizontalPosition: 'right',
-        verticalPosition: 'top',
-        panelClass: ['snackbar-panel'], // Optional class
-      });
-    } else {
-      this.router.navigate(['/login']);
+    const login: boolean = JSON.parse(localStorage.getItem('isLogin') || 'false');
+    // if (!login) {
+    //   this.router.navigate(['/login']);
+    //   return;
+    // }
+    this.cartService.addToCart(product);  // ✅ no direct localStorage here
+ this.snackbar.openSnackBar(product.productName, 'Added to cart!', 'success');
+  }
+
+  Sort(value: string) {
+    switch (value) {
+      case 'lowtohigh':
+        this.SharedService.applySort('finalPrice', 'asc');
+        break;
+      case 'hightolow':
+        this.SharedService.applySort('finalPrice', 'desc');
+        break;
+      case 'a-z':
+        this.SharedService.applySort('title', 'asc');
+        break;
+      case 'z-a':
+        this.SharedService.applySort('title', 'desc');
+        break;
+      default:
+        this.SharedService.applySort('', 'asc'); // reset
+        break;
     }
   }
-Sort(value: string) {
-  switch (value) {
-    case 'lowtohigh':
-      this.SharedService.applySort('finalPrice', 'asc');
-      break;
-    case 'hightolow':
-      this.SharedService.applySort('finalPrice', 'desc');
-      break;
-    case 'a-z':
-      this.SharedService.applySort('title', 'asc');
-      break;
-    case 'z-a':
-      this.SharedService.applySort('title', 'desc');
-      break;
-    default:
-      this.SharedService.applySort('', 'asc'); // reset
-      break;
-  }
-}
 
   // revealProducts(): void {
   //   let index = 0;
